@@ -4,12 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>موقع رواياتي</title>
+
+    <!-- Firebase CDN (Compat) -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+
     <style>
-        /* CSS Variables for Theme - ثيم أزرق باستيل هادي */
+        /* ثيم أزرق باستيل هادي */
         :root {
-            --primary-color: #60a5fa;           /* أزرق باستيل */
-            --secondary-color: #e0f2fe;        /* خلفية فاتحة */
-            --text-color: #1e293b;             /* أزرق داكن للنص */
+            --primary-color: #60a5fa;
+            --secondary-color: #e0f2fe;
+            --text-color: #1e293b;
             --card-bg: #ffffff;
             --shadow: 0 8px 25px rgba(37, 99, 235, 0.12);
             --gradient: linear-gradient(135deg, #bfdbfe 0%, #60a5fa 50%, #1d4ed8 100%);
@@ -659,7 +665,23 @@
     </section>
 
     <script>
-        // البيانات الأساسية مع الثيمات
+        // ========== Firebase Init ==========
+        const firebaseConfig = {
+            apiKey: "AIzaSyCTHtK0c0t9fSNmtukx8wSoZALrfnxmVhw",
+            authDomain: "my-stories-site.firebaseapp.com",
+            projectId: "my-stories-site",
+            storageBucket: "my-stories-site.firebasestorage.app",
+            messagingSenderId: "1027697190942",
+            appId: "1:1027697190942:web:5798dc94e1358050caa60f",
+            measurementId: "G-VE62Y5PRYJ"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+        const serverTimestamp = firebase.firestore.FieldValue.serverTimestamp;
+
+        // ========== البيانات الأساسية مع الثيمات ==========
         const stories = [
             {
                 id: 1,
@@ -711,168 +733,18 @@
             }
         ];
 
-        // نظام المستخدمين
+        // ========== حالة المستخدم ==========
         let currentUser = null;
+        let currentStoryId = null;
 
-        function getUsers() {
-            return JSON.parse(localStorage.getItem('users') || '[]');
+        function getUserName() {
+            if (!currentUser) return "زائر";
+            if (currentUser.displayName) return currentUser.displayName;
+            if (currentUser.email) return currentUser.email.split("@")[0];
+            return "مستخدم";
         }
 
-        function saveUser(user) {
-            const users = getUsers();
-            const existingUserIndex = users.findIndex(u => u.name === user.name);
-            if (existingUserIndex > -1) {
-                users[existingUserIndex] = user;
-            } else {
-                users.push(user);
-            }
-            localStorage.setItem('users', JSON.stringify(users));
-        }
-
-        function findUser(name, password) {
-            const users = getUsers();
-            return users.find(u => u.name === name && u.password === password);
-        }
-
-        function getCurrentUser() {
-            const saved = localStorage.getItem('current_user');
-            if (!saved) return null;
-            try {
-                return JSON.parse(saved);
-            } catch (e) {
-                console.error('Error parsing current_user:', e);
-                return null;
-            }
-        }
-
-        function saveCurrentUser(user) {
-            if (user) {
-                localStorage.setItem('current_user', JSON.stringify(user));
-            } else {
-                localStorage.removeItem('current_user');
-            }
-        }
-
-        function logout() {
-            currentUser = null;
-            saveCurrentUser(null);
-            updateUserSection();
-            showHomePage();
-        }
-
-        // نظام التخزين للأفكار
-        function getIdeas() {
-            return JSON.parse(localStorage.getItem('ideas') || '[]');
-        }
-
-        function saveIdea(idea) {
-            const ideas = getIdeas();
-            ideas.unshift({
-                id: Date.now(),
-                ...idea,
-                timestamp: new Date().toLocaleString('ar-SA')
-            });
-            localStorage.setItem('ideas', JSON.stringify(ideas));
-        }
-
-        // نظام التخزين للنقاشات والردود
-        function getDiscussions() {
-            const saved = localStorage.getItem('discussions');
-            if (!saved) return [];
-            try {
-                return JSON.parse(saved);
-            } catch (e) {
-                console.error('Error parsing discussions:', e);
-                return [];
-            }
-        }
-
-        function saveDiscussion(discussion) {
-            const discussions = getDiscussions();
-            discussions.unshift({
-                id: Date.now(),
-                ...discussion,
-                likes: discussion.likes || [],
-                replies: discussion.replies || [],
-                timestamp: new Date().toLocaleString('ar-SA')
-            });
-            localStorage.setItem('discussions', JSON.stringify(discussions));
-        }
-
-        function saveDiscussions(discussions) {
-            localStorage.setItem('discussions', JSON.stringify(discussions));
-        }
-
-        function toggleLike(discussionId) {
-            if (!currentUser) {
-                showLoginModal();
-                return false;
-            }
-
-            const discussions = getDiscussions();
-            const discussion = discussions.find(d => d.id === discussionId);
-            if (!discussion) return false;
-
-            if (!Array.isArray(discussion.likes)) {
-                discussion.likes = [];
-            }
-
-            const userIndex = discussion.likes.indexOf(currentUser.name);
-            if (userIndex > -1) {
-                discussion.likes.splice(userIndex, 1);
-            } else {
-                discussion.likes.push(currentUser.name);
-            }
-
-            saveDiscussions(discussions);
-            return true;
-        }
-
-        function addReply(discussionId, replyText) {
-            if (!currentUser) {
-                showLoginModal();
-                return false;
-            }
-
-            const discussions = getDiscussions();
-            const discussion = discussions.find(d => d.id === discussionId);
-            if (!discussion) return false;
-
-            if (!Array.isArray(discussion.replies)) {
-                discussion.replies = [];
-            }
-
-            discussion.replies.unshift({
-                id: Date.now(),
-                text: replyText,
-                user: currentUser.name,
-                timestamp: new Date().toLocaleString('ar-SA')
-            });
-
-            saveDiscussions(discussions);
-            return true;
-        }
-
-        // نظام التخزين للأجوبة
-        function getStoryAnswers(storyId) {
-            const saved = localStorage.getItem(`story_${storyId}_answers`);
-            return saved ? JSON.parse(saved) : [];
-        }
-
-        function saveStoryAnswer(storyId, questionIndex, answer) {
-            const answers = getStoryAnswers(storyId);
-            answers.push({
-                id: Date.now(),
-                text: answer,
-                questionIndex: questionIndex,
-                timestamp: new Date().toLocaleString('ar-SA'),
-                storyId: storyId,
-                user: currentUser ? currentUser.name : 'زائر'
-            });
-            localStorage.setItem(`story_${storyId}_answers`, JSON.stringify(answers));
-        }
-
-        // نظام الثيمات
+        // ========== الثيمات ==========
         function setTheme(themeClass, storyTitle = '') {
             document.body.className = themeClass;
             const themeNames = {
@@ -890,7 +762,7 @@
             }
         }
 
-        // قصة اليوم - النسخة المصححة
+        // ========== قصة اليوم (محلية لكل جهاز) ==========
         function getDailyStory() {
             const today = new Date().toDateString();
             const saved = localStorage.getItem('daily_story');
@@ -900,49 +772,45 @@
                     const { date, storyId } = JSON.parse(saved);
                     if (date === today) {
                         const story = stories.find(s => s.id === storyId);
-                        if (story) {
-                            return story;
-                        }
+                        if (story) return story;
                     }
-                } catch (error) {
-                    console.error('Error parsing saved story:', error);
+                } catch (e) {
+                    console.error(e);
                 }
             }
 
-            const availableStories = stories.filter(story => story.id);
-            if (availableStories.length === 0) {
-                return null;
-            }
+            const availableStories = stories.filter(s => s.id);
+            if (!availableStories.length) return null;
 
-            const randomIndex = Math.floor(Math.random() * availableStories.length);
-            const randomStory = availableStories[randomIndex];
-
+            const randomStory = availableStories[Math.floor(Math.random() * availableStories.length)];
             localStorage.setItem('daily_story', JSON.stringify({
                 date: today,
                 storyId: randomStory.id,
-                timestamp: new Date().getTime()
+                timestamp: Date.now()
             }));
-
             return randomStory;
         }
 
         function displayDailyStory() {
-            const dailyStory = getDailyStory();
-            if (dailyStory) {
-                document.getElementById('dailyStoryTitle').textContent = dailyStory.title;
-                document.getElementById('dailyStoryDesc').textContent = dailyStory.description;
+            const story = getDailyStory();
+            const titleEl = document.getElementById('dailyStoryTitle');
+            const descEl = document.getElementById('dailyStoryDesc');
+
+            if (story) {
+                titleEl.textContent = story.title;
+                descEl.textContent = story.description;
             } else {
-                document.getElementById('dailyStoryTitle').textContent = 'لا توجد قصة اليوم';
-                document.getElementById('dailyStoryDesc').textContent = 'جاري تحميل القصص...';
+                titleEl.textContent = "لا توجد قصة اليوم";
+                descEl.textContent = "جاري تحميل القصص...";
             }
         }
 
         function openDailyStory() {
-            const dailyStory = getDailyStory();
-            if (dailyStory) {
-                showStoryReading(dailyStory.id);
+            const story = getDailyStory();
+            if (story) {
+                showStoryReading(story.id);
             } else {
-                alert('⚠️ لا توجد قصة متاحة اليوم');
+                alert("⚠️ لا توجد قصة متاحة اليوم");
             }
         }
 
@@ -953,7 +821,7 @@
             alert('🔄 تم إعادة تعيين قصة اليوم - جرب تضغط على قصة اليوم مرة أخرى!');
         }
 
-        // تسجيل الدخول
+        // ========== Firebase Auth (اسم + باسورد + تذكرني) ==========
         function showLoginModal() {
             document.getElementById('loginModal').classList.remove('hidden');
         }
@@ -962,48 +830,73 @@
             document.getElementById('loginModal').classList.add('hidden');
         }
 
-        function handleLogin(event) {
+        async function handleLogin(event) {
             event.preventDefault();
-
             const name = document.getElementById('loginName').value.trim();
             const password = document.getElementById('loginPassword').value;
             const rememberMe = document.getElementById('rememberMe').checked;
 
             if (!name || !password) {
-                alert('⚠️ الرجاء إدخال اسم المستخدم وكلمة السر');
+                alert("⚠️ الرجاء إدخال اسم المستخدم وكلمة السر");
                 return;
             }
 
-            let user = findUser(name, password);
+            const email = (name.replace(/\s+/g, '').toLowerCase() || "user") + "@mystories.local";
 
-            if (!user) {
-                user = { name, password };
-                saveUser(user);
+            try {
+                await auth.setPersistence(
+                    rememberMe
+                        ? firebase.auth.Auth.Persistence.LOCAL
+                        : firebase.auth.Auth.Persistence.SESSION
+                );
+
+                try {
+                    // حاول تسجيل الدخول أولاً
+                    const cred = await auth.signInWithEmailAndPassword(email, password);
+                    if (!cred.user.displayName) {
+                        await cred.user.updateProfile({ displayName: name });
+                    }
+                } catch (err) {
+                    if (err.code === "auth/user-not-found") {
+                        // أنشئ مستخدم جديد
+                        const cred = await auth.createUserWithEmailAndPassword(email, password);
+                        await cred.user.updateProfile({ displayName: name });
+                        await db.collection("users").doc(cred.user.uid).set({
+                            name,
+                            createdAt: serverTimestamp()
+                        });
+                    } else if (err.code === "auth/wrong-password") {
+                        alert("❌ كلمة السر غير صحيحة لهذا الاسم.");
+                        return;
+                    } else {
+                        console.error(err);
+                        alert("حدث خطأ أثناء تسجيل الدخول.");
+                        return;
+                    }
+                }
+
+                document.getElementById('loginName').value = '';
+                document.getElementById('loginPassword').value = '';
+                document.getElementById('rememberMe').checked = false;
+                hideLoginModal();
+            } catch (e) {
+                console.error(e);
+                alert("تعذر إكمال تسجيل الدخول.");
             }
+        }
 
-            currentUser = user;
-
-            if (rememberMe) {
-                saveCurrentUser(user);
-            } else {
-                saveCurrentUser(null);
-            }
-
-            updateUserSection();
-            hideLoginModal();
-
-            document.getElementById('loginName').value = '';
-            document.getElementById('loginPassword').value = '';
-            document.getElementById('rememberMe').checked = false;
+        function logout() {
+            auth.signOut();
         }
 
         function updateUserSection() {
             const userSection = document.getElementById('userSection');
             if (currentUser) {
+                const name = getUserName();
                 userSection.innerHTML = `
                     <div class="user-info">
-                        <div class="user-avatar">${currentUser.name.charAt(0)}</div>
-                        <span>مرحباً، ${currentUser.name}</span>
+                        <div class="user-avatar">${name.charAt(0)}</div>
+                        <span>مرحباً، ${name}</span>
                         <button class="login-btn" onclick="logout()" style="margin-right: 0.5rem;">تسجيل الخروج</button>
                     </div>
                 `;
@@ -1012,156 +905,66 @@
             }
         }
 
-        // التنقل بين الصفحات
-        function showHomePage() {
-            hideAllPages();
-            document.getElementById('homePage').classList.remove('hidden');
-            setTheme('', '');
-            displayDailyStory();
+        auth.onAuthStateChanged(user => {
+            currentUser = user;
+            updateUserSection();
+            // إعادة تحميل القوائم بحيث تبين الأسماء بشكل صحيح
             displayIdeas();
-        }
-
-        function showStoriesPage() {
-            hideAllPages();
-            document.getElementById('storiesPage').classList.remove('hidden');
-            setTheme('', '');
-            displayAllStories();
-        }
-
-        function showCafePage() {
-            hideAllPages();
-            document.getElementById('cafePage').classList.remove('hidden');
-            setTheme('', '');
             displayDiscussions();
+        });
+
+        // ========== Firestore – أفكار ==========
+        async function getIdeas() {
+            const snapshot = await db.collection("ideas")
+                .orderBy("createdAt", "desc")
+                .get();
+
+            return snapshot.docs.map(doc => {
+                const data = doc.data();
+                return {
+                    id: doc.id,
+                    text: data.text,
+                    userName: data.userName || "مستخدم",
+                    timestamp: data.createdAt
+                        ? data.createdAt.toDate().toLocaleString('ar-SA')
+                        : ''
+                };
+            });
         }
 
-        function hideAllPages() {
-            document.getElementById('homePage').classList.add('hidden');
-            document.getElementById('storiesPage').classList.add('hidden');
-            document.getElementById('cafePage').classList.add('hidden');
-            document.getElementById('storyReadingSection').classList.add('hidden');
-            document.getElementById('questionsSection').classList.add('hidden');
+        async function saveIdeaToDB(text) {
+            await db.collection("ideas").add({
+                text,
+                userName: getUserName(),
+                userId: currentUser ? currentUser.uid : null,
+                createdAt: serverTimestamp()
+            });
         }
 
-        // عرض جميع القصص
-        function displayAllStories() {
-            const storiesGrid = document.getElementById('storiesGrid');
-            storiesGrid.innerHTML = stories.map(story => `
-                <div class="story-card" onclick="showStoryReading(${story.id})">
-                    <span class="category">${story.category}</span>
-                    <h3>${story.title}</h3>
-                    <p>${story.description}</p>
-                </div>
-            `).join('');
-        }
-
-        // عرض الأفكار
-        function displayIdeas() {
-            const ideas = getIdeas();
+        async function displayIdeas() {
             const ideasList = document.getElementById('ideasList');
-
-            if (ideas.length === 0) {
-                ideasList.innerHTML = '<p style="text-align: center; opacity: 0.6;">لا توجد أفكار بعد...</p>';
-                return;
-            }
-
-            ideasList.innerHTML = ideas.map(idea => `
-                <div class="discussion-item">
-                    <div class="discussion-meta">
-                        <span>⏰ ${idea.timestamp}</span>
-                        <span class="user-badge">${idea.user}</span>
+            try {
+                const ideas = await getIdeas();
+                if (!ideas.length) {
+                    ideasList.innerHTML = '<p style="text-align: center; opacity: 0.6;">لا توجد أفكار بعد...</p>';
+                    return;
+                }
+                ideasList.innerHTML = ideas.map(idea => `
+                    <div class="discussion-item">
+                        <div class="discussion-meta">
+                            <span>⏰ ${idea.timestamp}</span>
+                            <span class="user-badge">${idea.userName}</span>
+                        </div>
+                        <p>${idea.text}</p>
                     </div>
-                    <p>${idea.text}</p>
-                </div>
-            `).join('');
-        }
-
-        // عرض النقاشات مع اللايكات والردود
-        function displayDiscussions() {
-            const discussions = getDiscussions();
-            const discussionsList = document.getElementById('discussionsList');
-
-            if (discussions.length === 0) {
-                discussionsList.innerHTML = '<p style="text-align: center; opacity: 0.6;">لا توجد نقاشات بعد...</p>';
-                return;
-            }
-
-            discussionsList.innerHTML = discussions.map(discussion => {
-                const isLiked = currentUser && Array.isArray(discussion.likes) && discussion.likes.includes(currentUser.name);
-                return `
-                <div class="discussion-item">
-                    <div class="discussion-meta">
-                        <span>⏰ ${discussion.timestamp}</span>
-                        <span class="user-badge">${discussion.user}</span>
-                    </div>
-                    <p>${discussion.text}</p>
-
-                    <div class="discussion-actions">
-                        <button class="like-btn ${isLiked ? 'liked' : ''}" onclick="handleLike(${discussion.id})">
-                            ❤️ ${discussion.likes ? discussion.likes.length : 0}
-                        </button>
-                        <button class="reply-btn" onclick="toggleReplyForm(${discussion.id})">
-                            💬 رد
-                        </button>
-                    </div>
-
-                    <div class="reply-form" id="replyForm-${discussion.id}">
-                        <textarea class="reply-input" id="replyInput-${discussion.id}" placeholder="اكتب ردك..."></textarea>
-                        <button class="submit-idea-btn" onclick="submitReply(${discussion.id})" style="padding: 0.5rem 1rem; font-size: 0.9rem;">إرسال الرد</button>
-                    </div>
-
-                    ${discussion.replies && discussion.replies.length > 0 ? `
-                    <div class="replies-section">
-                        ${discussion.replies.map(reply => `
-                            <div class="reply-item">
-                                <div class="discussion-meta">
-                                    <span>⏰ ${reply.timestamp}</span>
-                                    <span class="user-badge">${reply.user}</span>
-                                </div>
-                                <p>${reply.text}</p>
-                            </div>
-                        `).join('')}
-                    </div>
-                    ` : ''}
-                </div>
-                `;
-            }).join('');
-        }
-
-        function toggleReplyForm(discussionId) {
-            if (!currentUser) {
-                showLoginModal();
-                return;
-            }
-
-            const replyForm = document.getElementById(`replyForm-${discussionId}`);
-            replyForm.style.display = replyForm.style.display === 'block' ? 'none' : 'block';
-        }
-
-        function submitReply(discussionId) {
-            const replyInput = document.getElementById(`replyInput-${discussionId}`);
-            const replyText = replyInput.value.trim();
-
-            if (!replyText) {
-                alert('⚠️ الرجاء كتابة رد أولاً');
-                return;
-            }
-
-            if (addReply(discussionId, replyText)) {
-                replyInput.value = '';
-                document.getElementById(`replyForm-${discussionId}`).style.display = 'none';
-                displayDiscussions();
+                `).join('');
+            } catch (e) {
+                console.error(e);
+                ideasList.innerHTML = '<p style="text-align: center; opacity: 0.6;">حدث خطأ في تحميل الأفكار...</p>';
             }
         }
 
-        function handleLike(discussionId) {
-            if (toggleLike(discussionId)) {
-                displayDiscussions();
-            }
-        }
-
-        // إرسال الأفكار
-        function submitIdea() {
+        async function submitIdea() {
             if (!currentUser) {
                 alert('⚠️ الرجاء تسجيل الدخول أولاً');
                 showLoginModal();
@@ -1170,24 +973,111 @@
 
             const ideaInput = document.getElementById('ideaInput');
             const idea = ideaInput.value.trim();
-
             if (!idea) {
                 alert('⚠️ الرجاء كتابة فكرة أولاً');
                 return;
             }
 
-            saveIdea({
-                text: idea,
-                user: currentUser.name
-            });
-
-            ideaInput.value = '';
-            displayIdeas();
-            alert('✨ شكراً لك! تم إرسال فكرتك بنجاح');
+            try {
+                await saveIdeaToDB(idea);
+                ideaInput.value = '';
+                await displayIdeas();
+                alert('✨ شكراً لك! تم إرسال فكرتك بنجاح');
+            } catch (e) {
+                console.error(e);
+                alert('حدث خطأ أثناء حفظ الفكرة.');
+            }
         }
 
-        // إرسال النقاشات
-        function submitDiscussion() {
+        // ========== Firestore – النقاشات ==========
+        async function getDiscussions() {
+            const snapshot = await db.collection("discussions")
+                .orderBy("createdAt", "desc")
+                .get();
+
+            return snapshot.docs.map(doc => {
+                const data = doc.data();
+                const timestamp = data.createdAt
+                    ? data.createdAt.toDate().toLocaleString('ar-SA')
+                    : '';
+                return {
+                    id: doc.id,
+                    text: data.text,
+                    userName: data.userName || "مستخدم",
+                    userId: data.userId || null,
+                    likes: Array.isArray(data.likes) ? data.likes : [],
+                    replies: Array.isArray(data.replies) ? data.replies : [],
+                    timestamp
+                };
+            });
+        }
+
+        async function saveDiscussionToDB(text) {
+            await db.collection("discussions").add({
+                text,
+                userName: getUserName(),
+                userId: currentUser ? currentUser.uid : null,
+                likes: [],
+                replies: [],
+                createdAt: serverTimestamp()
+            });
+        }
+
+        async function displayDiscussions() {
+            const discussionsList = document.getElementById('discussionsList');
+            try {
+                const discussions = await getDiscussions();
+                if (!discussions.length) {
+                    discussionsList.innerHTML = '<p style="text-align: center; opacity: 0.6;">لا توجد نقاشات بعد...</p>';
+                    return;
+                }
+
+                discussionsList.innerHTML = discussions.map(discussion => {
+                    const isLiked = currentUser && discussion.likes.includes(currentUser.uid);
+                    return `
+                    <div class="discussion-item">
+                        <div class="discussion-meta">
+                            <span>⏰ ${discussion.timestamp}</span>
+                            <span class="user-badge">${discussion.userName}</span>
+                        </div>
+                        <p>${discussion.text}</p>
+
+                        <div class="discussion-actions">
+                            <button class="like-btn ${isLiked ? 'liked' : ''}" onclick="handleLike('${discussion.id}')">
+                                ❤️ ${discussion.likes.length}
+                            </button>
+                            <button class="reply-btn" onclick="toggleReplyForm('${discussion.id}')">
+                                💬 رد
+                            </button>
+                        </div>
+
+                        <div class="reply-form" id="replyForm-${discussion.id}">
+                            <textarea class="reply-input" id="replyInput-${discussion.id}" placeholder="اكتب ردك..."></textarea>
+                            <button class="submit-idea-btn" onclick="submitReply('${discussion.id}')" style="padding: 0.5rem 1rem; font-size: 0.9rem;">إرسال الرد</button>
+                        </div>
+
+                        ${discussion.replies.length ? `
+                        <div class="replies-section">
+                            ${discussion.replies.map(reply => `
+                                <div class="reply-item">
+                                    <div class="discussion-meta">
+                                        <span>⏰ ${reply.timestamp || ''}</span>
+                                        <span class="user-badge">${reply.userName || 'مستخدم'}</span>
+                                    </div>
+                                    <p>${reply.text}</p>
+                                </div>
+                            `).join('')}
+                        </div>` : ''}
+                    </div>
+                    `;
+                }).join('');
+            } catch (e) {
+                console.error(e);
+                discussionsList.innerHTML = '<p style="text-align: center; opacity: 0.6;">حدث خطأ في تحميل النقاشات...</p>';
+            }
+        }
+
+        async function submitDiscussion() {
             if (!currentUser) {
                 alert('⚠️ الرجاء تسجيل الدخول أولاً');
                 showLoginModal();
@@ -1195,26 +1085,98 @@
             }
 
             const discussionInput = document.getElementById('discussionInput');
-            const discussion = discussionInput.value.trim();
-
-            if (!discussion) {
+            const text = discussionInput.value.trim();
+            if (!text) {
                 alert('⚠️ الرجاء كتابة نقاش أولاً');
                 return;
             }
 
-            saveDiscussion({
-                text: discussion,
-                user: currentUser.name
-            });
-
-            discussionInput.value = '';
-            displayDiscussions();
-            alert('💬 تم نشر نقاشك بنجاح');
+            try {
+                await saveDiscussionToDB(text);
+                discussionInput.value = '';
+                await displayDiscussions();
+                alert('💬 تم نشر نقاشك بنجاح');
+            } catch (e) {
+                console.error(e);
+                alert('حدث خطأ أثناء نشر النقاش.');
+            }
         }
 
-        // نظام القراءة والأسئلة
-        let currentStoryId = null;
+        function toggleReplyForm(discussionId) {
+            if (!currentUser) {
+                showLoginModal();
+                return;
+            }
+            const replyForm = document.getElementById(`replyForm-${discussionId}`);
+            replyForm.style.display = replyForm.style.display === 'block' ? 'none' : 'block';
+        }
 
+        async function submitReply(discussionId) {
+            if (!currentUser) {
+                showLoginModal();
+                return;
+            }
+            const replyInput = document.getElementById(`replyInput-${discussionId}`);
+            const replyText = replyInput.value.trim();
+            if (!replyText) {
+                alert('⚠️ الرجاء كتابة رد أولاً');
+                return;
+            }
+
+            try {
+                const docRef = db.collection("discussions").doc(discussionId);
+                const docSnap = await docRef.get();
+                if (!docSnap.exists) return;
+
+                const data = docSnap.data();
+                const replies = Array.isArray(data.replies) ? data.replies : [];
+                replies.unshift({
+                    text: replyText,
+                    userName: getUserName(),
+                    userId: currentUser.uid,
+                    timestamp: new Date().toLocaleString('ar-SA')
+                });
+
+                await docRef.update({ replies });
+                replyInput.value = '';
+                document.getElementById(`replyForm-${discussionId}`).style.display = 'none';
+                await displayDiscussions();
+            } catch (e) {
+                console.error(e);
+                alert('حدث خطأ أثناء إرسال الرد.');
+            }
+        }
+
+        async function handleLike(discussionId) {
+            if (!currentUser) {
+                showLoginModal();
+                return;
+            }
+
+            try {
+                const docRef = db.collection("discussions").doc(discussionId);
+                const docSnap = await docRef.get();
+                if (!docSnap.exists) return;
+
+                const data = docSnap.data();
+                const likes = Array.isArray(data.likes) ? data.likes : [];
+                const index = likes.indexOf(currentUser.uid);
+
+                if (index > -1) {
+                    likes.splice(index, 1);
+                } else {
+                    likes.push(currentUser.uid);
+                }
+
+                await docRef.update({ likes });
+                await displayDiscussions();
+            } catch (e) {
+                console.error(e);
+                alert('حدث خطأ أثناء تسجيل الإعجاب.');
+            }
+        }
+
+        // ========== القراءة والأسئلة + Firestore للأجوبة ==========
         function showStoryReading(storyId) {
             hideAllPages();
             document.getElementById('storyReadingSection').classList.remove('hidden');
@@ -1222,7 +1184,6 @@
             const story = stories.find(s => s.id === storyId);
             currentStoryId = storyId;
 
-            // تطبيق ثيم القصة
             setTheme(story.theme, story.title);
 
             document.getElementById('storyContent').innerHTML = `
@@ -1254,27 +1215,51 @@
             displayStoryAnswers();
         }
 
-        function displayStoryAnswers() {
-            const answers = getStoryAnswers(currentStoryId);
+        async function displayStoryAnswers() {
             const answersContainer = document.getElementById('answersContainer');
-
-            if (answers.length === 0) {
-                answersContainer.innerHTML = '<p style="text-align: center; opacity: 0.6;">لا توجد أجوبة بعد...</p>';
+            if (!currentStoryId) {
+                answersContainer.innerHTML = '';
                 return;
             }
 
-            answersContainer.innerHTML = answers.map(answer => `
-                <div class="discussion-item">
-                    <div class="discussion-meta">
-                        <span>⏰ ${answer.timestamp}</span>
-                        <span class="user-badge">${answer.user}</span>
+            try {
+                const snapshot = await db.collection("storyAnswers")
+                    .where("storyId", "==", currentStoryId)
+                    .orderBy("createdAt", "desc")
+                    .get();
+
+                if (snapshot.empty) {
+                    answersContainer.innerHTML = '<p style="text-align: center; opacity: 0.6;">لا توجد أجوبة بعد...</p>';
+                    return;
+                }
+
+                const answers = snapshot.docs.map(doc => {
+                    const data = doc.data();
+                    return {
+                        text: data.text,
+                        userName: data.userName || "مستخدم",
+                        timestamp: data.createdAt
+                            ? data.createdAt.toDate().toLocaleString('ar-SA')
+                            : ''
+                    };
+                });
+
+                answersContainer.innerHTML = answers.map(answer => `
+                    <div class="discussion-item">
+                        <div class="discussion-meta">
+                            <span>⏰ ${answer.timestamp}</span>
+                            <span class="user-badge">${answer.userName}</span>
+                        </div>
+                        <p>${answer.text}</p>
                     </div>
-                    <p>${answer.text}</p>
-                </div>
-            `).join('');
+                `).join('');
+            } catch (e) {
+                console.error(e);
+                answersContainer.innerHTML = '<p style="text-align: center; opacity: 0.6;">حدث خطأ في تحميل الأجوبة...</p>';
+            }
         }
 
-        function submitAnswers() {
+        async function submitAnswers() {
             if (!currentUser) {
                 alert('⚠️ الرجاء تسجيل الدخول أولاً');
                 showLoginModal();
@@ -1282,36 +1267,83 @@
             }
 
             const story = stories.find(s => s.id === currentStoryId);
-            let hasNewAnswers = false;
+            let hasNew = false;
 
-            story.questions.forEach((question, index) => {
-                const answerInput = document.getElementById(`answer${index}`);
-                if (answerInput && answerInput.value.trim()) {
-                    saveStoryAnswer(currentStoryId, index, answerInput.value.trim());
-                    answerInput.value = '';
-                    hasNewAnswers = true;
+            try {
+                for (let i = 0; i < story.questions.length; i++) {
+                    const answerInput = document.getElementById(`answer${i}`);
+                    if (answerInput && answerInput.value.trim()) {
+                        const text = answerInput.value.trim();
+                        await db.collection("storyAnswers").add({
+                            storyId: currentStoryId,
+                            questionIndex: i,
+                            text,
+                            userName: getUserName(),
+                            userId: currentUser.uid,
+                            createdAt: serverTimestamp()
+                        });
+                        answerInput.value = '';
+                        hasNew = true;
+                    }
                 }
-            });
 
-            if (hasNewAnswers) {
-                displayStoryAnswers();
-                alert('✅ تم حفظ إجاباتك بنجاح!');
+                if (hasNew) {
+                    await displayStoryAnswers();
+                    alert('✅ تم حفظ إجاباتك بنجاح!');
+                }
+            } catch (e) {
+                console.error(e);
+                alert('حدث خطأ أثناء حفظ الأجوبة.');
             }
         }
 
-        // التهيئة
-        function initialize() {
-            // تحميل المستخدم الحالي إذا كان محفوظاً
-            const savedUser = getCurrentUser();
-            if (savedUser) {
-                currentUser = savedUser;
-            }
+        // ========== التنقل بين الصفحات ==========
+        function hideAllPages() {
+            document.getElementById('homePage').classList.add('hidden');
+            document.getElementById('storiesPage').classList.add('hidden');
+            document.getElementById('cafePage').classList.add('hidden');
+            document.getElementById('storyReadingSection').classList.add('hidden');
+            document.getElementById('questionsSection').classList.add('hidden');
+        }
 
-            updateUserSection();
+        function showHomePage() {
+            hideAllPages();
+            document.getElementById('homePage').classList.remove('hidden');
+            setTheme('', '');
+            displayDailyStory();
+            displayIdeas();
+        }
+
+        function showStoriesPage() {
+            hideAllPages();
+            document.getElementById('storiesPage').classList.remove('hidden');
+            setTheme('', '');
+            displayAllStories();
+        }
+
+        function showCafePage() {
+            hideAllPages();
+            document.getElementById('cafePage').classList.remove('hidden');
+            setTheme('', '');
+            displayDiscussions();
+        }
+
+        function displayAllStories() {
+            const storiesGrid = document.getElementById('storiesGrid');
+            storiesGrid.innerHTML = stories.map(story => `
+                <div class="story-card" onclick="showStoryReading(${story.id})">
+                    <span class="category">${story.category}</span>
+                    <h3>${story.title}</h3>
+                    <p>${story.description}</p>
+                </div>
+            `).join('');
+        }
+
+        // ========== التهيئة ==========
+        function initialize() {
             showHomePage();
         }
 
-        // بدء التطبيق
         initialize();
     </script>
 </body>

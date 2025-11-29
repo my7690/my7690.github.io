@@ -6,9 +6,9 @@
     <title>موقع رواياتي</title>
 
     <!-- Firebase CDN (Compat) -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 
     <style>
         /* ثيم أزرق باستيل هادي */
@@ -746,7 +746,7 @@
 
         // ========== الثيمات ==========
         function setTheme(themeClass, storyTitle = '') {
-            document.body.className = themeClass;
+            document.body.className = themeClass || '';
             const themeNames = {
                 'theme-romance': 'رومانسي 💖',
                 'theme-drama': 'درامي 🎭',
@@ -818,7 +818,7 @@
             event.stopPropagation();
             localStorage.removeItem('daily_story');
             displayDailyStory();
-            alert('🔄 تم إعادة تعيين قصة اليوم - جرب تضغط على قصة اليوم مرة أخرى!');
+            alert('🔄 تم إعادة تعيين قصة اليوم - جربي تضغطين على قصة اليوم مرة ثانية!');
         }
 
         // ========== Firebase Auth (اسم + باسورد + تذكرني) ==========
@@ -911,10 +911,13 @@
             // إعادة تحميل القوائم بحيث تبين الأسماء بشكل صحيح
             displayIdeas();
             displayDiscussions();
+            if (currentStoryId) {
+                displayStoryAnswers();
+            }
         });
 
         // ========== Firestore – أفكار ==========
-        async function getIdeas() {
+        async function getIdeasFromDB() {
             const snapshot = await db.collection("ideas")
                 .orderBy("createdAt", "desc")
                 .get();
@@ -944,7 +947,7 @@
         async function displayIdeas() {
             const ideasList = document.getElementById('ideasList');
             try {
-                const ideas = await getIdeas();
+                const ideas = await getIdeasFromDB();
                 if (!ideas.length) {
                     ideasList.innerHTML = '<p style="text-align: center; opacity: 0.6;">لا توجد أفكار بعد...</p>';
                     return;
@@ -990,7 +993,7 @@
         }
 
         // ========== Firestore – النقاشات ==========
-        async function getDiscussions() {
+        async function getDiscussionsFromDB() {
             const snapshot = await db.collection("discussions")
                 .orderBy("createdAt", "desc")
                 .get();
@@ -1026,7 +1029,7 @@
         async function displayDiscussions() {
             const discussionsList = document.getElementById('discussionsList');
             try {
-                const discussions = await getDiscussions();
+                const discussions = await getDiscussionsFromDB();
                 if (!discussions.length) {
                     discussionsList.innerHTML = '<p style="text-align: center; opacity: 0.6;">لا توجد نقاشات بعد...</p>';
                     return;

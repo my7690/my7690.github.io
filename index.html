@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>موقع رواياتي</title>
-
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600&display=swap" rel="stylesheet">
     <!-- Firebase CDN (App + Firestore فقط) -->
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
@@ -519,6 +519,137 @@
     from { opacity: 0; transform: translateY(20px); }
     to   { opacity: 1; transform: translateY(0); }
 }
+        /* ====== نظام القراءة الاحترافي ====== */
+
+.story-reading {
+    max-width: 750px;              /* عرض النص المثالي */
+    margin: auto;
+    padding: 3rem 2rem;
+    background: var(--card-bg);
+    line-height: 1.9;              /* تباعد مريح */
+    font-size: 1.3rem;             /* حجم خط أساسي */
+    font-family: 'Cairo', sans-serif; /* خط عربي ممتاز */
+    color: var(--text-color);
+    border-radius: 18px;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;     /* انتقال ناعم */
+}
+
+/* للموبايل */
+@media (max-width: 600px) {
+    .story-reading {
+        font-size: 1.05rem;
+        padding: 2rem 1.2rem;
+        line-height: 1.85;
+    }
+}
+
+/* للتابلت */
+@media (min-width: 601px) and (max-width: 900px) {
+    .story-reading {
+        font-size: 1.15rem;
+        padding: 2.5rem 1.8rem;
+    }
+}
+/* ================================
+   ☁️  القاعدة الأساسية – Desktop
+   ================================ */
+
+body {
+    font-size: 1rem;
+}
+
+/* ================================
+   📱 للموبايل – شاشات صغيرة < 600px
+   ================================ */
+@media (max-width: 600px) {
+
+    /* الهيدر */
+    .nav-container {
+        flex-direction: column;
+        gap: 0.8rem;
+        text-align: center;
+    }
+
+    .nav-links {
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+
+    /* الصفحة الرئيسية */
+    .main-header h1 {
+        font-size: 1.8rem;
+    }
+
+    .story-of-day {
+        padding: 1.5rem;
+    }
+
+    /* الكروت */
+    .stories-grid {
+        grid-template-columns: repeat(1, 1fr);
+        gap: 18px;
+    }
+
+    .story-card {
+        padding: 1.4rem;
+    }
+
+    /* صندوق الأفكار */
+    .ideas-section {
+        padding: 1.5rem;
+    }
+
+    /* صفحة القراءة الاحترافية */
+    .story-reading {
+        font-size: 1.05rem !important;
+        padding: 1.5rem !important;
+    }
+
+    /* الأسئلة */
+    textarea.idea-input {
+        min-height: 80px;
+    }
+}
+
+/* ================================
+   📲 للتابلت – بين 601px و 900px
+   ================================ */
+@media (min-width: 601px) and (max-width: 900px) {
+
+    .nav-container {
+        gap: 1.2rem;
+    }
+
+    .main-header h1 {
+        font-size: 2.2rem;
+    }
+
+    .stories-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 22px;
+    }
+
+    .story-reading {
+        font-size: 1.15rem !important;
+        padding: 2rem !important;
+    }
+}
+
+/* ================================
+   🖥️ شاشات كبيرة – +1400px
+   ================================ */
+@media (min-width: 1400px) {
+    .container {
+        max-width: 1300px;
+    }
+
+    .story-reading {
+        font-size: 1.35rem;
+        max-width: 850px;
+    }
+}
+
 
     </style>
 </head>
@@ -5274,5 +5405,6 @@ initialize();
     </script>
 </body>
 </html>
+
 
 

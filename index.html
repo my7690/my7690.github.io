@@ -570,12 +570,20 @@
 
     <!-- Stories Library Page -->
     <div id="storiesPage" class="container hidden">
-        <button class="back-button" onclick="showHomePage()">← العودة للرئيسية</button>
-        <h1 style="text-align: center; color: var(--primary-color); margin-bottom: 3rem;">مكتبة القصص</h1>
-        <div class="stories-grid" id="storiesGrid">
-            <!-- All stories will be displayed here -->
-        </div>
+      <!-- Last Read Story Section -->
+<div id="lastReadSection" class="hidden" style="margin-bottom: 2rem;">
+    <div id="lastReadBox" style="
+        padding: 1.5rem;
+        border-radius: 15px;
+        box-shadow: var(--shadow);
+        cursor: pointer;
+        transition: 0.3s;
+    " onclick="openLastRead()">
+        <h3 style="margin-bottom: 0.5rem;">⭐ آخر ما قرأت</h3>
+        <p id="lastReadTitle" style="font-size: 1.2rem; font-weight: bold;"></p>
+        <p id="lastReadDesc" style="opacity: 0.8; margin-top: 0.3rem;"></p>
     </div>
+</div
 
     <!-- Cafe Page -->
     <div id="cafePage" class="container hidden">
@@ -5070,6 +5078,7 @@ function hideAllPages() {
     document.getElementById('cafePage').classList.add('hidden');
     document.getElementById('storyReadingSection').classList.add('hidden');
     document.getElementById('questionsSection').classList.add('hidden');
+     document.getElementById('lastReadSection').classList.add('hidden');
      document.getElementById('storyIntroPage').classList.add('hidden');
 }
 
@@ -5151,7 +5160,7 @@ function handleHashNavigation() {
     if (hash === "stories") {
         return showStoriesPage(false);
     }
-if (hash.startsWith("intro-")) {
+    if (hash.startsWith("intro-")) {
     const id = parseInt(hash.split("-")[1]);
     return showStoryIntro(id, false);
 }
@@ -5205,12 +5214,46 @@ function showStoryIntro(storyId, pushHash = true) {
 function enterStory() {
     showStoryReading(currentStoryId);
 }
+function displayLastRead() {
+    const box = document.getElementById("lastReadSection");
+    const titleEl = document.getElementById("lastReadTitle");
+    const descEl = document.getElementById("lastReadDesc");
+    const lastBox = document.getElementById("lastReadBox");
+
+    const lastId = localStorage.getItem("last_read_story");
+    if (!lastId) {
+        box.classList.add("hidden");
+        return;
+    }
+
+    const story = stories.find(s => s.id == lastId);
+    if (!story) {
+        box.classList.add("hidden");
+        return;
+    }
+
+    // show section
+    box.classList.remove("hidden");
+
+    // fill info
+    titleEl.textContent = story.title;
+    descEl.textContent = story.description;
+
+    // apply theme colors
+    lastBox.style.border = "2px solid var(--primary-color)";
+    lastBox.style.background = "var(--secondary-color)";
+}
+function openLastRead() {
+    const lastId = localStorage.getItem("last_read_story");
+    if (lastId) showStoryIntro(parseInt(lastId));
+}
 
 initialize();
 
     </script>
 </body>
 </html>
+
 
 
 

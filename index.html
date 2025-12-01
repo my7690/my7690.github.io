@@ -488,6 +488,37 @@
             border: 1.5px solid var(--primary-color);
             background: var(--card-bg);
         }
+        /* --- Story Intro Page --- */
+.story-intro-box {
+    background: var(--card-bg);
+    padding: 3rem 2rem;
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    text-align: center;
+    animation: fadeIn 0.6s ease;
+}
+
+.start-reading-btn {
+    background: var(--gradient);
+    color: white;
+    padding: 0.9rem 2.5rem;
+    font-size: 1.2rem;
+    border-radius: 25px;
+    cursor: pointer;
+    border: none;
+    margin-top: 2rem;
+    transition: 0.3s;
+}
+
+.start-reading-btn:hover {
+    transform: scale(1.05);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
     </style>
 </head>
 <body>
@@ -562,6 +593,15 @@
             </div>
         </section>
     </div>
+<!-- Story Intro Page -->
+<section id="storyIntroPage" class="container hidden">
+    <div class="story-intro-box">
+        <h1 id="introTitle"></h1>
+        <p id="introCategory" style="font-size:1.1rem; opacity:0.8;"></p>
+        <p id="introDescription" style="margin-top:1rem;"></p>
+        <button class="start-reading-btn" onclick="enterStory()">ابدأ القراءة 📖</button>
+    </div>
+</section>
 
     <!-- Story Reading Section -->
     <section id="storyReadingSection" class="container hidden">
@@ -5013,7 +5053,7 @@ function displayAllStories() {
     if (!storiesGrid) return;
 
     storiesGrid.innerHTML = stories.map(story => `
-        <div class="story-card" onclick="showStoryReading(${story.id})">
+        <div class="story-card" onclick="showStoryIntro(${story.id})">
             <span class="category">${story.category}</span>
             <h3>${story.title}</h3>
             <p>${story.description}</p>
@@ -5110,6 +5150,10 @@ function handleHashNavigation() {
     if (hash === "stories") {
         return showStoriesPage(false);
     }
+if (hash.startsWith("intro-")) {
+    const id = parseInt(hash.split("-")[1]);
+    return showStoryIntro(id, false);
+}
 
     if (hash === "cafe") {
         return showCafePage(false);
@@ -5137,12 +5181,36 @@ window.addEventListener("load", handleHashNavigation);
 function initialize() {
     handleHashNavigation();
 }
+function showStoryIntro(storyId, pushHash = true) {
+    if (pushHash) window.location.hash = `intro-${storyId}`;
+
+    hideAllPages();
+
+    const story = stories.find(s => s.id === storyId);
+    if (!story) return;
+
+    currentStoryId = storyId;
+
+    // Apply theme automatically
+    setTheme(story.theme, story.title);
+
+    // Fill intro data
+    document.getElementById("introTitle").textContent = story.title;
+    document.getElementById("introCategory").textContent = "النوع: " + story.category;
+    document.getElementById("introDescription").textContent = story.description;
+
+    document.getElementById("storyIntroPage").classList.remove("hidden");
+}
+function enterStory() {
+    showStoryReading(currentStoryId);
+}
 
 initialize();
 
     </script>
 </body>
 </html>
+
 
 
 

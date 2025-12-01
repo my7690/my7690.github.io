@@ -673,6 +673,53 @@
     color: var(--text-color);
 }
 
+/* زر الهامبرغر – يظهر فقط على الموبايل */
+.hamburger-menu {
+    display: none;
+    cursor: pointer;
+    font-size: 2rem;
+    color: white;
+}
+
+/* القائمة المنسدلة في الموبايل */
+.mobile-nav {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 70%;
+    height: 100%;
+    background: var(--gradient);
+    padding: 2rem;
+    box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+    z-index: 2000;
+}
+
+.mobile-nav a {
+    display: block;
+    padding: 1rem;
+    color: white;
+    font-size: 1.3rem;
+    text-decoration: none;
+    margin-bottom: 1rem;
+    background: rgba(255,255,255,0.15);
+    border-radius: 10px;
+    text-align: center;
+}
+
+.mobile-nav a:hover {
+    background: rgba(255,255,255,0.25);
+}
+
+/* على الموبايل: نخفي شريط النفيغيشن الأصلي و نظهر الهامبرغر */
+@media (max-width: 800px) {
+    .nav-links {
+        display: none !important;
+    }
+    .hamburger-menu {
+        display: block;
+    }
+}
 
 
     </style>
@@ -682,16 +729,29 @@
 <nav class="navbar">
     <div class="nav-container">
         <a href="#home" class="nav-logo">📚 مكتبة القصص</a>
+
         <ul class="nav-links">
             <li><a href="#home">الرئيسية</a></li>
             <li><a href="#stories">مكتبة القصص</a></li>
             <li><a href="#cafe">مقهى الحوار</a></li>
         </ul>
+
+        <!-- زر الهامبرغر يظهر على الموبايل -->
+        <div class="hamburger-menu" onclick="toggleMobileNav()">☰</div>
+
         <div class="user-section" id="userSection">
             :) ضيوف الموقع لا يحتاجون تسجيل دخول
         </div>
     </div>
 </nav>
+
+<!-- القائمة المنسدلة في الموبايل -->
+<div id="mobileNav" class="mobile-nav">
+    <a href="#home" onclick="toggleMobileNav()">الرئيسية</a>
+    <a href="#stories" onclick="toggleMobileNav()">مكتبة القصص</a>
+    <a href="#cafe" onclick="toggleMobileNav()">مقهى الحوار</a>
+</div>
+
 
 
     <!-- Home Page -->
@@ -5539,6 +5599,20 @@ function updateMobilePageNumber() {
     if (!el) return;
     el.textContent = `${currentPageIndex + 1} / ${currentPages.length}`;
 }
+function toggleMobileNav() {
+    document.addEventListener("click", function(e) {
+    const menu = document.getElementById("mobileNav");
+    const burger = document.querySelector(".hamburger-menu");
+
+    if (
+        !menu.contains(e.target) &&
+        !burger.contains(e.target)
+    ) {
+        menu.style.display = "none";
+    }
+});
+
+}
 
 // كل مرة نفتح صفحة قراءة، يطبق الحجم المختار تلقائياً
 document.addEventListener("DOMContentLoaded", applyFontSize);
@@ -5549,4 +5623,5 @@ initialize();
     </script>
 </body>
 </html>
+
 

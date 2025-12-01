@@ -611,6 +611,69 @@
     font-weight: bold;
     border: 1px solid var(--primary-color);
 }
+/* إخفاء شريط الصفحات العادي على الهاتف */
+@media (max-width: 600px) {
+    .pagination-box {
+        display: none !important;
+    }
+
+    #mobilePaginationToggle {
+        display: block !important;
+    }
+}
+
+/* زر إظهار المينيو على الهاتف */
+#mobilePaginationToggle {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background: var(--gradient);
+    color: white;
+    padding: 0.9rem 1.1rem;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.4rem;
+    z-index: 999;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+}
+
+/* القائمة المنبثقة */
+#mobilePaginationMenu {
+    display: none;
+    position: fixed;
+    bottom: 80px;
+    left: 20px;
+    background: var(--card-bg);
+    padding: 1.2rem;
+    border-radius: 15px;
+    box-shadow: var(--shadow);
+    z-index: 999;
+    width: 180px;
+    animation: fadeIn 0.25s ease-out;
+}
+
+#mobilePaginationMenu button {
+    width: 100%;
+    padding: 0.6rem;
+    margin-bottom: 0.5rem;
+    border-radius: 10px;
+    border: none;
+    background: var(--gradient);
+    color: white;
+    font-size: 1rem;
+}
+
+#mobilePaginationMenu .page-number-mobile {
+    text-align: center;
+    font-weight: bold;
+    padding: 0.4rem;
+    border-radius: 10px;
+    background: var(--secondary-color);
+    color: var(--text-color);
+}
+
+
 
     </style>
 </head>
@@ -723,6 +786,16 @@
             <!-- Story content will be loaded here -->
         </div>
         <button class="submit-idea-btn" onclick="showQuestions()" style="margin-top: 2rem;">أكملت القراءة 💭</button>
+        <!-- زر الموبايل -->
+<div id="mobilePaginationToggle">☰</div>
+
+<!-- منيو الموبايل -->
+<div id="mobilePaginationMenu">
+    <button onclick="previousPage()">السابق</button>
+    <button onclick="nextPage()">التالي</button>
+    <div class="page-number-mobile" id="mobilePageNumber"></div>
+</div>
+
     </section>
 
     <!-- Questions Section -->
@@ -5067,7 +5140,26 @@ function renderPage() {
 
     // حفظ آخر صفحة
     localStorage.setItem(`story_${currentStoryId}_page`, currentPageIndex);
+    updateMobilePageNumber();
+
 }
+        
+        const toggleBtn = document.getElementById("mobilePaginationToggle");
+const menu = document.getElementById("mobilePaginationMenu");
+
+toggleBtn.addEventListener("click", () => {
+    menu.style.display = 
+        menu.style.display === "block" ? "none" : "block";
+});
+
+document.addEventListener("click", (e) => {
+    if (
+        !menu.contains(e.target) &&
+        !toggleBtn.contains(e.target)
+    ) {
+        menu.style.display = "none";
+    }
+});
 
 function showStoryReading(storyId, pushHash = true) {
     if (pushHash) window.location.hash = `story-${storyId}`;
@@ -5442,6 +5534,11 @@ function changeFontSize(action) {
     localStorage.setItem("fontSize", currentFontSize);
     applyFontSize();
 }
+function updateMobilePageNumber() {
+    const el = document.getElementById("mobilePageNumber");
+    if (!el) return;
+    el.textContent = `${currentPageIndex + 1} / ${currentPages.length}`;
+}
 
 // كل مرة نفتح صفحة قراءة، يطبق الحجم المختار تلقائياً
 document.addEventListener("DOMContentLoaded", applyFontSize);
@@ -5452,3 +5549,4 @@ initialize();
     </script>
 </body>
 </html>
+

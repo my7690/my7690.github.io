@@ -15,6 +15,29 @@
         * {
     font-family: 'Tajawal', sans-serif !important;
 }
+/* الوضع الافتراضي (نهار) */
+:root {
+    --bg-color: #ffffff;
+    --text-color: #1e293b;
+}
+
+/* الوضع الليلي */
+.dark-mode {
+    --bg-color: #0f172a;
+    --text-color: #ffffff;
+}
+        .theme-default {
+    --primary-color: #60a5fa;
+    --secondary-color: #e0f2fe;
+    --text-color: #1e293b;
+    --gradient: linear-gradient(135deg, #bfdbfe 0%, #60a5fa 50%, #1d4ed8 100%);
+}
+
+body {
+    background: var(--bg-color);
+    color: var(--text-color);
+    transition: background 0.4s ease, color 0.4s ease;
+}
 
         /* ثيم أزرق باستيل هادي */
         :root {
@@ -33,28 +56,48 @@
             --text-color: #880e4f;
             --gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
         }
-
+.dark-mode.theme-romance {
+    --primary-color: #ff6fa0;
+    --secondary-color: #4a1f2f;
+    --text-color: #ffd9e6;
+    --gradient: linear-gradient(135deg, #3d0d1b 0%, #6d1234 100%);
+}
         .theme-drama {
             --primary-color: #ff9800;
             --secondary-color: #fff3e0;
             --text-color: #e65100;
             --gradient: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
         }
-
+.dark-mode.theme-drama {
+    --primary-color: #ffb34d;
+    --secondary-color: #4a351a;
+    --text-color: #ffe1bb;
+    --gradient: linear-gradient(135deg, #2b1a08 0%, #2f3e49 100%);
+}
         .theme-mystery {
             --primary-color: #673ab7;
             --secondary-color: #f3e5f5;
             --text-color: #4a148c;
             --gradient: linear-gradient(135deg, #868f96 0%, #596164 100%);
         }
-
+.dark-mode.theme-mystery {
+    --primary-color: #bda7ff;
+    --secondary-color: #33274d;
+    --text-color: #e4d8ff;
+    --gradient: linear-gradient(135deg, #1c1b22 0%, #393c4f 100%);
+}
         .theme-suspense {
             --primary-color: #795548;
             --secondary-color: #efebe9;
             --text-color: #3e2723;
             --gradient: linear-gradient(135deg, #29323c 0%, #485563 100%);
         }
-
+.dark-mode.theme-suspense {
+    --primary-color: #d7b49e;
+    --secondary-color: #3b2e27;
+    --text-color: #ffe7d4;
+    --gradient: linear-gradient(135deg, #1a1d20 0%, #2f2f32 100%);
+}
         /* Navigation Bar */
         .navbar {
             background: var(--gradient);
@@ -667,6 +710,14 @@
 <nav class="navbar">
     <div class="nav-container">
         <a href="#home" class="nav-logo">📚 مكتبة القصص</a>
+<div id="themeToggle" onclick="toggleTheme()" style="
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: white;
+    margin-right: 1rem;
+">
+    🌙
+</div>
 
         <ul class="nav-links">
             <li><a href="#home">الرئيسية</a></li>
@@ -4784,13 +4835,38 @@ Her pov..
         let currentStoryId = null;
 
         function setTheme(themeClass, storyTitle = '') {
-            document.body.className = themeClass || '';
-            const themeNames = {
-                'theme-romance': 'رومانسي 💖',
-                'theme-drama': 'درامي 🎭',
-                'theme-mystery': 'غامض 🕵️',
-                'theme-suspense': 'تشويقي 🔍'
-            };
+    // نحافظ على وجود dark-mode لو مفعّل
+    const isDark = document.body.classList.contains("dark-mode");
+
+    // نمسح كل الثيمات
+    document.body.className = "";
+
+    // نرجع ثيم القصة أو ثيم الهوم
+    if (themeClass) {
+        document.body.classList.add(themeClass);
+    }
+
+    // نعيد dark-mode لو كان شغال
+    if (isDark) {
+        document.body.classList.add("dark-mode");
+    }
+
+    const themeNames = {
+        'theme-romance': 'رومانسي 💖',
+        'theme-drama': 'درامي 🎭',
+        'theme-mystery': 'غامض 🕵️',
+        'theme-suspense': 'تشويقي 🔍',
+        'theme-default': 'افتراضي 🩵'
+    };
+
+    const indicator = document.getElementById('themeIndicator');
+    if (storyTitle && themeClass && themeNames[themeClass]) {
+        indicator.textContent = `ثيم ${themeNames[themeClass]} - ${storyTitle}`;
+    } else {
+        indicator.textContent = '🩵';
+    }
+}
+
 
             const indicator = document.getElementById('themeIndicator');
             if (storyTitle && themeClass && themeNames[themeClass]) {
@@ -5317,7 +5393,7 @@ function showHomePage(pushHash = true) {
     if (pushHash) window.location.hash = "home";
     hideAllPages();
     document.getElementById('homePage').classList.remove('hidden');
-    setTheme('', '');
+    setTheme('theme-default', '');
     displayDailyStory();
     displayIdeas();
 }
@@ -5544,6 +5620,35 @@ document.addEventListener("click", function(e) {
         menu.style.display = "none";
     }
 });
+// ========== نظام ليل / نهار مع تخزين ==========
+function toggleTheme() {
+    // فقط نضيف أو نشيل dark-mode بدون اللعب بالثيمات الأخرى
+    document.body.classList.toggle("dark-mode");
+
+    localStorage.setItem(
+        "themeMode",
+        document.body.classList.contains("dark-mode") ? "dark" : "light"
+    );
+
+    updateThemeIcon();
+}
+
+
+function updateThemeIcon() {
+    const icon = document.getElementById("themeToggle");
+    const isDark = document.body.classList.contains("dark-mode");
+
+    icon.textContent = isDark ? "☀️" : "🌙";
+}
+
+// عند أول دخول للموقع — لو في حفظ، نطبقه
+document.addEventListener("DOMContentLoaded", () => {
+    const saved = localStorage.getItem("themeMode");
+    if (saved === "dark") {
+        document.body.classList.add("dark-mode");
+    }
+    updateThemeIcon();
+});
 
 
 // كل مرة نفتح صفحة قراءة، يطبق الحجم المختار تلقائياً
@@ -5555,6 +5660,7 @@ initialize();
     </script>
 </body>
 </html>
+
 
 
 

@@ -675,6 +675,38 @@ body {
     transform: scale(1.1);
 }
 
+/* ===== Pagination Buttons ===== */
+.pagination-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.pagination-btn {
+    background: var(--gradient);
+    color: white;
+    border: none;
+    padding: 0.7rem 1.5rem;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: 0.3s;
+}
+
+.pagination-btn:hover {
+    transform: scale(1.05);
+}
+
+.page-number {
+    padding: 0.5rem 1rem;
+    border-radius: 15px;
+    background: var(--secondary-color);
+    color: var(--text-color);
+    font-weight: bold;
+    border: 1px solid var(--primary-color);
+}
 
     </style>
 </head>
@@ -5104,24 +5136,30 @@ Her pov..
         }
 
         // ========== القراءة والأسئلة + Firestore للأجوبة ==========
-        function showStoryReading(storyId) {
-            hideAllPages();
-            document.getElementById('storyReadingSection').classList.remove('hidden');
+        function showStoryReading(storyId, pushHash = true) {
+    if (pushHash) window.location.hash = `story-${storyId}`;
+    hideAllPages();
+    document.getElementById('storyReadingSection').classList.remove('hidden');
 
-            const story = stories.find(s => s.id === storyId);
-            if (!story) return;
+    const story = stories.find(s => s.id === storyId);
+    currentStoryId = storyId;
+    localStorage.setItem("last_read_story", storyId);
 
-            currentStoryId = storyId;
+    setTheme(story.theme, story.title);
 
-            setTheme(story.theme, story.title);
+    // تقسيم المحتوى لصفحات
+    currentPages = paginateContent(story.content, 150);
 
-            document.getElementById('storyContent').innerHTML = `
-                <h2 style="color: var(--primary-color); text-align: center; margin-bottom: 2rem;">${story.title}</h2>
-                <div style="background: var(--secondary-color); padding: 2rem; border-radius: 15px; line-height: 1.8;">
-                    ${story.content}
-                </div>
-            `;
-        }
+    // استرجاع آخر صفحة
+    const savedPage = localStorage.getItem(`story_${storyId}_page`);
+    currentPageIndex = savedPage ? parseInt(savedPage) : 0;
+
+    // عرض الصفحة
+    renderPage();
+
+    // تطبيق حجم الخط لو تم تغييره سابقاً
+    applyFontSize();
+}
 
         function showQuestions() {
             hideAllPages();
@@ -5462,6 +5500,7 @@ initialize();
     </script>
 </body>
 </html>
+
 
 
 

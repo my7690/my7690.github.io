@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>موقع رواياتي</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600&display=swap" rel="stylesheet">
+
     <!-- Firebase CDN (App + Firestore فقط) -->
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
@@ -523,7 +524,8 @@
     from { opacity: 0; transform: translateY(20px); }
     to   { opacity: 1; transform: translateY(0); }
 }
-        /* ====== نظام القراءة الاحترافي ====== */
+
+/* ====== نظام القراءة الاحترافي ====== */
 
 .story-reading {
     max-width: 750px;              /* عرض النص المثالي */
@@ -553,104 +555,6 @@
     .story-reading {
         font-size: 1.15rem;
         padding: 2.5rem 1.8rem;
-    }
-}
-/* ================================
-   ☁️  القاعدة الأساسية – Desktop
-   ================================ */
-
-body {
-    font-size: 1rem;
-}
-
-/* ================================
-   📱 للموبايل – شاشات صغيرة < 600px
-   ================================ */
-@media (max-width: 600px) {
-
-    /* الهيدر */
-    .nav-container {
-        flex-direction: column;
-        gap: 0.8rem;
-        text-align: center;
-    }
-
-    .nav-links {
-        gap: 1rem;
-        flex-wrap: wrap;
-    }
-
-    /* الصفحة الرئيسية */
-    .main-header h1 {
-        font-size: 1.8rem;
-    }
-
-    .story-of-day {
-        padding: 1.5rem;
-    }
-
-    /* الكروت */
-    .stories-grid {
-        grid-template-columns: repeat(1, 1fr);
-        gap: 18px;
-    }
-
-    .story-card {
-        padding: 1.4rem;
-    }
-
-    /* صندوق الأفكار */
-    .ideas-section {
-        padding: 1.5rem;
-    }
-
-    /* صفحة القراءة الاحترافية */
-    .story-reading {
-        font-size: 1.05rem !important;
-        padding: 1.5rem !important;
-    }
-
-    /* الأسئلة */
-    textarea.idea-input {
-        min-height: 80px;
-    }
-}
-
-/* ================================
-   📲 للتابلت – بين 601px و 900px
-   ================================ */
-@media (min-width: 601px) and (max-width: 900px) {
-
-    .nav-container {
-        gap: 1.2rem;
-    }
-
-    .main-header h1 {
-        font-size: 2.2rem;
-    }
-
-    .stories-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 22px;
-    }
-
-    .story-reading {
-        font-size: 1.15rem !important;
-        padding: 2rem !important;
-    }
-}
-
-/* ================================
-   🖥️ شاشات كبيرة – +1400px
-   ================================ */
-@media (min-width: 1400px) {
-    .container {
-        max-width: 1300px;
-    }
-
-    .story-reading {
-        font-size: 1.35rem;
-        max-width: 850px;
     }
 }
 .font-controls {
@@ -810,12 +714,11 @@ body {
     <!-- Story Reading Section -->
     <section id="storyReadingSection" class="container hidden">
         <button class="back-button" onclick="showStoriesPage()">← العودة للمكتبة</button>
-        <div class="font-controls">
-    <button onclick="changeFontSize('increase')">+</button>
-    <button onclick="changeFontSize('decrease')">-</button>
-    <button onclick="changeFontSize('reset')">🔄</button>
-</div>
-
+            <div class="font-controls">
+        <button onclick="changeFontSize('increase')">+</button>
+        <button onclick="changeFontSize('decrease')">-</button>
+        <button onclick="changeFontSize('reset')">🔄</button>
+    </div>
         <div class="story-reading" id="storyContent">
             <!-- Story content will be loaded here -->
         </div>
@@ -857,13 +760,6 @@ body {
         const serverTimestamp = firebase.firestore.FieldValue.serverTimestamp;
 
 // ========== البيانات الأساسية مع الثيمات ==========
-
-
-
-
-        
-
-// All Stories Data
 
 
 
@@ -4816,12 +4712,6 @@ Her pov..
                 ]
             }
         ];
-
-
-
-
-
-
         let currentStoryId = null;
 
         function setTheme(themeClass, storyTitle = '') {
@@ -5136,14 +5026,56 @@ Her pov..
         }
 
         // ========== القراءة والأسئلة + Firestore للأجوبة ==========
-        function showStoryReading(storyId, pushHash = true) {
+// ====== نظام القراءة على صفحات ======
+let currentPages = [];
+let currentPageIndex = 0;
+
+function paginateContent(text, wordsPerPage = 150) {
+    const words = text.trim().split(/\s+/);
+    const pages = [];
+
+    for (let i = 0; i < words.length; i += wordsPerPage) {
+        pages.push(words.slice(i, i + wordsPerPage).join(" "));
+    }
+
+    return pages;
+}
+
+function renderPage() {
+    const story = stories.find(s => s.id === currentStoryId);
+
+    document.getElementById('storyContent').innerHTML = `
+        <h2 style="color: var(--primary-color); text-align:center; margin-bottom:2rem;">
+            ${story.title}
+        </h2>
+        <div style="
+            background: var(--secondary-color);
+            padding: 2rem;
+            border-radius: 15px;
+            line-height: 1.9;
+            font-size: var(--reading-font-size);
+        ">
+            ${currentPages[currentPageIndex]}
+        </div>
+
+        <div class="pagination-box">
+            <button class="pagination-btn" onclick="previousPage()">السابق</button>
+            <span class="page-number">${currentPageIndex + 1} / ${currentPages.length}</span>
+            <button class="pagination-btn" onclick="nextPage()">التالي</button>
+        </div>
+    `;
+
+    // حفظ آخر صفحة
+    localStorage.setItem(`story_${currentStoryId}_page`, currentPageIndex);
+}
+
+function showStoryReading(storyId, pushHash = true) {
     if (pushHash) window.location.hash = `story-${storyId}`;
     hideAllPages();
     document.getElementById('storyReadingSection').classList.remove('hidden');
 
     const story = stories.find(s => s.id === storyId);
     currentStoryId = storyId;
-    localStorage.setItem("last_read_story", storyId);
 
     setTheme(story.theme, story.title);
 
@@ -5156,10 +5088,22 @@ Her pov..
 
     // عرض الصفحة
     renderPage();
-
-    // تطبيق حجم الخط لو تم تغييره سابقاً
-    applyFontSize();
 }
+
+function nextPage() {
+    if (currentPageIndex < currentPages.length - 1) {
+        currentPageIndex++;
+        renderPage();
+    }
+}
+
+function previousPage() {
+    if (currentPageIndex > 0) {
+        currentPageIndex--;
+        renderPage();
+    }
+}
+
 
         function showQuestions() {
             hideAllPages();
@@ -5336,16 +5280,22 @@ function showStoryReading(storyId, pushHash = true) {
     currentStoryId = storyId;
     localStorage.setItem("last_read_story", storyId);
 
-
     setTheme(story.theme, story.title);
 
-    document.getElementById('storyContent').innerHTML = `
-        <h2 style="color: var(--primary-color); text-align: center; margin-bottom: 2rem;">${story.title}</h2>
-        <div style="background: var(--secondary-color); padding: 2rem; border-radius: 15px; line-height: 1.8;">
-            ${story.content}
-        </div>
-    `;
+    // تقسيم المحتوى لصفحات
+    currentPages = paginateContent(story.content, 150);
+
+    // استرجاع آخر صفحة
+    const savedPage = localStorage.getItem(`story_${storyId}_page`);
+    currentPageIndex = savedPage ? parseInt(savedPage) : 0;
+
+    // عرض الصفحة
+    renderPage();
+
+    // تطبيق حجم الخط لو تم تغييره سابقاً
+    applyFontSize();
 }
+
 
 
 function showQuestions(pushHash = true) {
@@ -5467,6 +5417,7 @@ function openLastRead() {
     const lastId = localStorage.getItem("last_read_story");
     if (lastId) showStoryIntro(parseInt(lastId));
 }
+
 // ====================== نظام تكبير وتصغير الخط ======================
 let currentFontSize = parseFloat(localStorage.getItem("fontSize")) || 1.1;
 
@@ -5494,93 +5445,10 @@ function changeFontSize(action) {
 
 // كل مرة نفتح صفحة قراءة، يطبق الحجم المختار تلقائياً
 document.addEventListener("DOMContentLoaded", applyFontSize);
-// ====== نظام القراءة على صفحات ======
-let currentPages = [];
-let currentPageIndex = 0;
 
-function paginateContent(text, wordsPerPage = 150) {
-    const words = text.trim().split(/\s+/);
-    const pages = [];
-
-    for (let i = 0; i < words.length; i += wordsPerPage) {
-        pages.push(words.slice(i, i + wordsPerPage).join(" "));
-    }
-
-    return pages;
-}
-
-function renderPage() {
-    const story = stories.find(s => s.id === currentStoryId);
-
-    document.getElementById('storyContent').innerHTML = `
-        <h2 style="color: var(--primary-color); text-align:center; margin-bottom:2rem;">
-            ${story.title}
-        </h2>
-        <div style="
-            background: var(--secondary-color);
-            padding: 2rem;
-            border-radius: 15px;
-            line-height: 1.9;
-            font-size: var(--reading-font-size);
-        ">
-            ${currentPages[currentPageIndex]}
-        </div>
-
-        <div class="pagination-box">
-            <button class="pagination-btn" onclick="previousPage()">السابق</button>
-            <span class="page-number">${currentPageIndex + 1} / ${currentPages.length}</span>
-            <button class="pagination-btn" onclick="nextPage()">التالي</button>
-        </div>
-    `;
-
-    // حفظ آخر صفحة
-    localStorage.setItem(`story_${currentStoryId}_page`, currentPageIndex);
-}
-
-function showStoryReading(storyId, pushHash = true) {
-    if (pushHash) window.location.hash = `story-${storyId}`;
-    hideAllPages();
-    document.getElementById('storyReadingSection').classList.remove('hidden');
-
-    const story = stories.find(s => s.id === storyId);
-    currentStoryId = storyId;
-
-    setTheme(story.theme, story.title);
-
-    // تقسيم المحتوى لصفحات
-    currentPages = paginateContent(story.content, 150);
-
-    // استرجاع آخر صفحة
-    const savedPage = localStorage.getItem(`story_${storyId}_page`);
-    currentPageIndex = savedPage ? parseInt(savedPage) : 0;
-
-    // عرض الصفحة
-    renderPage();
-}
-
-function nextPage() {
-    if (currentPageIndex < currentPages.length - 1) {
-        currentPageIndex++;
-        renderPage();
-    }
-}
-
-function previousPage() {
-    if (currentPageIndex > 0) {
-        currentPageIndex--;
-        renderPage();
-    }
-}
 
 initialize();
 
     </script>
 </body>
 </html>
-
-
-
-
-
-
-

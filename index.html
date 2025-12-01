@@ -594,7 +594,15 @@
         </section>
     </div>
 
-
+<!-- Story Intro Page -->
+<section id="storyIntroPage" class="container hidden">
+    <div class="story-intro-box">
+        <h1 id="introTitle"></h1>
+        <p id="introCategory" style="font-size:1.1rem; opacity:0.8;"></p>
+        <p id="introDescription" style="margin-top:1rem;"></p>
+        <button class="start-reading-btn" onclick="enterStory()">ابدأ القراءة 📖</button>
+    </div>
+</section>
     <!-- Story Reading Section -->
     <section id="storyReadingSection" class="container hidden">
         <button class="back-button" onclick="showStoriesPage()">← العودة للمكتبة</button>
@@ -5062,6 +5070,7 @@ function hideAllPages() {
     document.getElementById('cafePage').classList.add('hidden');
     document.getElementById('storyReadingSection').classList.add('hidden');
     document.getElementById('questionsSection').classList.add('hidden');
+     document.getElementById('storyIntroPage').classList.add('hidden');
 }
 
 // دوال تنقل تضيف هاش وتعرض الصفحة

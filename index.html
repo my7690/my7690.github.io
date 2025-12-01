@@ -4831,14 +4831,18 @@ Her pov..
         let currentStoryId = null;
 
 function setTheme(themeClass, storyTitle = '') {
+    // احتفاظ بوضع الليل
     const isDark = document.body.classList.contains("dark-mode");
 
+    // إزالة أي ثيمات سابقة
     document.body.className = "";
 
+    // تطبيق ثيم القصة إذا موجود
     if (themeClass) {
         document.body.classList.add(themeClass);
     }
 
+    // إعادة تفعيل وضع الليل إذا كان شغال
     if (isDark) {
         document.body.classList.add("dark-mode");
     }
@@ -4851,6 +4855,7 @@ function setTheme(themeClass, storyTitle = '') {
         'theme-default': 'افتراضي 🩵'
     };
 
+    // تحديث مؤشر الثيم
     const indicator = document.getElementById('themeIndicator');
     if (storyTitle && themeClass && themeNames[themeClass]) {
         indicator.textContent = `ثيم ${themeNames[themeClass]} - ${storyTitle}`;
@@ -4859,15 +4864,6 @@ function setTheme(themeClass, storyTitle = '') {
     }
 }
 
-
-
-            const indicator = document.getElementById('themeIndicator');
-            if (storyTitle && themeClass && themeNames[themeClass]) {
-                indicator.textContent = `ثيم ${themeNames[themeClass]} - ${storyTitle}`;
-            } else {
-                indicator.textContent = '🩵';
-            }
-        }
 
         // ========== قصة اليوم (محلية لكل جهاز) ==========
         function getDailyStory() {
@@ -5653,6 +5649,7 @@ initialize();
     </script>
 </body>
 </html>
+
 
 
 

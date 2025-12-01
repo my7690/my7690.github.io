@@ -5017,8 +5017,8 @@ function hideAllPages() {
 }
 
 // دوال تنقل تضيف هاش وتعرض الصفحة
-function showHomePage() {
-    window.location.hash = "home";
+function showHomePage(pushHash = true) {
+    if (pushHash) window.location.hash = "home";
     hideAllPages();
     document.getElementById('homePage').classList.remove('hidden');
     setTheme('', '');
@@ -5026,24 +5026,25 @@ function showHomePage() {
     displayIdeas();
 }
 
-function showStoriesPage() {
-    window.location.hash = "stories";
+function showStoriesPage(pushHash = true) {
+    if (pushHash) window.location.hash = "stories";
     hideAllPages();
     document.getElementById('storiesPage').classList.remove('hidden');
     setTheme('', '');
     displayAllStories();
 }
 
-function showCafePage() {
-    window.location.hash = "cafe";
+function showCafePage(pushHash = true) {
+    if (pushHash) window.location.hash = "cafe";
     hideAllPages();
     document.getElementById('cafePage').classList.remove('hidden');
     setTheme('', '');
     displayDiscussions();
 }
 
-function showStoryReading(storyId) {
-    window.location.hash = `story-${storyId}`;
+
+function showStoryReading(storyId, pushHash = true) {
+    if (pushHash) window.location.hash = `story-${storyId}`;
     hideAllPages();
     document.getElementById('storyReadingSection').classList.remove('hidden');
 
@@ -5060,8 +5061,9 @@ function showStoryReading(storyId) {
     `;
 }
 
-function showQuestions() {
-    window.location.hash = `questions-${currentStoryId}`;
+
+function showQuestions(pushHash = true) {
+    if (pushHash) window.location.hash = `questions-${currentStoryId}`;
     hideAllPages();
     document.getElementById('questionsSection').classList.remove('hidden');
 
@@ -5080,32 +5082,40 @@ function showQuestions() {
     displayStoryAnswers();
 }
 
+
 // ========== نظام قراءة الهاش عند الرفريش ==========
 function handleHashNavigation() {
     const hash = window.location.hash.replace('#', '');
 
-    if (!hash || hash === "home") return showHomePage();
-    if (hash === "stories") return showStoriesPage();
-    if (hash === "cafe") return showCafePage();
+    if (hash === "" || hash === "home") {
+        return showHomePage(false);
+    }
+
+    if (hash === "stories") {
+        return showStoriesPage(false);
+    }
+
+    if (hash === "cafe") {
+        return showCafePage(false);
+    }
 
     if (hash.startsWith("story-")) {
         const id = parseInt(hash.split("-")[1]);
-        return showStoryReading(id);
+        return showStoryReading(id, false);
     }
 
     if (hash.startsWith("questions-")) {
         const id = parseInt(hash.split("-")[1]);
         currentStoryId = id;
-        return showQuestions();
+        return showQuestions(false);
     }
-
-    // fallback
-    showHomePage();
 }
 
+
+
 // شغل النظام
-window.addEventListener("load", handleHashNavigation);
 window.addEventListener("hashchange", handleHashNavigation);
+window.addEventListener("load", handleHashNavigation);
 
 // ========== التهيئة ==========
 function initialize() {
@@ -5117,6 +5127,7 @@ initialize();
     </script>
 </body>
 </html>
+
 
 
 

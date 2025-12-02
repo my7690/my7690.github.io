@@ -5452,7 +5452,7 @@ function previousPage() {
 
 async function displayStoryAnswers() {
     const answersContainer = document.getElementById('answersContainer');
-    answersContainer.innerHTML = '';
+    answersContainer.innerHTML = ''; // 🔥 تنظيف أولي
 
     const story = stories.find(s => s.id === currentStoryId);
     if (!story) return;
@@ -5464,7 +5464,9 @@ async function displayStoryAnswers() {
             .get();
 
         if (snapshot.empty) {
-            answersContainer.innerHTML = '<p style="text-align: center; opacity: 0.6;">لا توجد إجابات بعد...</p>';
+            answersContainer.innerHTML = `
+                <p style="text-align: center; opacity: 0.6;">لا توجد إجابات بعد...</p>
+            `;
             return;
         }
 
@@ -5479,22 +5481,26 @@ async function displayStoryAnswers() {
             };
         });
 
-        // نعرض الإجابات لكل سؤال
+        // بناء HTML كامل مرّة وحدة
+        let fullHTML = '';
+
         story.questions.forEach((question, index) => {
             const relatedAnswers = allAnswers.filter(a => a.questionIndex === index);
 
-            answersContainer.innerHTML += `
-                <h3 style="margin: 1.5rem 0 1rem; color: var(--primary-color);">
+            fullHTML += `
+                <h3 style="margin:1.5rem 0 1rem; color: var(--primary-color);">
                     ❓ ${question}
                 </h3>
             `;
 
             if (relatedAnswers.length === 0) {
-                answersContainer.innerHTML += `
-                    <p style="opacity: 0.6; margin-bottom: 2rem;">لا توجد إجابات بعد لهذا السؤال...</p>
+                fullHTML += `
+                    <p style="opacity: 0.6; margin-bottom:2rem;">
+                        لا توجد إجابات بعد لهذا السؤال...
+                    </p>
                 `;
             } else {
-                answersContainer.innerHTML += relatedAnswers.map(ans => `
+                fullHTML += relatedAnswers.map(ans => `
                     <div class="discussion-item">
                         <div class="discussion-meta">
                             <span>⏰ ${ans.timestamp}</span>
@@ -5506,11 +5512,19 @@ async function displayStoryAnswers() {
             }
         });
 
+        // 🧩 بدل += نضع HTML مرة واحدة
+        answersContainer.innerHTML = fullHTML;
+
     } catch (e) {
         console.error(e);
-        answersContainer.innerHTML = '<p style="text-align: center; opacity: 0.6;">حدث خطأ في تحميل الأجوبة...</p>';
+        answersContainer.innerHTML = `
+            <p style="text-align:center; opacity:0.6;">
+                حدث خطأ في تحميل الأجوبة...
+            </p>
+        `;
     }
 }
+
 
 
         async function submitAnswers() {
@@ -5852,6 +5866,7 @@ initialize();
     </script>
 </body>
 </html>
+
 
 
 

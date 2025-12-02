@@ -5699,11 +5699,13 @@ function handleHashNavigation() {
         return showStoryReading(id, false);
     }
 
-    if (hash.startsWith("questions-")) {
-        const id = parseInt(hash.split("-")[1]);
-        currentStoryId = id;
-        return showQuestions(false);
-    }
+   if (hash.startsWith("questions-")) {
+    const id = parseInt(hash.split("-")[1]);
+    currentStoryId = id;
+    showQuestions(false); 
+    return;   // 🔥 هذا يمنع double-render
+}
+
 }
 
 
@@ -5861,11 +5863,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // كل مرة نفتح صفحة قراءة، يطبق الحجم المختار تلقائياً
 document.addEventListener("DOMContentLoaded", applyFontSize);
-initialize();
+
 
     </script>
 </body>
 </html>
+
 
 
 

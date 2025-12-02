@@ -5449,49 +5449,69 @@ function previousPage() {
             displayStoryAnswers();
         }
 
-        async function displayStoryAnswers() {
-            const answersContainer = document.getElementById('answersContainer');
-            if (!currentStoryId) {
-                answersContainer.innerHTML = '';
-                return;
-            }
 
-            try {
-                const snapshot = await db.collection("storyAnswers")
-                    .where("storyId", "==", currentStoryId)
-                    .orderBy("createdAt", "desc")
-                    .get();
+async function displayStoryAnswers() {
+    const answersContainer = document.getElementById('answersContainer');
+    answersContainer.innerHTML = '';
 
-                if (snapshot.empty) {
-                    answersContainer.innerHTML = '<p style="text-align: center; opacity: 0.6;">لا توجد أجوبة بعد...</p>';
-                    return;
-                }
+    const story = stories.find(s => s.id === currentStoryId);
+    if (!story) return;
 
-                const answers = snapshot.docs.map(doc => {
-                    const data = doc.data();
-                    return {
-                        text: data.text,
-                        userName: data.userName || "مجهول",
-                        timestamp: data.createdAt
-                            ? data.createdAt.toDate().toLocaleString('ar-SA')
-                            : ''
-                    };
-                });
+    try {
+        const snapshot = await db.collection("storyAnswers")
+            .where("storyId", "==", currentStoryId)
+            .orderBy("createdAt", "desc")
+            .get();
 
-                answersContainer.innerHTML = answers.map(answer => `
+        if (snapshot.empty) {
+            answersContainer.innerHTML = '<p style="text-align: center; opacity: 0.6;">لا توجد إجابات بعد...</p>';
+            return;
+        }
+
+        // نسحب الردود كـ array
+        const allAnswers = snapshot.docs.map(doc => {
+            const data = doc.data();
+            return {
+                questionIndex: data.questionIndex,
+                text: data.text,
+                userName: data.userName || "مجهول",
+                timestamp: data.createdAt ? data.createdAt.toDate().toLocaleString('ar-SA') : ''
+            };
+        });
+
+        // نعرض الإجابات لكل سؤال
+        story.questions.forEach((question, index) => {
+            const relatedAnswers = allAnswers.filter(a => a.questionIndex === index);
+
+            answersContainer.innerHTML += `
+                <h3 style="margin: 1.5rem 0 1rem; color: var(--primary-color);">
+                    ❓ ${question}
+                </h3>
+            `;
+
+            if (relatedAnswers.length === 0) {
+                answersContainer.innerHTML += `
+                    <p style="opacity: 0.6; margin-bottom: 2rem;">لا توجد إجابات بعد لهذا السؤال...</p>
+                `;
+            } else {
+                answersContainer.innerHTML += relatedAnswers.map(ans => `
                     <div class="discussion-item">
                         <div class="discussion-meta">
-                            <span>⏰ ${answer.timestamp}</span>
-                            <span class="user-badge">${answer.userName}</span>
+                            <span>⏰ ${ans.timestamp}</span>
+                            <span class="user-badge">${ans.userName}</span>
                         </div>
-                        <p>${answer.text}</p>
+                        <p>${ans.text}</p>
                     </div>
                 `).join('');
-            } catch (e) {
-                console.error(e);
-                answersContainer.innerHTML = '<p style="text-align: center; opacity: 0.6;">حدث خطأ في تحميل الأجوبة...</p>';
             }
-        }
+        });
+
+    } catch (e) {
+        console.error(e);
+        answersContainer.innerHTML = '<p style="text-align: center; opacity: 0.6;">حدث خطأ في تحميل الأجوبة...</p>';
+    }
+}
+
 
         async function submitAnswers() {
             if (!currentStoryId) {
@@ -5832,5 +5852,6 @@ initialize();
     </script>
 </body>
 </html>
+
 
 

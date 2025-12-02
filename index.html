@@ -454,8 +454,12 @@ body {
             border: 1px solid var(--secondary-color);
         }
 
-.reply-form {
+.reply-form2 {
     display: block;   /* أو flex */
+    margin-top: 1rem;
+}
+.reply-form {
+    display: none;
     margin-top: 1rem;
 }
 
@@ -5329,7 +5333,7 @@ function renderReplies(allReplies, parentId = null, level = 0, discussionId) {
                 </div>
 
                 <!-- 🔥 هذا هو الفورم الذي ينفتح عند الضغط -->
-                <div class="reply-form hidden" id="nestedReplyForm-${discussionId}-${r.id}">
+                <div class="reply-form2 hidden" id="nestedReplyForm-${discussionId}-${r.id}">
                     <input class="reply-name-input" id="nestedReplyName-${discussionId}-${r.id}" placeholder="اسمك (اختياري)">
                     <textarea class="reply-input" id="nestedReplyInput-${discussionId}-${r.id}" placeholder="اكتب ردك..."></textarea>
                     <button class="submit-idea-btn" onclick="submitNestedReply('${discussionId}', '${r.id}')">إرسال الرد</button>
@@ -5844,4 +5848,5 @@ document.addEventListener("DOMContentLoaded", applyFontSize);
     </script>
 </body>
 </html>
+
 

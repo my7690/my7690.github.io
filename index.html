@@ -4953,28 +4953,11 @@ function setTheme(themeClass, storyTitle = '') {
             });
         }
 
-        async function displayIdeas() {
-            const ideasList = document.getElementById('ideasList');
-            try {
-                const ideas = await getIdeasFromDB();
-                if (!ideas.length) {
-                    ideasList.innerHTML = '<p style="text-align: center; opacity: 0.6;">لا توجد أفكار بعد...</p>';
-                    return;
-                }
-                ideasList.innerHTML = ideas.map(idea => `
-                    <div class="discussion-item">
-                        <div class="discussion-meta">
-                            <span>⏰ ${idea.timestamp}</span>
-                            <span class="user-badge">${idea.userName}</span>
-                        </div>
-                        <p>${idea.text}</p>
-                    </div>
-                `).join('');
-            } catch (e) {
-                console.error(e);
-                ideasList.innerHTML = '<p style="text-align: center; opacity: 0.6;">حدث خطأ في تحميل الأفكار...</p>';
-            }
-        }
+async function displayIdeas() {
+    const ideasList = document.getElementById('ideasList');
+    ideasList.innerHTML = ""; // لا نعرض أي شيء نهائياً
+}
+
 
         async function submitIdea() {
             const ideaNameInput = document.getElementById('ideaName');
@@ -5583,7 +5566,7 @@ function showHomePage(pushHash = true) {
     document.getElementById('homePage').classList.remove('hidden');
     setTheme('theme-default', '');
     displayDailyStory();
-    displayIdeas();
+
 }
 
 function showStoriesPage(pushHash = true) {
@@ -5847,4 +5830,5 @@ document.addEventListener("DOMContentLoaded", applyFontSize);
     </script>
 </body>
 </html>
+
 

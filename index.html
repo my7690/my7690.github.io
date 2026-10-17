@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>موقع رواياتي</title>
+    <title>مكتبة تحت ضوء القمر | شاي الكاتبة</title>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
 
     <!-- Firebase CDN (App + Firestore فقط) -->
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
 
     <style>
         * {
@@ -763,109 +764,841 @@ body.night-time {
 
 
 
-    </style>
+
+
+/* ============================================================
+   MOONLIT LIBRARY V2 | A quiet, storybook-inspired fantasy world
+   ============================================================ */
+:root { --night:#0c1425; --night-2:#151c33; --midnight:#212a45; --ink:#263047; --ivory:#fff9ed; --paper:#f7f0e1; --gold:#d9bf88; --gold-light:#eadbb8; --panel:#f7f1e6; --primary-color:#445e8d; --secondary-color:#edf0f8; --card-bg:#fffaf0; --shadow:0 18px 48px rgba(8,14,27,.24); --reading-font-size:1.1rem; }
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body,body.day-time,body.night-time,body.theme-romance,body.theme-drama,body.theme-mystery,body.theme-suspense { background:#0c1425 !important; color:#ede6d8; min-height:100vh; margin:0; overflow-x:hidden; }
+body::before { content:""; position:fixed; inset:0; pointer-events:none; z-index:-1; background:radial-gradient(ellipse at 76% 18%,rgba(97,120,181,.17),transparent 42%),linear-gradient(180deg,rgba(14,21,41,.2),rgba(21,23,39,.34)),radial-gradient(circle at 18% 80%,rgba(79,72,119,.17),transparent 35%); }
+.sky-stars { position:fixed; inset:0; pointer-events:none; z-index:0; opacity:.45; background-image:radial-gradient(1px 1px at 12% 22%,#fffbdf 98%,transparent),radial-gradient(1px 1px at 76% 16%,#fff 98%,transparent),radial-gradient(1px 1px at 53% 64%,#fff 98%,transparent),radial-gradient(2px 2px at 26% 53%,#fff 98%,transparent),radial-gradient(1px 1px at 92% 46%,#fff 98%,transparent),radial-gradient(1px 1px at 43% 12%,#fff 98%,transparent),radial-gradient(2px 2px at 8% 72%,#fff 98%,transparent); background-size:580px 430px; animation:starBreath 8s ease-in-out infinite alternate; }
+@keyframes starBreath { to { opacity:.85; } }
+.container { max-width:1210px; padding:42px 28px; margin:auto; position:relative; z-index:1; }
+button,input,textarea { font-family:'Tajawal',sans-serif !important; }
+button { cursor:pointer; }
+.hidden { display:none !important; }
+.navbar { position:sticky; top:0; z-index:1000; padding:0 24px; background:rgba(10,15,30,.93) !important; box-shadow:0 1px 0 rgba(218,191,136,.18); backdrop-filter:blur(18px); }
+.nav-container { min-height:77px; max-width:1210px; display:flex; justify-content:space-between; align-items:center; margin:auto; gap:25px; }
+.nav-logo { display:flex; gap:11px; align-items:center; color:#efe3ca; font-size:1.15rem; font-weight:700; white-space:nowrap; line-height:1.15; }
+.nav-logo small { display:block; margin-top:7px; color:#9e9fac; font-size:.64rem; font-weight:400; letter-spacing:1.3px; }
+.brand-emblem { border:1px solid rgba(220,184,121,.6); height:38px; width:38px; display:grid; place-items:center; color:var(--gold); border-radius:50%; font-family:serif; font-size:23px; box-shadow:0 0 0 4px rgba(216,190,137,.05); }
+.nav-actions { display:flex; gap:14px; align-items:center; }
+.nav-links { margin:0; padding:0; gap:15px; display:flex; }
+.nav-links a { color:#d5cdd0; border-radius:0; padding:10px 13px; font-size:.94rem; transition:color .2s; }
+.nav-links a:hover { background:transparent; color:#f6dca2; }
+.theme-toggle { border:1px solid rgba(220,190,138,.35); background:rgba(217,188,133,.07); color:var(--gold); border-radius:50%; width:36px; height:36px; font-size:21px; display:grid; place-items:center; }
+.hamburger-menu { display:none; border:0; background:none; color:var(--gold); font-size:26px; }
+.mobile-nav { background:#121c31; border-left:1px solid rgba(210,179,126,.3); }
+.mobile-nav a { background:transparent; border-bottom:1px solid rgba(255,255,255,.07); border-radius:0; }
+.main-header { position:relative; display:grid; grid-template-columns:1.12fr .88fr; align-items:center; gap:24px; min-height:522px; margin-bottom:60px; padding:55px 65px 55px 35px; overflow:hidden; text-align:right; border-radius:0 0 125px 18px; background:linear-gradient(120deg,rgba(24,33,59,.96),rgba(19,29,51,.98) 50%,rgba(34,44,77,.83)) !important; border:1px solid rgba(199,167,112,.24); box-shadow:0 30px 80px rgba(0,0,0,.24); }
+.main-header::after { content:""; position:absolute; inset:15px; border:1px solid rgba(210,178,117,.1); border-radius:0 0 116px 7px; pointer-events:none; }
+.hero-copy { position:relative; z-index:3; }
+.eyebrow { display:block; color:var(--gold); font-size:.79rem; letter-spacing:3px; font-weight:700; }
+.main-header h1 { margin:17px 0 18px; font-family:'Amiri',serif !important; font-size:clamp(2.8rem,5vw,5rem); font-weight:400; letter-spacing:-1px; line-height:1.38; color:#fff6e6; }
+.main-header h1 em { font-family:'Amiri',serif !important; font-style:normal; color:#d3dcf7; }
+.hero-subtitle { color:#c0c3d4; font-size:1.02rem; line-height:2.1; max-width:490px; }
+.hero-actions { display:flex; gap:12px; flex-wrap:wrap; margin-top:24px; }
+.moon-btn { padding:12px 21px; border-radius:4px; font-size:.96rem; transition:transform .25s,background .25s; }
+.moon-btn.primary { background:linear-gradient(125deg,#f1dcb0,#d9bf8e); border:1px solid #f1dfb7; color:#2b2940; font-weight:700; }
+.moon-btn.secondary { background:transparent; border:1px solid rgba(220,189,134,.6); color:#ead8ae; }
+.moon-btn:hover { transform:translateY(-3px); }
+.hero-quote { color:#999bac; font-size:.82rem; margin-top:43px; letter-spacing:.3px; }
+.arch-scene { position:relative; height:414px; display:flex; align-items:center; justify-content:center; }
+.arch-frame { width:min(270px,90%); height:379px; border:10px solid #57475b; border-bottom:18px solid #48394f; border-radius:155px 155px 6px 6px; position:relative; box-shadow:inset 0 0 0 5px #9f826d,0 0 0 2px #b49a79,0 14px 50px #090c18,0 0 62px rgba(158,169,231,.12); padding:7px; }
+.arch-inner { position:relative; height:100%; width:100%; overflow:hidden; border-radius:130px 130px 0 0; background:radial-gradient(ellipse at 50% 50%,#53628f 0%,#2a365f 48%,#19233f 80%); }
+.arch-inner::before { content:""; position:absolute; width:2px; top:0; bottom:0; left:50%; background:#826d78; opacity:.45; z-index:2; }
+.arch-inner::after { content:""; position:absolute; left:0; right:0; top:55%; height:2px; background:#826d78; opacity:.5; z-index:2; }
+.arch-moon { position:absolute; top:83px; left:calc(50% - 54px); width:108px; height:108px; border-radius:50%; background:radial-gradient(circle at 38% 28%,#fffef5,#f1eadb 72%,#b2c0e0); box-shadow:0 0 23px #e4e6de99,0 0 90px #e1e8ff89; }
+.arch-horizon { position:absolute; width:140%; height:100px; bottom:-31px; right:-30%; background:linear-gradient(#273656,#1b2541); border-radius:50% 50% 0 0; box-shadow:-140px -12px 0 -24px #33435f; }
+.arch-sill { position:absolute; bottom:0; left:-8px; right:-8px; height:15px; background:#554251; z-index:3; }
+.arch-stars { position:absolute; inset:0; background-image:radial-gradient(circle at 17% 22%,#fff 0 1px,transparent 2px),radial-gradient(circle at 79% 40%,#fff 0 1px,transparent 2px),radial-gradient(circle at 25% 63%,#fff 0 1px,transparent 2px),radial-gradient(circle at 83% 18%,#fff 0 2px,transparent 3px); opacity:.75; }
+.arch-spark { position:absolute; color:#ebdcbf; font-size:24px; filter:drop-shadow(0 0 9px #ffe4b5a5); animation:drift 6s ease-in-out infinite; }
+.spark-one { top:29px; right:13px; }.spark-two { top:155px; left:9px; animation-delay:2s; }.spark-three { bottom:47px; right:27px; animation-delay:3s; }
+@keyframes drift { 50% { transform:translateY(-9px); opacity:.65; } }
+.arch-book-stack { position:absolute; bottom:0; left:0; width:114px; transform:rotate(-7deg); opacity:.88; }
+.arch-book-stack span { display:block; margin:3px auto; height:16px; border:2px solid #d0ae75; box-shadow:2px 4px 4px #10102055; background:#625774; border-radius:2px 6px 5px 2px; }
+.arch-book-stack span:nth-child(1) { width:92px; background:#7b5366; }.arch-book-stack span:nth-child(2){width:105px;background:#406171;}.arch-book-stack span:nth-child(3){width:98px;background:#65547f;}
+.lobby-heading { text-align:center; padding:0 15px 22px; }
+.lobby-heading>span,.shelf-caption>span { color:#c9aa78; font-size:.8rem; letter-spacing:2px; }
+.lobby-heading h2 { font-family:'Amiri',serif !important; font-size:2.45rem; margin:12px 0 0; color:#f1e6d5; font-weight:400; }
+.lobby-heading p { color:#a8aaba; margin:0; font-size:.94rem; }
+.home-widgets { display:grid; grid-template-columns:1.25fr 1fr; gap:22px; margin:20px 0 65px; }
+.story-of-day,.whisper-card { background:linear-gradient(120deg,rgba(36,48,74,.94),rgba(24,33,58,.95)) !important; color:#eae6e3; text-align:right; border:1px solid rgba(216,185,131,.3); border-radius:12px; min-height:200px; padding:29px; box-shadow:0 10px 38px rgba(0,0,0,.14); margin:0; display:flex; gap:22px; align-items:flex-start; transition:transform .3s,border-color .3s; }
+.story-of-day:hover,.whisper-card:hover { transform:translateY(-4px); border-color:rgba(221,188,128,.55); }
+.story-of-day { cursor:pointer; }
+.widget-icon { color:var(--gold); font-family:serif !important; width:62px; height:62px; min-width:62px; font-size:44px; line-height:60px; border:1px solid rgba(212,181,124,.4); text-align:center; border-radius:50%; }
+.story-of-day .daily-badge,.whisper-card .daily-badge { background:none; color:#e3c998; margin:0 0 8px; padding:0; font-size:.8rem; }
+.story-of-day h2,.whisper-card h2 { color:#fff6e9; font-family:'Amiri',serif !important; font-size:1.78rem; line-height:1.3; margin:0 0 8px; }
+.story-of-day p,.whisper-card p { color:#aeb7c8; line-height:1.7; font-size:.92rem; margin:0 0 12px; }
+.underlink,.text-link { display:inline-block; margin-top:8px; background:none; border:0; padding:0; color:#ecd2a2; font-size:.9rem; font-weight:700; }
+.reset-daily-btn { position:absolute; top:auto; bottom:15px; left:16px; border:none; background:transparent; color:#aab7ce; font-size:.75rem; padding:4px; }
+.reset-daily-btn:hover { background:transparent; transform:none; color:#f0d5a4; }
+.ideas-section,.cafe-section { border-radius:12px; background:linear-gradient(135deg,#faf4e7,#ece7df) !important; border:1px solid #d7c4a9; color:var(--ink); max-width:900px; margin:0 auto 42px; padding:42px 45px; box-shadow:0 25px 55px rgba(0,0,0,.2); }
+.ideas-section { text-align:center; }
+.section-crest { width:54px; height:54px; display:grid; place-items:center; margin:0 auto 15px; border:1px solid #b49c77; color:#806c4f; border-radius:50%; font-size:26px; }
+.dark-eyebrow { color:#8f7755; letter-spacing:2px; font-size:.72rem; }
+.ideas-section h2,.cafe-section h2 { font-family:'Amiri',serif !important; color:#2c3a55 !important; font-size:2.2rem; font-weight:400; margin:10px 0 4px; }
+.privacy-copy,.cafe-intro { color:#6a6970; line-height:1.9; max-width:670px; margin:0 auto 20px; }
+.idea-form,.discussion-form { background:rgba(255,255,255,.35); border:1px solid #ded1bb; text-align:right; border-radius:8px; padding:24px; margin-bottom:0; }
+.small-label { display:block; font-size:.88rem; color:#4a4c59; margin:0 0 9px; }
+.name-input,.idea-input,.discussion-input,.reply-input,.reply-name-input,.answers-name-box input { border:1px solid #cfc3ad; border-radius:5px; color:#293448; background:rgba(255,255,255,.8); outline:none; }
+.name-input:focus,.idea-input:focus,.discussion-input:focus,.reply-input:focus,#storySearch:focus { border-color:#9182af; box-shadow:0 0 0 3px rgba(102,103,153,.14); }
+.submit-idea-btn,.start-reading-btn,.back-button,.pagination-btn,.font-controls button { border:1px solid #d4bc91; background:#233555 !important; color:#faf0d9; border-radius:4px; font-size:.95rem; padding:11px 19px; box-shadow:none; }
+.submit-idea-btn:hover,.start-reading-btn:hover,.pagination-btn:hover,.back-button:hover { background:#344b71 !important; transform:translateY(-2px); }
+.back-button { display:inline-block; margin-bottom:25px; background:transparent !important; color:#d8c39d; }
+.back-button:hover { background:rgba(255,255,255,.07) !important; }
+.site-footer { text-align:center; color:#7f879e; padding:25px 0; font-size:.8rem; }
+.library-page { max-width:1280px; }
+.library-heading { text-align:center; padding:8px 0 27px; }
+.library-heading h1 { font-family:'Amiri',serif !important; font-weight:400; color:#fff2db; font-size:clamp(2.7rem,5vw,4.25rem); margin:8px 0 4px; }
+.library-heading p { color:#b1afbf; line-height:1.8; margin:0 auto 18px; }
+.library-tools { border:1px solid rgba(209,186,147,.23); background:rgba(14,20,39,.54); padding:18px; display:flex; align-items:center; flex-wrap:wrap; gap:16px; border-radius:7px; margin-bottom:18px; }
+.search-wrap { display:flex; gap:8px; align-items:center; flex:1; min-width:200px; background:rgba(255,255,255,.07); border:1px solid rgba(200,181,151,.25); color:#c9ae85; border-radius:4px; padding:0 14px; height:43px; }
+.search-wrap span { font-size:30px; }
+#storySearch { flex:1; min-width:50px; background:transparent; border:0; outline:none; padding:10px 0; color:#fff9e8; font-size:.9rem; }
+#storySearch::placeholder { color:#a3a5b8; }
+.genre-pills { display:flex; gap:8px; flex-wrap:wrap; }
+.genre-filter { border:1px solid rgba(212,184,138,.3); background:none; color:#c6bdba; border-radius:99px; padding:8px 12px; font-size:.8rem; }
+.genre-filter:hover,.genre-filter.active { color:#242c44; border-color:#dbc99e; background:#ead3a7; }
+.shelf-caption { display:flex; justify-content:space-between; align-items:center; gap:12px; padding:12px 5px 7px; }
+.pick-book-btn { color:#d8c397; border:0; background:transparent; font-size:.88rem; text-decoration:underline; text-underline-offset:5px; }
+/* Real bookshelf: the shelf is behind each row, not separate cards. */
+.stories-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); grid-auto-rows:350px; gap:0 12px; margin:0 0 35px; padding:0 12px 12px; background:repeating-linear-gradient(to bottom,transparent 0px,transparent 290px,#a08370 291px,#74533e 296px,#513d37 307px,#261d29 317px,transparent 318px,transparent 350px); border-left:2px solid rgba(130,105,94,.2); border-right:2px solid rgba(130,105,94,.2); }
+.book-slot { display:flex; flex-direction:column; align-items:center; justify-content:flex-start; min-width:0; padding-top:16px; }
+.story-book { --cover:#647ba7; --cover-dark:#283d65; --cover-light:#aabbe0; --glyph:'✦'; position:relative; display:block; width:min(196px,92%); height:274px; border:0; background:transparent; padding:0; perspective:1100px; cursor:pointer; text-align:center; color:#f9ebcb; transition:transform .32s ease,filter .32s ease; transform-origin:bottom center; filter:drop-shadow(-8px 13px 10px rgba(0,0,0,.36)); }
+.story-book:hover,.story-book:focus-visible { transform:translateY(-12px) rotate(-2deg); filter:drop-shadow(-12px 18px 15px rgba(0,0,0,.44)); outline:none; }
+.book-front { position:absolute; display:flex; inset:0; padding:16px 16px 22px 22px; flex-direction:column; align-items:center; justify-content:space-between; color:#f5e8c4; overflow:hidden; border-radius:5px 11px 10px 4px; background:radial-gradient(ellipse at 50% 40%,rgba(255,255,255,.19),transparent 58%),linear-gradient(98deg,rgba(0,0,0,.23) 0 5%,rgba(255,255,255,.07) 8%,transparent 14%,transparent 85%,rgba(0,0,0,.17) 100%),linear-gradient(140deg,var(--cover-light),var(--cover) 35%,var(--cover-dark)); border:1px solid rgba(231,208,153,.45); box-shadow:inset -4px 0 7px rgba(255,255,255,.09),inset 7px 0 11px rgba(0,0,0,.18),5px 1px 0 #d8ceb7,9px 2px 0 #8a7a6c,12px 3px 0 #25304a; transition:transform .42s ease; }
+.book-front::before { content:""; position:absolute; inset:11px 13px 13px 16px; border:1px solid rgba(242,214,145,.65); pointer-events:none; }
+.book-front::after { content:""; position:absolute; inset:17px 19px 19px 22px; border:1px solid rgba(242,214,145,.22); pointer-events:none; }
+.book-front .book-tiny { position:relative; z-index:1; font-size:.67rem; letter-spacing:1.2px; color:#f5e6c3; opacity:.92; line-height:1.5; }
+.book-crest { position:relative; z-index:1; width:75px; height:75px; border:1px solid rgba(245,218,156,.65); transform:rotate(45deg); margin:2px 0 0; display:grid; place-items:center; box-shadow:0 0 0 5px rgba(235,211,156,.08); }
+.book-crest>span { transform:rotate(-45deg); font-family:'Amiri',serif !important; color:#ffefc5; font-size:37px; line-height:1; }
+.book-title { position:relative; z-index:1; font-family:'Amiri',serif !important; font-weight:700; line-height:1.27; font-size:clamp(1.45rem,2.5vw,1.9rem); padding:0 2px; text-shadow:0 1px 8px rgba(0,0,0,.28); }
+.book-category { position:relative; z-index:1; color:#ffe8ba; font-size:.78rem; border-top:1px solid rgba(245,218,160,.4); padding-top:10px; min-width:80px; }
+.book-slot-label { font-size:.83rem; text-align:center; margin:9px 0 0; color:#beb3b1; white-space:nowrap; max-width:95%; overflow:hidden; text-overflow:ellipsis; }
+.book-slot-label span { margin-left:6px; color:var(--gold); }
+.no-results { color:#d9c9aa; text-align:center; grid-column:1/-1; align-self:center; }
+/* Portal: a real 3D front cover turns away from the pages before navigation. */
+.book-portal { display:none; position:fixed; inset:0; z-index:5000; align-items:center; justify-content:center; background:rgba(6,11,26,.88); backdrop-filter:blur(12px); }
+.book-portal.active { display:flex; animation:portalFade .26s ease-out both; }
+@keyframes portalFade { from{opacity:0}to{opacity:1} }
+.portal-stage { text-align:center; perspective:1600px; width:min(520px,96vw); }
+.portal-book { --cover:#627ea0;--cover-dark:#344b73; --cover-light:#b2c6e6; margin:0 auto; position:relative; height:330px; width:235px; transform-style:preserve-3d; transform:rotate(-2deg); filter:drop-shadow(12px 23px 24px rgba(0,0,0,.65)); }
+.portal-pages { position:absolute; inset:0; background:repeating-linear-gradient(90deg,#f7efdf,#f7efdf 9px,#e6d9c1 10px,#f9f4e9 12px); border:8px solid #eee6d7; border-radius:3px 10px 10px 3px; box-shadow:0 0 38px rgba(234,218,173,.22); }
+.portal-cover { position:absolute; inset:0; z-index:2; transform-origin:right center; transform-style:preserve-3d; backface-visibility:hidden; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:25px; background:radial-gradient(ellipse at center,var(--cover-light),var(--cover) 42%,var(--cover-dark)); border:7px solid var(--cover-dark); outline:1px solid rgba(240,216,160,.7); box-shadow:inset 0 0 0 2px rgba(241,213,153,.6); color:#fff1c9; border-radius:4px 11px 11px 4px; }
+.portal-cover::before { content:""; position:absolute; inset:12px; border:1px solid rgba(250,225,172,.6); }
+.portal-cover strong { font-family:'Amiri',serif !important; font-size:2.2rem; z-index:1; text-shadow:0 2px 14px #08111f; }
+.portal-ornament { font-family:serif !important; font-size:35px; color:#f2dfb6; }
+.book-portal.turning .portal-cover { animation:turnCover 1s cubic-bezier(.43,.01,.16,1) forwards; }
+.book-portal.turning .portal-pages { animation:pagesGlow 1s ease-in-out forwards; }
+@keyframes turnCover { 0%{transform:rotateY(0deg)} 65%,100%{transform:rotateY(145deg)} }
+@keyframes pagesGlow { 65%{box-shadow:0 0 65px 20px rgba(224,204,154,.53)}100%{box-shadow:0 0 110px 36px rgba(208,218,255,.74)} }
+.portal-caption { color:#e3cfac; margin-top:52px; font-family:'Amiri',serif !important; font-size:1.3rem; }
+.resume-banner { margin:0 auto 24px; max-width:840px; }
+#lastReadBox { display:flex; align-items:center; gap:16px; background:rgba(198,173,118,.12) !important; border:1px solid rgba(228,192,133,.35) !important; color:#f0e5d4; text-align:right; padding:14px 20px; width:100%; border-radius:4px; box-shadow:none; }
+#lastReadBox>span:nth-child(2) { flex:1; display:flex; flex-direction:column; gap:3px; }
+#lastReadBox small { font-size:.72rem; color:#d6c18f; }
+#lastReadBox strong { font-family:'Amiri',serif !important; font-size:1.2rem; }
+#lastReadDesc { font-size:.8rem; color:#bfc0c9; }
+.resume-symbol { color:#d8be8a; font-size:30px; }
+.resume-go { font-size:.82rem; color:#d7c194; }
+/* Reader as an open book — readable paper and a quiet night around it */
+#storyReadingSection { max-width:1060px; }
+.reader-topline { display:flex; align-items:center; justify-content:center; gap:15px; color:#cab98f; font-size:.82rem; letter-spacing:2px; padding-bottom:13px; }
+.font-controls { gap:9px; margin-bottom:21px; }
+.font-controls button { min-width:41px; padding:8px 12px; font-size:.95rem; }
+.story-reading { max-width:860px; margin:auto; background:linear-gradient(90deg,#e8ddc9 0%,#fffaf0 6%,#fffdf7 48%,#f2e9d9 50%,#fffaf0 53%,#fff8e8 97%,#e8decb 100%) !important; color:#293448 !important; border:8px solid #4c3941 !important; outline:1px solid rgba(227,188,126,.68); outline-offset:-4px; border-radius:6px 14px 14px 6px; padding:46px clamp(22px,5vw,65px); box-shadow:0 20px 60px #05091599,inset -10px 0 25px #98795b25,inset 10px 0 28px #98795b25; }
+.story-reading h2 { font-family:'Amiri',serif !important; font-size:2.5rem !important; font-weight:400; color:#364666 !important; }
+.reader-category { text-align:center; margin-bottom:8px; font-size:.78rem; letter-spacing:1px; color:#75634f; }
+.reader-ornament { text-align:center; color:#a38b62; font-size:20px; margin:2px 0 22px; }
+.reading-body { white-space:pre-wrap; line-height:2.15; font-size:var(--reading-font-size); text-align:right; overflow-wrap:anywhere; color:#283144; }
+.reading-body p { margin:0; }
+.pagination-box { padding-top:28px; border-top:1px solid rgba(149,121,86,.32); margin-top:34px; flex-wrap:wrap; }
+.pagination-btn { background:#37466a !important; color:#f6e8c8; }
+.page-number { background:transparent; color:#685338 !important; border:0; }
+body.dark-mode .story-reading { background:linear-gradient(90deg,#252d3c,#2f3749 48%,#222c40 50%,#313b50) !important; color:#e1e5ed !important; border-color:#8a7890 !important; }
+body.dark-mode .story-reading h2,body.dark-mode .reading-body { color:#f1e6d7 !important; }
+body.dark-mode .reader-category { color:#d8bf98; }
+body.dark-mode .page-number { color:#f0dcb1 !important; }
+.story-intro-box { background:#f8f0e1 !important; border:1px solid #dbc6a8; color:#2c3850; max-width:760px; margin:auto; }
+.story-intro-box h1 { font-family:'Amiri',serif !important; color:#2c3a55; font-size:3rem; }
+#questionsSection .ideas-section { text-align:right; }
+.answers-name-box { background:#eee8da; color:#2c3850; }
+.answers-name-box label { color:#4b5264; }
+.discussion-item,.reply-item { background:#f4eddf !important; border:1px solid #ddd0bb; color:#293448; }
+.discussion-item { border-right:4px solid #52658c; }
+.discussion-meta,.user-badge { color:#465069; }
+.user-badge { background:#d9d0bf; }
+.cafe-section { max-width:1000px; }
+.cafe-section>h2 { text-align:center; }
+.cafe-section>.dark-eyebrow { text-align:center; }
+.cafe-intro { text-align:center; }
+/* Accessibility / mobile */
+:focus-visible { outline:2px solid #efd29a; outline-offset:4px; }
+@media(max-width:980px) { .stories-grid { grid-template-columns:repeat(3,minmax(0,1fr)); } .main-header{padding:44px 42px;}.home-widgets{grid-template-columns:1fr 1fr;} }
+@media(max-width:800px) { .navbar { padding:0 16px; }.nav-links{display:none !important}.hamburger-menu{display:block}.main-header{grid-template-columns:1fr; padding:35px 22px 25px; border-radius:0 0 60px 12px; text-align:center; }.main-header::after{border-radius:0 0 50px 5px}.hero-subtitle{margin:0 auto}.hero-actions{justify-content:center}.hero-quote{margin:25px 0 0}.arch-scene{height:320px}.arch-frame{height:290px;width:207px}.arch-moon{height:78px;width:78px;left:calc(50% - 39px);top:75px}.home-widgets{grid-template-columns:1fr}.stories-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.ideas-section,.cafe-section{padding:28px 20px}.container{padding:30px 17px} }
+@media(max-width:510px) { .nav-logo{font-size:.88rem}.nav-logo small{font-size:.55rem}.brand-emblem{width:30px;height:30px;font-size:19px}.nav-container{min-height:65px}.main-header h1{font-size:2.6rem}.eyebrow{font-size:.7rem;letter-spacing:1px}.moon-btn{width:100%}.arch-scene{height:260px}.arch-frame{height:242px;width:185px}.arch-moon{height:70px;width:70px;left:calc(50% - 35px);top:58px}.arch-book-stack{left:0;bottom:-3px;transform:scale(.7)}.stories-grid{grid-auto-rows:298px; gap:0 3px; padding:0 2px 10px; background:repeating-linear-gradient(to bottom,transparent 0,transparent 253px,#a08370 254px,#74533e 260px,#513d37 271px,#261d29 279px,transparent 280px,transparent 298px)}.story-book{width:min(146px,90%);height:232px}.book-front{padding:12px 10px 14px 13px}.book-front::before{inset:8px 8px 8px 11px}.book-front::after{inset:13px 13px 13px 16px}.book-crest{width:54px;height:54px}.book-crest>span{font-size:29px}.book-title{font-size:1.45rem}.book-front .book-tiny{font-size:.52rem}.book-category{font-size:.67rem}.book-slot-label{font-size:.74rem;margin-top:6px}.library-heading h1{font-size:2.7rem}.shelf-caption{flex-wrap:wrap}.story-reading{padding:33px 20px;border-width:6px !important}.reader-ornament{margin-bottom:14px}.reading-body{line-height:1.95}.portal-book{width:196px;height:282px}.portal-caption{margin-top:35px}.resume-go{display:none}.widget-icon{height:43px;width:43px;min-width:43px;font-size:31px;line-height:40px} }
+@media(prefers-reduced-motion:reduce) { *,*::before,*::after{scroll-behavior:auto !important;animation-duration:.001ms !important;transition-duration:.001ms !important;} }
+
+
+/* ===========================================================
+   THE TWO WORLDS — genuine Daylight / Moonlight themes (V3)
+   Theme classes are on body and apply across EVERY section.
+   =========================================================== */
+body {
+  transition:background-color .55s ease,color .4s ease;
+}
+/* DAY: ivory walls, powder-blue sky, warmth and sunlight */
+body.day-time {
+  --gold:#b28a53;
+  --gold-light:#d3b98e;
+  --night:#eaf2fa;
+  --night-2:#f6f7f4;
+  --midnight:#dbe8f4;
+  --primary-color:#48638a;
+  --secondary-color:#edf3fa;
+  --card-bg:#fffaf1;
+  --shadow:0 16px 40px rgba(76,108,151,.12);
+  background:linear-gradient(165deg,#e8f2fa 0%,#f8f8f2 38%,#dbeaf7 100%) !important;
+  color:#314766;
+}
+body.day-time::before {
+  background:radial-gradient(circle at 77% 12%,rgba(255,241,194,.65),transparent 29%),
+    radial-gradient(circle at 15% 43%,rgba(177,204,240,.23),transparent 34%);
+}
+body.day-time .sky-stars {opacity:0 !important;visibility:hidden;animation:none;}
+body.day-time .navbar {
+  background:rgba(250,250,245,.94) !important;
+  box-shadow:0 1px 0 rgba(113,144,178,.23),0 7px 24px rgba(89,119,150,.07);
+}
+body.day-time .nav-logo { color:#385271; }
+body.day-time .nav-logo small { color:#7990a5; }
+body.day-time .brand-emblem {
+  color:#597eaf; border-color:#a6bad0;
+  background:linear-gradient(145deg,#f8fbff,#e4eff9);
+}
+body.day-time .nav-links a {color:#425976;}
+body.day-time .nav-links a:hover {color:#8c693d;}
+body.day-time .theme-toggle {border-color:#a7b8cf;color:#5a7297;background:#edf4fb;}
+body.day-time .hamburger-menu {color:#58799c;}
+body.day-time .mobile-nav {background:#f1f6fc;border-left-color:#b7c9dc;}
+body.day-time .mobile-nav a {color:#2e4b70;background:none;border-color:#cad8e9;}
+body.day-time .main-header {
+  background:linear-gradient(120deg,#fdfbf4,#ebf3fa 55%,#d3e5f5) !important;
+  border-color:rgba(142,173,200,.45);
+  box-shadow:0 22px 65px rgba(111,146,178,.15);
+}
+body.day-time .main-header::after {border-color:rgba(123,160,190,.23);}
+body.day-time .eyebrow {color:#8b6e49;}
+body.day-time .main-header h1 {color:#374c67;text-shadow:0 2px 6px rgba(255,255,255,.5);}
+body.day-time .main-header h1 em {color:#6589b9;}
+body.day-time .hero-subtitle {color:#597089;}
+body.day-time .hero-quote {color:#8290a1;}
+body.day-time .moon-btn.primary {background:linear-gradient(120deg,#7399c6,#446991);color:white;border-color:#547ca5;}
+body.day-time .moon-btn.secondary {color:#435e80;border-color:#9ab2cf;background:rgba(255,255,255,.6);}
+/* The same magical window, now opening into bright blue daylight */
+body.day-time .arch-frame {
+  border-color:#c8d4dd;border-bottom-color:#adbfcf;
+  box-shadow:inset 0 0 0 5px #ebe1d3,0 0 0 2px #d6c7b2,0 18px 44px rgba(80,128,170,.16),0 0 55px rgba(226,237,255,.7);
+}
+body.day-time .arch-inner {background:linear-gradient(180deg,#8fbee9 0%,#c9e0ef 53%,#edf6f8 100%);}
+body.day-time .arch-inner::before,body.day-time .arch-inner::after {background:#c7d1d4;opacity:.7;}
+body.day-time .arch-moon {
+  background:radial-gradient(circle at 41% 38%,#fffef7,#ffe6a3 53%,#ffc66d 90%);
+  box-shadow:0 0 45px 11px rgba(255,225,153,.66),0 0 100px 25px rgba(255,242,193,.44);
+}
+body.day-time .arch-stars {opacity:0;}
+body.day-time .arch-horizon {
+  background:linear-gradient(#a6c3ca,#8aa7a2);
+  box-shadow:-140px -12px 0 -24px #b8c6ba;
+}
+body.day-time .arch-sill {background:#a7afb6;}
+body.day-time .arch-spark {color:#a5b8c6;filter:none;opacity:.6;}
+body.day-time .lobby-heading>span,
+body.day-time .shelf-caption>span {color:#947854;}
+body.day-time .lobby-heading h2 {color:#405775;}
+body.day-time .lobby-heading p {color:#637b95;}
+body.day-time .story-of-day,body.day-time .whisper-card {
+  background:linear-gradient(128deg,#fffbf2,#eaf1f9) !important;
+  color:#334963;border-color:#cbd7e2;
+  box-shadow:0 14px 30px rgba(99,132,167,.10);
+}
+body.day-time .story-of-day:hover,body.day-time .whisper-card:hover {border-color:#9ab2cf;}
+body.day-time .widget-icon {color:#8b774e;border-color:#c7b18d;background:#fffaf0;}
+body.day-time .story-of-day .daily-badge,body.day-time .whisper-card .daily-badge {color:#9a784a;}
+body.day-time .story-of-day h2,body.day-time .whisper-card h2 {color:#364e6d;}
+body.day-time .story-of-day p,body.day-time .whisper-card p {color:#6b7f95;}
+body.day-time .underlink,body.day-time .text-link {color:#426d9d;}
+body.day-time .reset-daily-btn {color:#667e9a;}
+body.day-time .library-heading h1 {color:#354d6a;}
+body.day-time .library-heading p {color:#6a8198;}
+body.day-time .library-tools {background:rgba(255,255,255,.75);border-color:#bdcfe2;box-shadow:0 9px 25px rgba(93,124,160,.08);}
+body.day-time .search-wrap {border-color:#b3c6db;background:#f9fbfe;}
+body.day-time #storySearch {color:#334f74;}
+body.day-time #storySearch::placeholder {color:#869bb1;}
+body.day-time .genre-filter {color:#566e86;border-color:#b9c9da;background:rgba(248,251,255,.65);}
+body.day-time .genre-filter:hover,body.day-time .genre-filter.active {color:#fffaf0;background:#597ba5;border-color:#597ba5;}
+body.day-time .pick-book-btn {color:#647ba1;}
+body.day-time .book-slot-label {color:#587089;}
+body.day-time .book-slot-label span {color:#aa8557;}
+body.day-time .no-results {color:#536d91;}
+body.day-time #lastReadBox {background:rgba(255,253,245,.9) !important;border-color:#b1c2d8 !important;color:#3e5678;}
+body.day-time #lastReadBox small {color:#9a7e58;}
+body.day-time #lastReadDesc {color:#657c95;}
+body.day-time .resume-symbol,body.day-time .resume-go {color:#718fb6;}
+body.day-time .reader-topline {color:#6c87a9;}
+body.day-time .site-footer {color:#6e8098;}
+body.day-time .back-button,body.day-time .submit-idea-btn,
+body.day-time .start-reading-btn,body.day-time .pagination-btn,
+body.day-time .font-controls button {background:#54749e !important;border-color:#6989b0;color:#fff9ea;}
+body.day-time .back-button:hover,body.day-time .submit-idea-btn:hover,
+body.day-time .start-reading-btn:hover,body.day-time .pagination-btn:hover,
+body.day-time .font-controls button:hover {background:#385f89 !important;}
+body.day-time .book-portal {background:rgba(50,73,102,.82);}
+/* Text ink in daytime paper; NIGHT retains V2 navy-paper variant. */
+body.day-time .story-reading {
+  background:linear-gradient(90deg,#e6dbc7,#fffaf0 6%,#fffdf7 48%,#f2e9d9 50%,#fffaf0 53%,#fff8e8 97%,#e8decb) !important;
+  border-color:#8a7083 !important;
+  color:#293448 !important;
+  box-shadow:0 21px 55px rgba(70,104,143,.2),inset -10px 0 25px #98795b25,inset 10px 0 28px #98795b25;
+}
+body.day-time .story-reading h2,body.day-time .reading-body {color:#293448 !important;}
+body.day-time .reader-category {color:#76644d;}
+body.day-time .page-number {color:#685338 !important;}
+/* When visiting during daytime, the whole website is luminous, including discussion pages. */
+body.day-time .ideas-section,body.day-time .cafe-section,body.day-time .story-intro-box {
+  box-shadow:0 22px 52px rgba(80,116,149,.15);
+}
+/* NIGHT reaffirms the moonlit style consistently, including the reading page. */
+body.night-time,body.night-time.dark-mode {background:#0c1425 !important;color:#ede6d8;}
+body.night-time .sky-stars {visibility:visible;}
+body.night-time .story-reading {box-shadow:0 20px 60px #05091599,inset -10px 0 25px #98795b25,inset 10px 0 28px #98795b25;}
+/* A small, very Batoul-coded author's corner: blue stationery, constellations and tea. */
+.batoul-nook {
+  --nook-ink:#354e75;
+  position:relative; isolation:isolate;
+  display:grid;grid-template-columns:185px 1fr;gap:28px;align-items:center;
+  max-width:1000px;margin:8px auto 52px;padding:31px 43px;
+  background:linear-gradient(118deg,#fdfbf4,#e9eef7 68%,#dbeaf4);
+  border:1px solid #c9bdd0;border-radius:10px 44px 10px 44px;
+  color:var(--nook-ink);box-shadow:0 18px 49px rgba(10,16,35,.15);
+  overflow:hidden;
+}
+.batoul-nook::before {content:'✦  ·  ✧    ·   ✧';position:absolute;top:15px;left:28px;color:#7296c5;opacity:.52;letter-spacing:10px;font-size:14px;pointer-events:none;}
+.nook-art {position:relative;min-height:182px;display:grid;place-items:center;}
+.nook-paper {height:140px;width:112px;border:1px solid #c7bed1;border-radius:3px;
+  background:repeating-linear-gradient(180deg,#fbfcff 0px,#fbfcff 20px,#dce7f7 21px,#fbfcff 22px);
+  transform:rotate(-11deg);box-shadow:8px 12px 19px rgba(34,69,106,.11);}
+.nook-paper::before {content:'بتول';display:block;text-align:center;margin-top:21px;font-family:'Amiri',serif !important;font-size:32px;color:#6785b4;}
+.nook-pen {position:absolute;left:20px;bottom:10px;transform:rotate(-30deg);font-size:32px;filter:drop-shadow(1px 3px 1px rgba(40,60,90,.13));}
+.nook-tea {position:absolute;right:5px;bottom:6px;font-size:43px;filter:drop-shadow(2px 4px 2px rgba(40,60,90,.12));}
+.nook-star {position:absolute;top:13px;right:18px;color:#d0ac68;font-size:26px;}
+.nook-copy {position:relative;z-index:1;}
+.nook-kicker {font-size:.8rem;color:#8e7192;letter-spacing:1.6px;}
+.batoul-nook h2 {font-family:'Amiri',serif !important;font-weight:400;line-height:1.3;font-size:clamp(1.8rem,3.1vw,2.3rem);color:#354f78;margin:7px 0 10px;}
+.batoul-nook p {font-size:.98rem;line-height:2;color:#61778f;margin:0 0 15px;}
+.nook-note-button {background:transparent;border:0;border-bottom:1px solid #879ec3;padding:4px 0;color:#486b9a;font-weight:700;font-size:.95rem;}
+.nook-note-button:hover {color:#254e86;}
+.nook-letter {margin-top:17px;background:#fffefa;border:1px solid #d7c7a9;border-radius:3px 14px 3px 14px;padding:17px 20px;box-shadow:0 9px 22px rgba(66,89,135,.09);animation:letterArrive .35s ease both;}
+.nook-letter p {font-family:'Amiri',serif !important;font-size:1.35rem;color:#3a4f6c;line-height:1.85;margin:0 0 10px;}
+.nook-letter strong {font-family:'Amiri',serif !important;color:#5b7fb1;font-size:1.28rem;}
+@keyframes letterArrive {from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+body.night-time .batoul-nook {background:linear-gradient(120deg,#202943,#273c5b 75%,#304663);color:#f0e9e1;border-color:rgba(185,180,223,.28);box-shadow:0 24px 60px #05091545;}
+body.night-time .batoul-nook::before,body.night-time .nook-star {color:#d6c4e9;}
+body.night-time .batoul-nook h2 {color:#f4e9db;}
+body.night-time .nook-kicker {color:#e0caa6;}
+body.night-time .batoul-nook p {color:#c4cfdf;}
+body.night-time .nook-note-button {color:#e2cfa8;border-color:#8c87a0;}
+body.night-time .nook-letter {background:#eff1f8;border-color:#c3c9d7;}
+body.night-time .nook-letter p {color:#3b4e73;}
+.book-author {position:relative;z-index:1;color:rgba(255,237,196,.82);font-family:'Amiri',serif !important;font-size:.89rem;letter-spacing:.2px;}
+.book-category {padding-top:6px;}
+.batoul-mark {font-family:'Amiri',serif !important;font-size:1.13rem;letter-spacing:.4px;opacity:.88;}
+body.day-time .batoul-nook {box-shadow:0 16px 38px rgba(98,137,177,.13);}
+@media(max-width:650px) {
+  .batoul-nook{grid-template-columns:1fr;padding:25px 23px;gap:3px;border-radius:12px 28px 12px 28px;}
+  .nook-art{min-height:145px;max-width:200px;margin:0 auto;transform:scale(.88);}
+  .nook-copy{text-align:center;}
+  .nook-letter{text-align:right;}
+}
+@media(prefers-reduced-motion:reduce) {.nook-letter{animation:none;}}
+
+
+/* ===== شاي الكاتبة — interactive author room ===== */
+.tea-room-page { --tea-ink:#303d5a; --tea-gold:#ae8b58; max-width:1100px; }
+.tea-header {text-align:center;padding:22px 15px 23px;color:#f1e8dc;}
+.tea-header .tea-eyebrow,.tea-inside-heading,.tea-panel-kicker{letter-spacing:1.1px;color:#d1b789;font-size:.91rem;}
+.tea-header h1{font:normal clamp(3rem,6vw,4.9rem) 'Amiri',serif !important;margin:0 0 4px;color:#faf0d9;line-height:1.3;}
+.tea-header p{color:#c7cfe0;font-size:1.09rem;line-height:1.8;margin:0;}
+.tea-tiny-moon{display:block;margin:18px auto 2px;color:#bbac89;font-size:1.3rem;letter-spacing:10px;}
+.tea-desk{position:relative;max-width:870px;margin:3px auto 25px;padding:24px 22px 28px;overflow:hidden;isolation:isolate;border:10px solid #443828;border-radius:22px; background:repeating-linear-gradient(88deg,rgba(255,255,255,.025) 0 3px,transparent 3px 75px),linear-gradient(125deg,#695041,#302f37 45%,#684a35);box-shadow:0 32px 65px #05091077,inset 0 0 0 2px #aa8860;}
+.tea-desk::before{content:"";position:absolute;inset:12px;border:1px solid rgba(237,205,144,.28);border-radius:13px;pointer-events:none;}
+.tea-desk-stars{position:absolute;top:16px;left:25px;color:#c5ad87;opacity:.7;letter-spacing:7px;}
+.tea-objects{display:flex;justify-content:space-evenly;align-items:center;gap:40px;min-height:345px;}
+.tea-book{width:215px;height:294px;position:relative;background:none;border:0;padding:0;cursor:pointer;perspective:1200px;filter:drop-shadow(13px 12px 12px #10111c77);transition:transform .4s ease;}
+.tea-book:hover,.tea-book:focus-visible{transform:translateY(-10px) rotate(2deg);outline:none;}
+.tea-book-front{position:absolute;inset:0 0 0 8px;display:flex;flex-direction:column;justify-content:space-evenly;align-items:center;border-radius:4px 13px 12px 4px;color:#fbe9c4;border:2px solid #b6a47f;background:linear-gradient(95deg,#243b61 0 7%,#738cb2 10%,#345b82 28%,#213b64 77%,#142e4f 100%);box-shadow:5px 0 0 #f2e6ce,9px 1px 0 #a49a8a,13px 3px 0 #1b1c21,inset 10px 0 18px rgba(0,0,0,.17),inset -5px 0 14px rgba(0,0,0,.18);transform-origin:8px center;transition:transform .72s cubic-bezier(.21,.7,.23,1);backface-visibility:hidden;}
+.tea-book.is-open .tea-book-front{transform:rotateY(-155deg);}
+.tea-book.is-open{z-index:2;}
+.tea-book-border{position:absolute;inset:11px;border:1px solid #d8c08b;box-shadow:0 0 0 5px rgba(220,193,139,.06);pointer-events:none;}
+.tea-book-front strong{font:normal 2.35rem 'Amiri',serif !important;z-index:1;}
+.tea-book-front small,.tea-book-symbol,.tea-book-star{color:#decaa2;z-index:1;}
+.tea-book-symbol{font-size:1.5rem;letter-spacing:12px;}.tea-book-star{font-size:2rem;}
+.tea-book-spine{position:absolute;top:0;left:0;width:20px;height:100%;background:linear-gradient(90deg,#0d2546,#4d719d,#192c47);border:1px solid #cfb785;border-radius:7px 0 0 7px;}
+.tea-cup-button{position:relative;width:242px;height:240px;background:transparent;border:0;cursor:pointer;filter:drop-shadow(7px 16px 10px #11151d77);transition:transform .3s ease;}
+.tea-cup-button:hover,.tea-cup-button:focus-visible{transform:rotate(-5deg) translateY(-5px);outline:none;}
+.tea-cup-button.spilling{animation:cupTilt .75s both;}
+@keyframes cupTilt{0%,100%{transform:rotate(0)}45%{transform:rotate(-37deg) translate(-25px,6px)}}
+.tea-saucer{position:absolute;bottom:32px;left:27px;right:27px;height:46px;border-radius:50%;background:radial-gradient(ellipse at center,#b9c9c2 0 24%,#f9fff3 25% 57%,#789f93 58% 61%,#eff7ed 65%);box-shadow:0 10px 11px #111a233b;}
+.tea-cup{position:absolute;bottom:47px;left:63px;width:121px;height:110px;border-radius:7px 7px 52px 52px;background:linear-gradient(90deg,#c2d5c8,#f6fff5 28%,#fafff4 64%,#a2bbae 100%);box-shadow:inset 3px 0 9px #859e9299;z-index:2;}
+.tea-cup::before{content:"";position:absolute;left:0;top:-10px;width:121px;height:34px;border-radius:50%;background:radial-gradient(ellipse at center,#829d46 0%,#b2c781 49%,#f4fdef 53%,#aabdad 64%,#f9fff5 72%);box-shadow:0 2px 5px #61785d77;}
+.tea-cup-handle{position:absolute;width:65px;height:72px;border:16px solid #e5f1e6;border-left:8px solid #d7eadd;border-radius:50%;left:155px;bottom:78px;box-shadow:2px 0 5px #576e6155;}
+.tea-cup-bloom{position:absolute;top:41px;left:43px;color:#58847c;font-size:1.65rem;opacity:.74;}
+.tea-steam{position:absolute;width:22px;height:66px;left:100px;bottom:153px;border-radius:50%;border-right:3px solid rgba(240,250,246,.55);filter:blur(3px);animation:steamRise 3s ease-in-out infinite;}
+.steam-b{left:128px;animation-delay:-1s;height:54px}.steam-c{left:152px;animation-delay:-2s;height:60px}
+@keyframes steamRise{0%,100%{transform:translateY(2px) scale(.85);opacity:.12}50%{transform:translateY(-23px) scale(1.1);opacity:.7}}
+.tea-cup-label{position:absolute;bottom:0;left:0;width:100%;font:normal 1.45rem 'Amiri',serif !important;color:#f1ddba;text-align:center;}
+.tea-desk-hint{text-align:center;margin:6px 0 0;color:#f1d9b8;font-size:.9rem;opacity:.86;}
+.tea-book-contents{max-width:860px;margin:12px auto 25px;border:8px solid #af9578;border-radius:13px;background:linear-gradient(90deg,#fff9ed 0%,#fffaf0 48%,#e9e1d3 50%,#fff9ed 52%,#fff9ed 100%);box-shadow:inset 0 0 30px #baa78844,0 25px 60px #060c1755;padding:38px 50px 42px;color:#303f59;animation:teaOpenContents .6s both;}
+@keyframes teaOpenContents{from{opacity:0;transform:translateY(12px) scale(.97)}to{opacity:1;transform:none}}
+.tea-inside-heading{text-align:center;color:#856e4b;margin-bottom:24px;}
+.tea-book-menu{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+.tea-choice{padding:30px 16px 27px;border:1px solid #d2bd93;border-radius:6px 20px 6px 20px;background:rgba(255,255,255,.5);cursor:pointer;color:#344b70;transition:transform .2s ease,box-shadow .2s ease;text-align:center;display:flex;flex-direction:column;align-items:center;gap:10px;}
+.tea-choice:hover,.tea-choice:focus-visible{transform:translateY(-5px);box-shadow:0 14px 27px #a78c6c33;outline:2px solid #9eaece;}
+.tea-choice-icon{font-size:2.45rem;color:#b19665;}.tea-choice strong{font:normal 1.95rem 'Amiri',serif !important;}.tea-choice small{font-size:.91rem;color:#6d7584;}
+.tea-detail-panel{animation:teaOpenContents .3s both;}
+.tea-text-back{display:inline-flex;align-items:center;background:none;border:0;border-bottom:1px solid #9ca4b7;cursor:pointer;color:#4f6b91;font-size:.88rem;padding:7px 0;margin:0 0 20px;}
+.tea-panel-kicker{display:block;text-align:center;color:#8e7952;margin:8px auto 15px;}
+.tea-detail-panel h2{font:normal 2.3rem 'Amiri',serif !important;text-align:center;margin:0 0 14px;color:#344d70;}
+.tea-secret-paper{max-width:620px;margin:25px auto 22px;padding:35px 32px;position:relative;background:#fffefb;border:1px solid #dfcda9;box-shadow:8px 11px 0 #dfd7c3,0 13px 25px #655b4b33;transform:rotate(-1deg);text-align:center;}
+.tea-secret-paper::before{content:'✦ ✧ ✦';color:#bea16f;letter-spacing:15px;position:absolute;top:14px;left:0;right:0;}
+.tea-secret-paper p{font:normal 1.5rem 'Amiri',serif !important;line-height:1.95;margin:30px auto 10px;color:#394c6b;}
+.tea-secret-paper small{color:#8a775a;font-size:.86rem;}
+.tea-small-action{cursor:pointer;background:linear-gradient(100deg,#395a89,#688aba);border:1px solid #5676a2;color:#fff8ea;padding:12px 21px;border-radius:8px;font-size:.97rem;transition:filter .2s,transform .2s;}
+.tea-small-action:hover{filter:brightness(1.08);transform:translateY(-2px)}
+.tea-help{color:#66748a;font-size:.97rem;line-height:1.9;text-align:center;margin-bottom:12px;}
+.tea-auth-note{font-size:.82rem;color:#857960;background:#f5eddb;padding:12px;border-radius:10px;}
+.tea-status{padding:12px;border-radius:9px;background:#eaf1f7;color:#425b7d;font-size:.9rem;line-height:1.7;margin:10px auto 18px;}
+.tea-messages{min-height:55px;max-height:360px;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:13px;background:rgba(255,255,255,.52);border:1px solid #d9d0bd;border-radius:12px;}
+.tea-message{max-width:86%;padding:12px 17px;border-radius:18px 18px 4px 18px;background:#d9e7f4;color:#2d4763;align-self:flex-start;white-space:pre-wrap;overflow-wrap:anywhere;}
+.tea-message.from-author{background:#eff1dd;border:1px solid #d3d6ab;align-self:flex-end;border-radius:18px 18px 18px 4px;}
+.tea-message small{display:block;opacity:.65;font-size:.76rem;margin-top:7px;}
+.tea-question-form{display:flex;flex-direction:column;gap:12px;margin-top:20px;}
+.tea-question-form label{font-weight:700;color:#4a5b77;}
+.tea-question-form textarea{background:#fffefb;color:#253a56;border:1px solid #bac8d7;border-radius:10px;padding:13px;min-height:96px;resize:vertical;width:100%;box-sizing:border-box;font-size:1rem;}
+.tea-form-bottom{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;}
+.tea-form-bottom span{font-size:.83rem;color:#7d8190;}
+.tea-small-action:disabled{opacity:.5;cursor:not-allowed;transform:none;}
+.tea-author-access{margin:20px auto 30px;text-align:center;max-width:750px;}
+.tea-author-trigger{border:0;background:transparent;color:#b7a783;border-bottom:1px solid #9e8d6a;cursor:pointer;padding:7px 4px;}
+.tea-author-panel{padding:18px;margin-top:16px;background:#f3f0e8;border:1px solid #d2c2a4;color:#425475;border-radius:14px;text-align:right;}
+.tea-inbox-list{display:flex;flex-direction:column;gap:8px;margin:10px auto;max-height:250px;overflow:auto;}
+.tea-thread-pick{border:1px solid #b7c8d6;background:#fafdfd;color:#375a7b;padding:10px;text-align:right;border-radius:7px;cursor:pointer;}
+.tea-thread-pick:hover{background:#e6f0f9;}
+.tea-splash{position:fixed;inset:0;z-index:9000;pointer-events:none;overflow:hidden;display:none;}
+.tea-splash.active{display:block;}
+.tea-splash-blob{position:absolute;background:radial-gradient(circle at 35% 20%,#bfd381,#7fa650 58%,#46773a 100%);opacity:.92;border-radius:38% 62% 57% 43%/42% 40% 60% 58%;filter:blur(1px);}
+.tea-splash.active .blob-a{width:75vw;height:80vh;top:-55vh;left:-15vw;animation:spillageA 1.65s ease-out forwards;}
+.tea-splash.active .blob-b{width:68vw;height:70vh;bottom:-60vh;right:-25vw;animation:spillageB 1.7s ease-out forwards;}
+.tea-splash.active .blob-c{width:20vw;height:26vh;top:10vh;right:12vw;animation:spillageC 1.6s ease-out forwards;}
+.tea-splash.active .blob-d{width:10vw;height:15vh;top:46vh;left:20vw;animation:spillageC 1.5s .12s ease-out forwards;}
+@keyframes spillageA{0%{transform:translateY(-40vh) rotate(-35deg);opacity:0}45%{opacity:.95}100%{transform:translate(55vw,76vh) rotate(35deg) scale(1.55);opacity:0}}
+@keyframes spillageB{0%{transform:translateY(30vh);opacity:0}40%{opacity:.9}100%{transform:translate(-45vw,-72vh) rotate(30deg) scale(1.5);opacity:0}}
+@keyframes spillageC{0%{transform:scale(.15);opacity:0}40%{transform:scale(1.5);opacity:.9}100%{transform:scale(3.4) translateY(40px);opacity:0}}
+.tea-panic{z-index:9010;position:fixed;bottom:25px;left:50%;transform:translateX(-50%);max-width:min(94vw,640px);width:max-content;box-sizing:border-box;border:2px solid #c7d892;border-radius:17px;box-shadow:0 20px 50px #142e1955;background:#f4fae2;color:#355730;padding:20px 48px 18px 22px;text-align:center;}
+.tea-panic strong{display:block;font-size:1.15rem;line-height:1.6;}.tea-panic span{display:block;font-size:.85rem;margin-top:7px;}.tea-panic button{position:absolute;top:5px;left:6px;border:0;background:transparent;color:#355730;font-size:1.2rem;cursor:pointer;}
+/* Global prank state — overrides day/night styling, not the story cover colors. */
+body.tea-spilled,body.tea-spilled.day-time,body.tea-spilled.night-time {background:radial-gradient(circle at 20% 10%,#e2f4bd 0%,#b4ce96 32%,#649278 90%) !important;color:#294937;}
+body.tea-spilled .navbar {background:linear-gradient(105deg,#244d38,#4e7959) !important;border-bottom-color:#88b394 !important;}
+body.tea-spilled .nav-logo,body.tea-spilled .nav-logo small,body.tea-spilled .nav-links a{color:#f5ffe7 !important;}
+body.tea-spilled .theme-toggle{background:#eaf9df !important;color:#315b37 !important;border-color:#b7d5a2 !important;}
+body.tea-spilled .main-header{background:linear-gradient(120deg,#d7eed0,#8fbda0) !important;border-color:#628d67 !important;}
+body.tea-spilled .main-header h1,body.tea-spilled .main-header h1 em,body.tea-spilled .hero-subtitle,body.tea-spilled .hero-quote,body.tea-spilled .eyebrow{color:#315641 !important;}
+body.tea-spilled .arch-inner{background:linear-gradient(180deg,#bce3c8,#e2f2c8) !important;}
+body.tea-spilled .library-heading h1,body.tea-spilled .library-heading p,body.tea-spilled .lobby-heading h2,body.tea-spilled .lobby-heading p{color:#2b5237 !important;}
+body.tea-spilled .story-of-day,body.tea-spilled .whisper-card,body.tea-spilled .batoul-nook,body.tea-spilled .ideas-section,body.tea-spilled .cafe-section,body.tea-spilled .story-intro-box,body.tea-spilled .tea-author-panel{background:#ecf7dc !important;border-color:#91b48a !important;color:#2a4d37 !important;}
+body.tea-spilled .story-of-day h2,body.tea-spilled .whisper-card h2,body.tea-spilled .batoul-nook h2{color:#335d43 !important;}
+body.tea-spilled .story-of-day p,body.tea-spilled .whisper-card p,body.tea-spilled .batoul-nook p{color:#547356 !important;}
+body.tea-spilled .library-tools,body.tea-spilled #lastReadBox{background:#e4f1d5 !important;border-color:#96b58f !important;}
+body.tea-spilled .reader-topline,body.tea-spilled .site-footer,body.tea-spilled .tea-header,body.tea-spilled .tea-header h1,body.tea-spilled .tea-header p{color:#274e35 !important;}
+body.tea-spilled .tea-desk{border-color:#4a744d;background:linear-gradient(120deg,#527853,#315d43);}
+body.tea-spilled .tea-book-contents{border-color:#94af83;background:linear-gradient(90deg,#eff8e6 0%,#f3faea 48%,#b8cea8 50%,#f3faea 52%);}
+body.tea-spilled .sky-stars{opacity:.08 !important;}
+body.tea-spilled .story-reading{border-color:#8aac79 !important;}
+body.tea-spilled .moon-btn.primary,body.tea-spilled .moon-btn.secondary,body.tea-spilled .start-reading-btn,body.tea-spilled .submit-idea-btn,body.tea-spilled .back-button{background:#467952 !important;color:#fff !important;border-color:#5a9264 !important;}
+body.day-time .tea-header h1{color:#385371;}body.day-time .tea-header p{color:#68829a;}body.day-time .tea-header .tea-eyebrow{color:#937f60;}
+body.day-time .tea-desk{box-shadow:0 25px 55px #59708a33;}
+body.day-time .tea-author-trigger{color:#6b86a2;border-color:#a6afba;}
+@media(max-width:650px){.tea-objects{min-height:255px;gap:5px}.tea-book{width:139px;height:204px}.tea-book-front strong{font-size:1.65rem}.tea-book-symbol{font-size:1rem;letter-spacing:4px}.tea-book-front small{font-size:.7rem}.tea-book-star{font-size:1.4rem}.tea-cup-button{width:150px;height:175px;transform:scale(.72);transform-origin:center}.tea-cup-button:hover{transform:scale(.72) rotate(-4deg)}.tea-desk{padding:12px 8px 17px;border-width:7px}.tea-book-contents{padding:22px 18px;border-width:5px}.tea-book-menu{grid-template-columns:1fr}.tea-secret-paper{padding:23px 17px}.tea-secret-paper p{font-size:1.3rem}.tea-desk-hint{font-size:.8rem}.tea-header h1{font-size:3.3rem}.tea-panic{bottom:15px;padding:19px 30px 17px 15px;width:94vw}.tea-panic strong{font-size:1rem}}
+@media(prefers-reduced-motion:reduce){.tea-steam,.tea-splash-blob,.tea-book-front,.tea-book-contents,.tea-cup-button.spilling{animation:none !important;transition:none !important;}}
+
+    
+/* ===== V5: a real opening book, with two visible pages ===== */
+.tea-desk {
+  background:repeating-linear-gradient(90deg,rgba(205,147,90,.03) 0 4px, transparent 4px 90px),
+             radial-gradient(ellipse at 70% 10%,rgba(246,197,119,.18),transparent 65%),
+             linear-gradient(120deg,#78513b,#4c342b 52%,#644333);
+}
+.tea-objects {gap:6px;justify-content:center;align-items:center;min-height:342px;}
+.tea-book {
+  position:relative;
+  flex:0 1 435px;
+  width:min(435px,100%);
+  height:306px;
+  perspective:1600px;
+  transform:translateX(-24%);
+  transform-style:preserve-3d;
+  filter:drop-shadow(8px 17px 13px rgba(5,10,17,.42));
+  transition:transform .75s cubic-bezier(.22,.7,.23,1);
+}
+.tea-book:hover,.tea-book:focus-within {transform:translateX(-24%);}
+.tea-book:not(.is-open):hover {transform:translateX(-24%) translateY(-8px);}
+.tea-book.is-open,.tea-book.is-open:hover,.tea-book.is-open:focus-within {transform:none;z-index:4;}
+.tea-book-pages {
+  position:absolute;inset:0;
+  display:grid;grid-template-columns:1fr 1fr;
+  color:#34435b;
+  background:linear-gradient(90deg,#ead9b9 0%,#fff9e9 4%,#fffdf3 47%,#e3d7c4 50%,#fffaf0 53%,#fffdf5 96%,#e7d6b9 100%);
+  border:6px solid #223d60;
+  outline:1px solid rgba(221,187,130,.95);
+  border-radius:6px 17px 17px 6px;
+  box-shadow:inset 0 0 0 2px rgba(123,86,45,.22),0 12px 30px rgba(0,0,0,.26);
+  opacity:0;visibility:hidden;
+  transform:scaleX(.55);
+  transition:transform .75s cubic-bezier(.16,.71,.26,1),opacity .5s,visibility .5s;
+  pointer-events:none;
+}
+.tea-book.is-open .tea-book-pages {opacity:1;visibility:visible;transform:scaleX(1);pointer-events:auto;}
+.tea-page {min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:19px 13px;text-align:center;overflow:hidden;}
+.tea-page-left{border-right:1px solid #d4c4ad;box-shadow:inset -9px 0 15px rgba(119,92,52,.1);}
+.tea-page-right{box-shadow:inset 9px 0 15px rgba(119,92,52,.1);}
+.tea-page-symbol {font-size:1.1rem;color:#b69764;letter-spacing:5px;}
+.tea-page-heading {font:normal 1.18rem 'Amiri',serif !important;color:#8b7756;}
+.tea-page-option {border:1px solid #cdb88f;background:rgba(255,254,246,.65);color:#283d60;border-radius:10px;padding:13px 7px;width:100%;min-height:128px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px;transition:transform .2s,background .2s,box-shadow .2s;}
+.tea-page-option:hover,.tea-page-option:focus-visible {background:#fff8dd;transform:translateY(-3px);box-shadow:0 7px 16px rgba(78,58,37,.16);outline:2px solid #b49367;outline-offset:2px;}
+.tea-page-glyph {font-size:1.45rem;color:#aa8755;}
+.tea-page-option strong {font:normal clamp(1.27rem,2.3vw,1.58rem) 'Amiri',serif !important;line-height:1.25;}
+.tea-page-option small {font-size:.68rem;color:#736e67;line-height:1.5;}
+.tea-book .tea-book-front {
+  position:absolute;top:0;bottom:0;left:auto;right:0;inset:auto 0 auto auto;
+  width:50%;height:100%;min-width:0;
+  display:flex;flex-direction:column;justify-content:space-evenly;align-items:center;
+  padding:10px 8px;
+  background:linear-gradient(95deg,#213551,#54749c 12%,#325579 39%,#132b4c 100%);
+  color:#ffedc4;border:2px solid #b6a47f;border-radius:5px 13px 12px 4px;
+  box-shadow:5px 1px 0 #f2e6ce,10px 3px 0 #9a9186,14px 6px 0 #1b1c21,inset 7px 0 17px #06182c55;
+  transform-origin:left center;transform:rotateY(0deg);backface-visibility:hidden;
+  transform-style:preserve-3d;z-index:5;cursor:pointer;
+  transition:transform .92s cubic-bezier(.2,.8,.24,1),box-shadow .6s;
+}
+.tea-book.is-open .tea-book-front {transform:rotateY(-179deg);pointer-events:none;box-shadow:none;}
+.tea-book .tea-book-spine {position:absolute;width:13px;height:100%;top:0;left:calc(50% - 6px);border:0;border-radius:0;background:linear-gradient(90deg,#987a50,#d6bf8d 45%,#795c48);opacity:0;z-index:3;transition:opacity .3s;pointer-events:none;}
+.tea-book.is-open .tea-book-spine {opacity:.52;}
+.tea-close-book {position:absolute;top:2px;left:12px;z-index:7;background:transparent;color:#8f7658;border:0;border-radius:50%;font-size:1.7rem;width:29px;height:30px;cursor:pointer;display:none;line-height:1;}
+.tea-close-book:hover,.tea-close-book:focus-visible {background:#f0e2c9;outline:2px solid #997d58;}
+.tea-book.is-open .tea-close-book {display:block;}
+.tea-book .tea-book-front strong{font-size:2.1rem;}
+.tea-book .tea-book-front small {font-size:.79rem;}
+/* The book's choice pages are the menu. The separate area only displays notes/messages. */
+#teaBookMenu{display:none !important;}
+.tea-book-contents {margin-top:25px;max-width:870px;}
+/* User messages and questions must be readable even when the surrounding library is dark. */
+#questionsSection .ideas-section {
+  background:linear-gradient(160deg,#fffaf0,#f3eadd) !important;
+  color:#26374f !important;
+  border:1px solid #d9c8a9 !important;
+}
+#questionsSection .ideas-section h2,
+#questionsSection .ideas-section h3,
+#questionsSection .ideas-section p,
+#questionsSection .ideas-section label,
+#questionsSection .answers-name-box label,
+#questionsSection .discussion-meta,
+#questionsSection .user-badge {color:#26374f !important;}
+#questionsSection .answers-name-box{background:#eee8da !important;color:#29394c !important;}
+#questionsSection .answers-name-box input,
+#questionsSection .idea-input,
+#questionsSection textarea,
+#questionsSection input {background:#fffef9 !important;color:#26374f !important;border-color:#c2b59e !important;}
+#questionsSection input::placeholder,#questionsSection textarea::placeholder{color:#6c7888 !important;opacity:1;}
+#questionsSection .discussion-item,
+#questionsSection .reply-item {background:#faf5e9 !important;color:#26374f !important;}
+#questionsSection .discussion-item p,
+#questionsSection .reply-item p {color:#26374f !important;}
+@media(max-width:700px) {
+  .tea-objects{flex-direction:column;gap:4px;min-height:0;}
+  .tea-book{width:min(410px,100%);flex:none;height:285px;max-width:100%;}
+  .tea-book .tea-book-front strong{font-size:1.73rem;}
+  .tea-page{padding:15px 9px;gap:7px;}
+  .tea-page-option{min-height:112px;padding:8px 5px;}
+  .tea-page-option strong{font-size:1.32rem;}
+  .tea-cup-button{flex:none;width:190px;height:178px;transform:scale(.76);transform-origin:center;}
+  .tea-cup-button:hover,.tea-cup-button:focus-visible{transform:scale(.76) rotate(-4deg);}
+  .tea-desk{padding:19px 13px 21px;}
+  .tea-desk-hint{margin-top:0;}
+}
+@media(max-width:385px){
+ .tea-book{height:250px;}
+ .tea-book .tea-book-front strong{font-size:1.5rem;}
+ .tea-book .tea-book-symbol{font-size:1rem;}
+ .tea-page-heading{font-size:.95rem;}
+ .tea-page-option strong{font-size:1.08rem;}
+ .tea-page-option small{font-size:.59rem;}
+ .tea-page-option{min-height:99px;}
+}
+@media(prefers-reduced-motion:reduce){.tea-book,.tea-book-pages,.tea-book .tea-book-front{transition:none !important;}}
+
+
+
+/* ===== Reader's Corner · account preview (V6) ===== */
+.profile-page {max-width:1120px; padding-top:42px;}
+.profile-heading{text-align:center;margin:7px auto 32px;color:#edf0fb;}
+.profile-heading .eyebrow{color:#e3c58d;letter-spacing:1.8px;font-size:.82rem;}
+.profile-heading h1{font:normal clamp(2.3rem,5vw,3.5rem) 'Amiri',serif !important;margin:12px 0 8px;color:#fff4de;}
+.profile-heading p{color:#bfc9df;line-height:1.9;}
+.profile-cover{position:relative;overflow:hidden;min-height:250px;border:1px solid rgba(221,195,144,.38);border-radius:28px 28px 12px 12px;background:radial-gradient(circle at 12% 5%,rgba(222,205,166,.16),transparent 26%),linear-gradient(118deg,#182641,#344b72 55%,#1d2d4d);box-shadow:0 22px 45px rgba(3,7,20,.3);color:#fff5df;}
+.profile-cover::after{content:'';position:absolute;inset:11px;border:1px solid rgba(240,219,167,.2);border-radius:20px 20px 7px 7px;pointer-events:none;}
+.profile-cover-sky{position:absolute;top:20px;left:28px;color:#e3c98c;font-size:1.3rem;letter-spacing:6px;opacity:.85;}
+.profile-cover-inner{position:relative;display:flex;align-items:center;justify-content:center;gap:35px;flex-wrap:wrap;min-height:250px;padding:42px 32px;text-align:right;z-index:1;}
+.profile-avatar-frame{position:relative;width:150px;height:150px;flex:none;}
+.profile-avatar{width:150px;height:150px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 30% 25%,#7f9bbb,#243b60 75%);border:5px solid #cdbb98;box-shadow:0 0 0 5px #b8c6e14d,0 15px 23px #050a184d;color:#f5dfab;font-size:3.4rem;overflow:hidden;background-size:cover;background-position:center;}
+.profile-avatar img,.profile-avatar-small img{display:block;width:100%;height:100%;object-fit:cover;}
+.profile-avatar-star{position:absolute;bottom:-8px;left:10px;font-size:2rem;color:#e2c88f;}
+.profile-main-identity{max-width:570px;flex:1;min-width:200px;}
+.profile-kicker{font-size:.84rem;color:#d9bc88;}
+.profile-main-identity h2{font:normal 2.6rem 'Amiri',serif !important;margin:5px 0 0;color:#fff3d6;}
+.profile-main-identity p{margin:0 0 13px;color:#d6e0f3;}
+.profile-demo-chip{display:inline-flex;border:1px solid #e1d3b759;border-radius:30px;padding:5px 13px;background:#0b1e3d4a;font-size:.78rem;color:#eee2ca;}
+.profile-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;border:1px solid rgba(231,210,166,.18);border-radius:0 0 20px 20px;overflow:hidden;background:#d6ba8750;}
+.profile-stats>div{background:#1e2a43;display:flex;align-items:center;justify-content:center;flex-direction:column;padding:19px 7px;gap:3px;}
+.profile-stats strong{font:normal 1.8rem 'Amiri',serif !important;color:#f0d6a0;}
+.profile-stats span{color:#d4d9e7;font-size:.85rem;text-align:center;}
+.profile-tabs{display:flex;gap:9px;margin:29px 0 0;flex-wrap:wrap;}
+.profile-tab{border:1px solid #b6a47b5c;border-bottom:none;border-radius:13px 13px 0 0;padding:14px 22px;cursor:pointer;background:rgba(20,36,62,.8);color:#ddd8d4;transition:.2s;}
+.profile-tab:hover,.profile-tab:focus-visible{background:#344b70;color:#fff4db;outline:2px solid #b1c5e9;outline-offset:1px;}
+.profile-tab.active{background:#f7f1e6;color:#344560;border-color:#e5d6b7;font-weight:700;}
+.profile-paper{background:linear-gradient(100deg,#fffbf3 0%,#f6f0e4 53%,#fff9ee 100%);border:1px solid #e5d6b7;border-radius:0 16px 16px 16px;box-shadow:0 20px 38px #050b1b4d;min-height:340px;padding:36px clamp(18px,4.5vw,54px);color:#303d53;}
+.profile-panel.hidden{display:none !important;}
+.profile-section-title>span{color:#9f8253;font-size:.8rem;letter-spacing:1px;}
+.profile-section-title h2{font:normal 2.15rem 'Amiri',serif !important;color:#293d62;margin:8px 0;}
+.profile-section-title p{color:#6e7380;margin:0 0 27px;line-height:1.8;}
+.profile-editor{max-width:650px;display:flex;align-items:flex-start;flex-direction:column;gap:12px;}
+.profile-image-editor{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:10px;}
+.profile-avatar-upload{cursor:pointer;display:flex;align-items:center;gap:13px;color:#334f75;font-weight:600;}
+.profile-avatar-upload:hover{color:#7183ad;}
+.profile-avatar-small{display:flex;align-items:center;justify-content:center;width:72px;height:72px;flex:none;border-radius:50%;overflow:hidden;background:linear-gradient(135deg,#425c86,#192d50);border:3px solid #bca77e;color:#f6deb2;font-size:1.9rem;}
+.profile-avatar-upload small{display:block;font-size:.73rem;color:#7c8090;font-weight:400;margin-top:5px;}
+.profile-file-input{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none;}
+.profile-link-button{border:0;background:none;color:#687e9b;border-bottom:1px solid #9cb4cb;cursor:pointer;padding:5px;}
+.profile-form-label{color:#334764;font-weight:600;}
+.profile-text-input{width:min(100%,500px);padding:13px 18px;background:#fffefd;color:#293c59;border:1px solid #c3b8a7;border-radius:9px;font-size:1.03rem;}
+.profile-text-input:focus{outline:3px solid #8aa8cf6b;}
+.profile-form-hint{color:#7b7e87;font-size:.86rem;}
+.profile-primary-button{padding:12px 26px;border-radius:8px;background:linear-gradient(110deg,#2d466f,#5379ad);color:#fff;border:1px solid #9eb0ca;cursor:pointer;transition:transform .2s;}
+.profile-primary-button:hover{transform:translateY(-2px);}
+.profile-planned{display:flex;align-items:center;gap:18px;background:#eef1f4;border:1px solid #d0d6df;border-radius:14px;margin-top:27px;padding:16px;}
+.profile-planned-icon{font-size:1.9rem;color:#6387a0;}
+.profile-planned p{margin:0;display:flex;flex-direction:column;gap:5px;color:#3d526c;line-height:1.7;}
+.profile-planned span:not(.profile-planned-icon){font-size:.85rem;color:#647789;}
+.profile-favorites{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:19px;}
+.profile-favorite-card{display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:12px;background:linear-gradient(#f7f4ed,#eee5d7);padding:17px 12px 18px;border:1px solid #dacbaa;border-radius:12px;text-align:center;min-height:270px;}
+.profile-favorite-book{width:126px;height:165px;display:flex;align-items:center;justify-content:space-around;flex-direction:column;padding:14px 12px;border-radius:5px 13px 12px 5px;background:linear-gradient(100deg,var(--cover-dark),var(--cover),var(--cover-light));border:2px solid #c8b285;box-shadow:6px 7px 0 #bfb5a7,9px 11px 14px #60574745;color:#fff3df;cursor:pointer;transition:transform .25s;}
+.profile-favorite-book:hover{transform:translateY(-5px) rotate(-2deg);}
+.profile-favorite-book strong{font:normal 1.48rem 'Amiri',serif !important;line-height:1.25;}
+.profile-favorite-book span{font-size:.77rem;}
+.profile-favorite-card small{color:#6d7686;}
+.profile-mini-remove{background:none;border:0;color:#915a60;cursor:pointer;padding:5px 8px;}
+.profile-mini-remove:hover{text-decoration:underline;}
+.profile-empty{padding:42px 20px;text-align:center;border:1px dashed #c3b693;border-radius:14px;background:#ffffff85;grid-column:1/-1;color:#596a84;}
+.profile-empty .profile-empty-symbol{font-size:2.7rem;color:#b6a17c;display:block;margin-bottom:8px;}
+.profile-empty strong{display:block;color:#3b4e6b;font:normal 1.8rem 'Amiri',serif !important;}
+.profile-empty p{margin:7px auto 18px;line-height:1.8;}
+.profile-empty button{cursor:pointer;border-radius:9px;border:1px solid #9ab0ca;background:#f5f8fe;color:#3b608d;padding:9px 18px;}
+.profile-notice{background:#eef3f7;color:#48607a;border:1px solid #d2dfeb;border-radius:10px;line-height:1.9;padding:13px 16px;font-size:.86rem;margin:0 0 21px;}
+.profile-activity{display:flex;flex-direction:column;gap:14px;}
+.profile-activity-item{border:1px solid #daceb9;border-radius:13px;padding:17px 20px;background:#fffefa;display:flex;justify-content:space-between;align-items:flex-start;gap:17px;flex-wrap:wrap;}
+.profile-activity-item>div{flex:1;min-width:200px;}
+.profile-activity-type{font-size:.79rem;color:#9b7952;}
+.profile-activity-item strong{display:block;color:#334962;margin:7px 0 4px;}
+.profile-activity-item p{margin:7px 0;color:#515d6c;line-height:1.8;overflow-wrap:anywhere;white-space:pre-wrap;}
+.profile-activity-item small{color:#868990;}
+.profile-activity-item button{background:#ecf1f7;border:1px solid #c0cddc;border-radius:8px;color:#33557c;cursor:pointer;padding:9px 14px;}
+.profile-activity-item button:hover{background:#dce8f4;}
+/* A separate favorite action, never nested inside the story-opening button. */
+.book-slot{position:relative;}
+.book-favorite-button{position:absolute;top:8px;left:9px;z-index:3;width:38px;height:38px;display:grid;place-items:center;border-radius:50%;border:1px solid #e6d9beaa;background:#132442dc;color:#fff1dd;font-size:1.52rem;line-height:1;cursor:pointer;box-shadow:0 3px 11px #03091465;transition:transform .2s,background .2s;}
+.book-favorite-button:hover{transform:scale(1.15);background:#375582;}
+.book-favorite-button.is-favorite{color:#ffb2ba;}
+.reader-heart-button{display:block;margin:10px auto 14px;border:1px solid #cbb996;background:#f5ecdf;color:#6c5070;border-radius:25px;padding:8px 18px;cursor:pointer;}
+.reader-heart-button.is-favorite{background:#fbe7ea;color:#8c4c61;}
+.profile-intro-heart{display:block;border:1px solid #c9b48e;border-radius:20px;padding:8px 20px;cursor:pointer;margin:18px auto 0;background:#f5f0e6;color:#605779;}
+.profile-intro-heart.is-favorite{background:#f5e1e6;color:#9d4d66;}
+.reader-comment-focus{outline:3px solid #e9c378 !important;outline-offset:3px;animation:readerCommentFlash 1.2s ease-in-out 2;scroll-margin-top:100px;}
+@keyframes readerCommentFlash{50%{box-shadow:0 0 0 9px #f4d78a5c;}}
+body.day-time .profile-heading h1{color:#435b7c;}
+body.day-time .profile-heading p{color:#6a829b;}
+body.day-time .profile-heading .eyebrow{color:#9b845b;}
+body.day-time .profile-cover{background:radial-gradient(circle at 12% 5%,#fff8e7,transparent 36%),linear-gradient(110deg,#dee9f4,#b0cce9 58%,#e7e4dc);color:#345172;border-color:#c0cad4;box-shadow:0 15px 30px #758b9e34;}
+body.day-time .profile-main-identity h2{color:#344f74;}
+body.day-time .profile-main-identity p{color:#5c7692;}
+body.day-time .profile-kicker{color:#7b6855;}
+body.day-time .profile-demo-chip{background:#fff9f2ad;color:#526986;border-color:#c2cfda;}
+body.day-time .profile-stats{background:#b3c3d5;}
+body.day-time .profile-stats>div{background:#edf3fa;}
+body.day-time .profile-stats strong{color:#456c97;}
+body.day-time .profile-stats span{color:#5f7a93;}
+body.day-time .profile-tab{background:#dfe9f4;color:#47617e;border-color:#c1d0dc;}
+body.day-time .profile-tab.active{background:#f7f1e6;color:#344560;border-color:#e5d6b7;}
+body.tea-spilled .profile-cover{background:linear-gradient(115deg,#1d4732,#528064) !important;}
+body.tea-spilled .profile-heading h1{color:#e3f3d8;}
+body.tea-spilled .profile-stats>div{background:#315c40;}
+body.tea-spilled .profile-stats strong{color:#f2e4b9;}
+@media(max-width:690px){
+  .profile-cover-inner{flex-direction:column;text-align:center;gap:17px;padding:36px 20px;}
+  .profile-main-identity{min-width:0;}
+  .profile-avatar-frame,.profile-avatar{width:122px;height:122px;}
+  .profile-tabs{gap:4px;}
+  .profile-tab{flex:1;padding:12px 4px;font-size:.77rem;white-space:nowrap;}
+  .profile-paper{border-radius:0 0 14px 14px;padding:25px 17px;}
+  .profile-heading h1{font-size:2.5rem;}
+  .profile-activity-item{padding:16px;}
+  .profile-activity-item button{width:100%;}
+  .profile-favorites{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;}
+}
+@media(prefers-reduced-motion:reduce){.reader-comment-focus{animation:none;}}
+
+
+/* ===== Google reader identity ===== */
+.reader-auth-nav,.reader-mobile-auth{font-family:inherit;background:rgba(224,205,165,.13);border:1px solid rgba(235,207,160,.55);color:#f5e8c7;border-radius:24px;padding:9px 13px;font-size:.82rem;cursor:pointer;white-space:nowrap}
+.reader-auth-nav:hover,.reader-mobile-auth:hover{background:rgba(224,205,165,.24)}
+.reader-mobile-auth{display:block;margin:12px auto 0;width:90%;padding:14px}
+.reader-guest-gate{background:var(--paper,#f9f3e8);color:#24344e;border:1px solid #d8c5a0;box-shadow:0 13px 38px rgba(8,16,37,.19);border-radius:18px;max-width:620px;margin:18px auto 38px;padding:34px;text-align:center}
+.reader-guest-star{font-size:2rem;color:#ae8651}.reader-guest-gate h2{font-family:'Amiri',serif!important;font-size:2rem;color:#253e63}.reader-guest-gate p{line-height:1.9;color:#44536b}
+.reader-google-button{border:1px solid #ddc5a1;border-radius:12px;color:#213e68;background:#fffaf0;padding:13px 21px;cursor:pointer;font-weight:700;box-shadow:0 6px 18px rgba(5,15,30,.08)}
+.reader-google-button:hover{background:#ecf2ff}.google-g{color:#4285f4;font-weight:800;font-size:1.3rem;margin-left:8px}.reader-login-notice{font-size:.89rem;min-height:1.7em}
+.reader-account-status{display:flex;gap:18px;align-items:center;justify-content:space-between;flex-wrap:wrap;background:rgba(244,238,217,.9);border:1px solid #c5ae8d;color:#31405b;border-radius:12px;padding:12px 18px;margin:12px auto 25px;max-width:700px;overflow-wrap:anywhere}
+.reader-account-status button{border:1px solid #c6a97d;background:transparent;border-radius:12px;padding:8px 13px;cursor:pointer;color:#364c6c}.reader-account-status button:hover{background:#fff}
+.reader-profile-loading{text-align:center;color:#d4c2a2;padding:14px}.reader-signed-in .reader-guest-gate{display:none}
+#readerProfilePage.reader-guest-mode .profile-cover,#readerProfilePage.reader-guest-mode .profile-stats,#readerProfilePage.reader-guest-mode .profile-tabs,#readerProfilePage.reader-guest-mode .profile-paper{display:none!important}
+.tea-auth-button{margin:10px 0 22px}.profile-safety-note{font-size:.87rem;color:#55637e;line-height:1.7}
+body.day-time .reader-auth-nav{color:#3c567c;border-color:#8cabc9;background:#e9f2ff}
+@media(max-width:800px){.reader-auth-nav{padding:7px 9px;font-size:.75rem;max-width:130px;overflow:hidden;text-overflow:ellipsis}.reader-guest-gate{padding:24px 16px}}
+
+@media(max-width:450px){.reader-auth-nav{display:none}.nav-logo{font-size:.91rem;gap:6px}.nav-logo small{font-size:.56rem;letter-spacing:0}.brand-emblem{width:30px;height:30px;font-size:17px}.nav-actions{gap:7px}}
+</style>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8C%99%3C/text%3E%3C/svg%3E">
 </head>
 <body>
  
 
-<!-- Navigation Bar -->
-<nav class="navbar sparkle-zone">
-
-    <div class="nav-container">
-       <div class="sparkle-layer"></div>
-        <a href="#home" class="nav-logo">📚 مكتبة القصص</a>
-        <div id="themeToggle" onclick="toggleTheme()" style="
-    cursor: pointer;
-    font-size: 1.5rem;
-    color: white;
-    margin-right: 1rem;
-">
-    🌙
-</div>
-    <div class="hamburger-menu" onclick="toggleMobileNav()">☰</div>
-
-        <ul class="nav-links">
-            <li><a href="#home">الرئيسية</a></li>
-            <li><a href="#stories">مكتبة القصص</a></li>
-            <li><a href="#cafe">مقهى الحوار</a></li>
-        </ul>
-        </div>
+<!-- Enchanted library navigation -->
+<nav class="navbar" aria-label="التنقل الرئيسي">
+  <div class="nav-container">
+    <a href="#home" class="nav-logo"><span class="brand-emblem" aria-hidden="true">✦</span><span>مكتبة تحت ضوء القمر<small>حكايات تُروى بعد الغروب</small></span></a>
+    <div class="nav-actions">
+      <ul class="nav-links">
+        <li><a href="#home">الردهة</a></li>
+        <li><a href="#stories">رفوف الحكايات</a></li>
+        <li><a href="#cafe">مقهى القرّاء</a></li>
+        <li><a href="#tea">شاي الكاتبة 🍵</a></li>
+        <li><a href="#profile">بطاقة القارئ <span aria-hidden="true">✧</span></a></li>
+      </ul>
+      <button type="button" id="readerNavAuth" class="reader-auth-nav" onclick="readerNavAccountClick()">الدخول عبر Google ✦</button>
+      <button id="themeToggle" class="theme-toggle" type="button" onclick="toggleTheme()" aria-label="التبديل إلى الوضع النهاري" title="التبديل إلى الوضع النهاري">☾</button>
+      <button class="hamburger-menu" type="button" onclick="toggleMobileNav()" aria-label="فتح القائمة" aria-controls="mobileNav">☰</button>
     </div>
+  </div>
 </nav>
-
-
-<!-- القائمة المنسدلة في الموبايل -->
 <div id="mobileNav" class="mobile-nav">
-    <a href="#home" onclick="toggleMobileNav()">الرئيسية</a>
-    <a href="#stories" onclick="toggleMobileNav()">مكتبة القصص</a>
-    <a href="#cafe" onclick="toggleMobileNav()">مقهى الحوار</a>
+  <a href="#home" onclick="toggleMobileNav()">الردهة</a>
+  <a href="#stories" onclick="toggleMobileNav()">رفوف الحكايات</a>
+  <a href="#cafe" onclick="toggleMobileNav()">مقهى القرّاء</a>
+  <a href="#tea" onclick="toggleMobileNav()">شاي الكاتبة 🍵</a>
+  <a href="#profile" onclick="toggleMobileNav()">ملفي ✧</a>
+  <button type="button" id="readerMobileAuth" class="reader-mobile-auth" onclick="readerNavAccountClick();toggleMobileNav()">الدخول عبر Google ✦</button>
+</div>
+<div class="sky-stars" aria-hidden="true"></div>
+
+<!-- Home Page -->
+<div id="homePage" class="container">
+  <header class="main-header" aria-label="مدخل المكتبة">
+    <div class="hero-copy">
+      <span class="eyebrow">✧ &nbsp; في حضرة القمر &nbsp; ✧</span>
+      <h1>حين يهدأ العالم،<br><em>تستيقظ الحكايات.</em></h1>
+      <p class="hero-subtitle">خلف هذه الأبواب عوالم لا تُشبه بعضها... قصص من الحب والغموض والمفاجآت، تنتظر من يفتح الصفحة الأولى.</p>
+      <div class="hero-actions">
+        <button type="button" class="moon-btn primary" onclick="showStoriesPage()">اكتشف المكتبة <span aria-hidden="true">↖</span></button>
+        <button type="button" class="moon-btn secondary" onclick="openRandomStory()">حكاية يختارها القمر ✧</button>
+      </div>
+      <div class="hero-quote">«لكل حكاية باب... ولكل قارئ مفتاح»</div>
+      <span id="themeIndicator" class="theme-indicator" aria-live="polite" style="display:none"></span>
+    </div>
+    <div class="arch-scene" aria-hidden="true">
+      <div class="arch-frame"><div class="arch-inner"><div class="arch-stars"></div><div class="arch-moon"></div><div class="arch-horizon"></div><div class="arch-sill"></div></div></div>
+      <span class="arch-spark spark-one">✧</span><span class="arch-spark spark-two">✦</span><span class="arch-spark spark-three">✧</span>
+      <div class="arch-book-stack"><span></span><span></span><span></span></div>
+    </div>
+  </header>
+  <div class="lobby-heading"><span>✦ &nbsp; تصفّح في هدوء &nbsp; ✦</span><h2>ركن من المكتبة</h2><p>ربما تكون الحكاية التي تبحث عنها هنا منذ البداية.</p></div>
+  <div class="home-widgets">
+    <section class="story-of-day" id="storyOfDay" onclick="openDailyStory()" tabindex="0" role="button" onkeydown="if(event.key==='Enter')openDailyStory()">
+      <div class="widget-icon" aria-hidden="true">☾</div>
+      <div class="widget-content"><div class="daily-badge">اختيار اليوم</div><h2 id="dailyStoryTitle">...</h2><p id="dailyStoryDesc">جاري اختيار الحكاية...</p><span class="underlink">افتح الحكاية ←</span></div>
+      <button class="reset-daily-btn" type="button" onclick="resetDailyStory(event)" aria-label="اختيار قصة أخرى">تغيير الاختيار ↺</button>
+    </section>
+    <section class="whisper-card">
+      <div class="widget-icon" aria-hidden="true">✧</div>
+      <div><span class="daily-badge">باب آخر</span><h2>مقهى القرّاء</h2><p>بعد الصفحة الأخيرة، تبدأ حكاية أخرى بين القرّاء. مساحة للأفكار والنقاشات والردود.</p><button class="text-link" type="button" onclick="showCafePage()">الدخول إلى المقهى ←</button></div>
+    </section>
+  </div>
+
+  <section class="ideas-section" aria-label="صندوق الاقتراحات">
+    <div class="section-crest">✉</div>
+    <span class="eyebrow dark-eyebrow">رسالة لا يقرؤها سوى صاحب المكتبة</span>
+    <h2>صندوق الأمنيات</h2>
+    <p class="privacy-copy">هل هناك فكرة تتمنّى أن تصبح حكاية؟ اتركها هنا. الاقتراحات لا تظهر للزوّار.</p>
+    <div class="idea-form">
+      <label for="ideaName" class="small-label">الاسم (اختياري)</label>
+      <input type="text" id="ideaName" class="name-input" placeholder="قارئ مجهول، زائر عابر..." maxlength="80">
+      <label for="ideaInput" class="small-label">الرسالة</label>
+      <textarea class="idea-input" id="ideaInput" placeholder="ما الحكاية التي تتمنى قراءتها؟" maxlength="3000"></textarea>
+      <button class="submit-idea-btn" type="button" onclick="submitIdea()">إرسال الرسالة ✦</button>
+    </div>
+  </section>
+  <footer class="site-footer">✦ &nbsp; ما دامت هناك حكاية، فسيبقى الضوء مضاءً &nbsp; ✦ &nbsp; <span class="batoul-mark">✧ من خيال بتول</span></footer>
 </div>
 
-
-
-    <!-- Home Page -->
-    <div id="homePage" class="container">
-       <header class="main-header sparkle-zone">
-
-            <h1>مرحباً بكم في مكتبة القصص</h1>
-            <div class="theme-indicator" id="themeIndicator"> 🩵</div>
-        </header>
-
-        <!-- Story of the Day -->
-        <div class="story-of-day sparkle-zone" id="storyOfDay" onclick="openDailyStory()">
-            <button class="reset-daily-btn" onclick="resetDailyStory(event)">🔄 تجربة قصة جديدة</button>
-            <div class="daily-badge">قصة اليوم</div>
-            <h2 id="dailyStoryTitle">...</h2>
-            <p id="dailyStoryDesc">جاري تحميل قصة اليوم...</p>
-        </div>
-
-        <!-- Ideas Section -->
-        <section class="ideas-section">
-            <h2>💡 صندوق الاقتراحات</h2>
-            <h2> لن يتم مشاركة الاقتراح (خذوا راحتكم 😉) </h2>
-
-            <div class="idea-form">
-                <div class="small-label">اسمك (اختياري):</div>
-                <input type="text" id="ideaName" class="name-input" placeholder="مثال: قارئة مجهولة، زائر من تويتر...">
-                <textarea class="idea-input" id="ideaInput" placeholder="ما الفكرة التي تود أن تراها في القصة القادمة؟ اكتب اقتراحك هنا..."></textarea>
-                <button class="submit-idea-btn" onclick="submitIdea()">إرسال الفكرة ✨</button>
-            </div>
-
-        </section>
+<!-- Stories Library Page -->
+<div id="storiesPage" class="container library-page hidden">
+  <button class="back-button" type="button" onclick="showHomePage()">↗ العودة إلى الردهة</button>
+  <header class="library-heading"><span class="eyebrow">✦ &nbsp; قاعة الكتب &nbsp; ✦</span><h1>رفوف الحكايات</h1><p>أربعة عشر عالماً مختلفاً، كلّ كتاب بلونه وسرّه. اختر غلافاً، وافتح باب الحكاية.</p></header>
+  <div id="lastReadSection" class="hidden resume-banner"><button type="button" id="lastReadBox" onclick="openLastRead()"><span class="resume-symbol">↶</span><span><small>عودة إلى الحكاية الأخيرة</small><strong id="lastReadTitle"></strong><span id="lastReadDesc"></span></span><span class="resume-go">أكمل القراءة ←</span></button></div>
+  <div class="library-tools">
+    <label class="search-wrap" for="storySearch"><span aria-hidden="true">⌕</span><input type="search" id="storySearch" placeholder="ابحث عن حكاية أو نوع..." oninput="displayAllStories()" autocomplete="off"></label>
+    <div class="genre-pills" role="group" aria-label="تصفية حسب النوع">
+      <button type="button" class="genre-filter active" data-genre="all" onclick="filterGenre('all')">الكل</button>
+      <button type="button" class="genre-filter" data-genre="رومانسية" onclick="filterGenre('رومانسية')">رومانسية</button>
+      <button type="button" class="genre-filter" data-genre="دراما" onclick="filterGenre('دراما')">دراما</button>
+      <button type="button" class="genre-filter" data-genre="غموض" onclick="filterGenre('غموض')">غموض</button>
+      <button type="button" class="genre-filter" data-genre="تشويق" onclick="filterGenre('تشويق')">تشويق</button>
     </div>
-
-    <!-- Stories Library Page -->
-    <div id="storiesPage" class="container hidden">
-      <!-- Last Read Story Section -->
-<div id="lastReadSection" class="hidden" style="margin-bottom: 2rem;">
-    <div id="lastReadBox" style="
-        padding: 1.5rem;
-        border-radius: 15px;
-        box-shadow: var(--shadow);
-        cursor: pointer;
-        transition: 0.3s;
-    " onclick="openLastRead()">
-        <h3 style="margin-bottom: 0.5rem;">⭐ آخر ما قرأت</h3>
-        <p id="lastReadTitle" style="font-size: 1.2rem; font-weight: bold;"></p>
-        <p id="lastReadDesc" style="opacity: 0.8; margin-top: 0.3rem;"></p>
-    </div>
+  </div>
+  <div class="shelf-caption"><span>✧ انقر على كتاب لفتحه ✧</span><button class="pick-book-btn" type="button" onclick="openRandomStory()">دع القمر يختار ✦</button></div>
+  <div class="stories-grid" id="storiesGrid" aria-live="polite"></div>
+  <footer class="site-footer">✦ &nbsp; كل غلاف يخفي عالماً &nbsp; ✦</footer>
 </div>
 
-        <button class="back-button" onclick="showHomePage()">← العودة للرئيسية</button>
-        <h1 style="text-align: center; color: var(--primary-color); margin-bottom: 3rem;">مكتبة القصص</h1>
-        <div class="stories-grid" id="storiesGrid">
-            <!-- All stories will be displayed here -->
-        </div>
-    </div>
-
-    <!-- Cafe Page -->
+<!-- Cafe Page -->
     <div id="cafePage" class="container hidden">
         <button class="back-button" onclick="showHomePage()">← العودة للرئيسية</button>
         <section class="cafe-section">
-            <h2>☕ مقهى الحوار</h2>
+            <span class="eyebrow dark-eyebrow">✦ مساحة القرّاء ✦</span><h2>مقهى ما بعد الحكاية</h2><p class="cafe-intro">هنا يلتقي من عبروا عوالم مختلفة... وكل حديث قد يبدأ حكاية جديدة.</p>
             <div class="discussion-form">
                 <div class="small-label">اسمك (اختياري):</div>
-                <input type="text" id="discussionName" class="name-input" placeholder="مثال: شخص غريب، صديقة خجولة...">
+                <input type="text" id="discussionName" class="name-input" placeholder="قارئ عابر، زائر مجهول...">
                 <textarea class="discussion-input" id="discussionInput" placeholder="ماذا تود أن تناقش مع زوار الموقع؟"></textarea>
                 <button class="submit-idea-btn" onclick="submitDiscussion()">نشر النقاش 💬</button>
             </div>
@@ -877,16 +1610,19 @@ body.night-time {
 <!-- Story Intro Page -->
 <section id="storyIntroPage" class="container hidden">
     <div class="story-intro-box">
+        <span class="eyebrow dark-eyebrow">✦ من الرفوف إلى الصفحات ✦</span>
         <h1 id="introTitle"></h1>
         <p id="introCategory" style="font-size:1.1rem; opacity:0.8;"></p>
         <p id="introDescription" style="margin-top:1rem;"></p>
         <button class="start-reading-btn" onclick="enterStory()">ابدأ القراءة 📖</button>
+        <button class="profile-intro-heart" id="introFavoriteButton" type="button" onclick="toggleReaderFavorite(currentStoryId)">♡ أضف إلى المفضلة</button>
     </div>
 </section>
 
     <!-- Story Reading Section -->
     <section id="storyReadingSection" class="container hidden">
-        <button class="back-button" onclick="showStoriesPage()">← العودة للمكتبة</button>
+        <button class="back-button" onclick="showStoriesPage()">↗ العودة إلى رفوف الحكايات</button>
+        <div class="reader-topline"><span>✦</span><span>بين صفحات الحكاية</span><span>✦</span></div>
             <div class="font-controls">
         <button onclick="changeFontSize('increase')">+</button>
         <button onclick="changeFontSize('decrease')">-</button>
@@ -895,9 +1631,7 @@ body.night-time {
         <div class="story-reading" id="storyContent">
             <!-- Story content will be loaded here -->
         </div>
-        <button class="submit-idea-btn" onclick="showQuestions()" style="margin-top: 2rem;">أكملت القراءة 💭</button>
-</div>
-
+        <button class="submit-idea-btn questions-action" onclick="showQuestions()" style="margin-top: 2rem;">إلى أسئلة ما بعد الحكاية ✧</button>
     </section>
 
     <!-- Questions Section -->
@@ -918,6 +1652,175 @@ body.night-time {
         </div>
     </section>
 
+
+<!-- Writer's tea room. Existing stories and reader systems remain unchanged. -->
+<section id="teaRoomPage" class="container tea-room-page hidden" aria-labelledby="teaTitle">
+  <button class="back-button tea-back" type="button" onclick="showHomePage()">↗ العودة إلى الردهة</button>
+  <div class="tea-header">
+    <span class="tea-eyebrow">✦ &nbsp; خلف الرف السابع &nbsp; ✦</span>
+    <h1 id="teaTitle">شاي الكاتبة</h1>
+    <p>وراء هذا الباب الصغير أشياء لا تُكتشف إلا بالفضول.</p>
+    <span class="tea-tiny-moon">✧ ☾ ✧</span>
+  </div>
+  <div class="tea-desk" id="teaDesk">
+    <div class="tea-desk-stars" aria-hidden="true">✧ &nbsp; ✦ &nbsp; ✧</div>
+    <div class="tea-objects">
+      <div id="teaBookShell" class="tea-book" role="group" aria-label="كتاب الكاتبة السحري">
+        <div id="teaBookPages" class="tea-book-pages" aria-hidden="true" inert>
+          <div class="tea-page tea-page-left">
+            <span class="tea-page-symbol" aria-hidden="true">✧ ✦ ✧</span>
+            <span class="tea-page-heading">بين السطور</span>
+            <button type="button" class="tea-page-option" onclick="showTeaSecrets()">
+              <span class="tea-page-glyph" aria-hidden="true">✧</span>
+              <strong>سر خلف الصفحات</strong>
+              <small>من دفتر الكاتبة</small>
+            </button>
+          </div>
+          <div class="tea-page tea-page-right">
+            <span class="tea-page-symbol" aria-hidden="true">✦ ☾ ✦</span>
+            <span class="tea-page-heading">رسالة لك</span>
+            <button type="button" class="tea-page-option" onclick="showTeaQuestions()">
+              <span class="tea-page-glyph" aria-hidden="true">✉</span>
+              <strong>اسأل أي ما تشاء</strong>
+              <small>حديث بينك وبين الكاتبة</small>
+            </button>
+          </div>
+        </div>
+        <span class="tea-book-spine" aria-hidden="true"></span>
+        <button type="button" id="teaMagicBook" class="tea-book-front" onclick="openTeaBook()" aria-label="افتح كتاب الكاتبة" aria-expanded="false" aria-controls="teaBookPages">
+          <span class="tea-book-border"></span><span class="tea-book-symbol">✧ ☾ ✧</span><strong>كتاب الكاتبة</strong><small>أسرارٌ وأسئلة</small><span class="tea-book-star">✦</span>
+        </button>
+        <button type="button" id="teaCloseBook" class="tea-close-book" onclick="openTeaBook()" aria-label="أغلق الكتاب" title="إغلاق الكتاب">×</button>
+      </div>
+      <button type="button" id="teaPrankCup" class="tea-cup-button" onclick="spillGreenTea()" title="كوب من الشاي الأخضر" aria-label="كوب شاي أخضر">
+        <span class="tea-steam steam-a"></span><span class="tea-steam steam-b"></span><span class="tea-steam steam-c"></span>
+        <span class="tea-cup-handle"></span><span class="tea-cup"><span class="tea-cup-liquid"></span><span class="tea-cup-bloom">✿</span></span><span class="tea-saucer"></span>
+        <span class="tea-cup-label">شاي أخضر 🍵</span>
+      </button>
+    </div>
+    <p class="tea-desk-hint">ماذا ستختار أولاً؟</p>
+  </div>
+
+  <div id="teaBookContents" class="tea-book-contents hidden" aria-live="polite">
+    <div class="tea-inside-heading">✦ &nbsp; صفحات لا تظهر على الرفوف &nbsp; ✦</div>
+    <div id="teaBookMenu" class="tea-book-menu hidden">
+      <button type="button" class="tea-choice" onclick="showTeaSecrets()"><span class="tea-choice-icon">✧</span><strong>سر خلف الصفحات</strong><small>ورقة عشوائية من أفكار الكاتبة</small></button>
+      <button type="button" class="tea-choice" onclick="showTeaQuestions()"><span class="tea-choice-icon">✉</span><strong>اسأل أي ما تشاء</strong><small>رسالة خاصة بين القارئ والكاتبة</small></button>
+    </div>
+
+    <div id="teaSecretPanel" class="tea-detail-panel hidden">
+      <button class="tea-text-back" type="button" onclick="showTeaMenu()">← العودة إلى فهرس الكتاب</button>
+      <span class="tea-panel-kicker">✧ من بين أوراق الكاتبة ✧</span>
+      <article class="tea-secret-paper" id="teaSecretPaper" aria-live="polite"><p id="teaSecretText"></p><small id="teaSecretFooter"></small></article>
+      <button type="button" class="tea-small-action" onclick="revealTeaSecret()">ورقة أخرى ✧</button>
+    </div>
+
+    <div id="teaQuestionsPanel" class="tea-detail-panel hidden">
+      <button class="tea-text-back" type="button" onclick="showTeaMenu()">← العودة إلى فهرس الكتاب</button>
+      <span class="tea-panel-kicker">✉ رسائل لا يراها إلا أصحابها ✉</span>
+      <h2>اسأل أي ما تشاء</h2>
+      <p class="tea-help">هنا يمكنك طرح سؤال خاص، والعودة لقراءة سؤالك السابق ورد الكاتبة. بعد الرد يمكنك إرسال سؤال جديد في نفس المحادثة.</p>
+      <p class="tea-help tea-auth-note">تُحفظ المحادثة في حساب Google لتعود إليها من أي جهاز. لا يطلع على محتواها إلا صاحب الحساب والكاتبة بعد إعداد قواعد Firebase.</p>
+      <div class="tea-status" id="teaReaderStatus" role="status">لتبدأ المحادثة الخاصة، سجّل الدخول باستخدام Google.</div>
+      <button id="teaGoogleAuthButton" class="reader-google-button tea-auth-button" type="button" onclick="readerSignInWithGoogle()">الدخول بحساب Google ✦</button>
+      <div id="teaReaderConversation" class="tea-messages" aria-live="polite"></div>
+      <form id="teaQuestionForm" class="tea-question-form" onsubmit="sendTeaQuestion(event)">
+        <label for="teaQuestionInput">رسالتك إلى الكاتبة</label>
+        <textarea id="teaQuestionInput" placeholder="لو أمكنك سؤال الكاتبة شيئًا واحدًا…" minlength="2" maxlength="600" required></textarea>
+        <div class="tea-form-bottom"><span>رسالة واحدة في انتظار الرد في كل مرة.</span><button type="submit" id="teaSendButton" class="tea-small-action" disabled>أرسل السؤال ✉</button></div>
+      </form>
+      <button id="teaRefreshButton" class="tea-text-back" type="button" onclick="refreshTeaConversation()">↻ تحديث الرسائل</button>
+    </div>
+  </div>
+
+  <aside class="tea-author-access">
+    <button type="button" class="tea-author-trigger" onclick="toggleTeaAuthorAccess()">✒ دخول الكاتبة</button>
+    <div id="teaAuthorAccessPanel" class="tea-author-panel hidden">
+      <p>مساحة خاصة للكاتبة لإجابة رسائل الزوار. يتطلب تفعيل تسجيل الدخول بحساب Google وتحديد معرّف حساب الكاتبة في إعدادات Firebase.</p>
+      <button id="teaAuthorLogin" type="button" class="tea-small-action" onclick="teaAuthorSignIn()">دخول بحساب Google</button>
+      <p id="teaAuthorStatus" class="tea-status" role="status"></p>
+      <div id="teaAuthorInbox" class="hidden">
+        <button type="button" class="tea-text-back" onclick="loadTeaInbox()">↻ تحديث قائمة الرسائل</button>
+        <div id="teaThreadList" class="tea-inbox-list"></div>
+        <div id="teaActiveThread" class="tea-messages"></div>
+        <form id="teaReplyForm" class="tea-question-form hidden" onsubmit="sendTeaAuthorReply(event)">
+          <label for="teaReplyInput">رد الكاتبة</label><textarea id="teaReplyInput" maxlength="600" required placeholder="اكتب ردك هنا..."></textarea>
+          <button type="submit" class="tea-small-action">إرسال الرد ✉</button>
+        </form>
+      </div>
+    </div>
+  </aside>
+  <footer class="site-footer">✧ الشاي جيد... إن بقي في الكوب ✧</footer>
+</section>
+
+<!-- Green-tea splash overlay; hidden outside the playful transition. -->
+<div id="teaSplash" class="tea-splash" aria-hidden="true"><div class="tea-splash-blob blob-a"></div><div class="tea-splash-blob blob-b"></div><div class="tea-splash-blob blob-c"></div><div class="tea-splash-blob blob-d"></div></div>
+<div id="teaPanic" class="tea-panic hidden" role="status" aria-live="polite"><strong>جااايييييي! صبيت جاييي! شلون رح أشرب الجاي الحين؟؟ 😭🍵</strong><span>تهانينا... صارت المكتبة بنكهة الشاي الأخضر لمدة دقيقتين!</span><button type="button" onclick="dismissTeaPanic()" aria-label="إخفاء الرسالة">✕</button></div>
+
+
+<!-- Reader profile: securely linked to Firebase Google sign-in. -->
+<section id="readerProfilePage" class="container profile-page hidden" aria-labelledby="readerProfileTitle">
+  <button type="button" class="back-button" onclick="showStoriesPage()">↗ العودة إلى رفوف الحكايات</button>
+  <div class="profile-heading"><span class="eyebrow">✦ &nbsp; مساحة القارئ &nbsp; ✦</span><h1 id="readerProfileTitle">ركنك في المكتبة</h1><p>كتابك المفضّل، أثر كلماتك، واسمك الذي يعرفك به عالم الحكايات.</p></div>
+  <div id="readerGuestGate" class="reader-guest-gate hidden">
+    <div class="reader-guest-star">✧ ☾ ✧</div><h2>هذه البطاقة تنتظر صاحبها</h2>
+    <p>سجّل الدخول بحساب Google لإنشاء هويتك بين الحكايات، وحفظ الكتب والتعليقات والرسائل الخاصة على أجهزتك.</p>
+    <button type="button" class="reader-google-button" onclick="readerSignInWithGoogle()"><span class="google-g">G</span> المتابعة باستخدام Google</button>
+    <p id="readerLoginNotice" class="reader-login-notice" role="status"></p>
+  </div>
+  <div id="readerAccountStatus" class="reader-account-status hidden"><span id="readerAccountEmail"></span><button type="button" onclick="readerSignOut()">تسجيل الخروج ↗</button></div>
+  <div class="profile-cover">
+    <div class="profile-cover-sky" aria-hidden="true">✧ &nbsp; ☾ &nbsp; ✧</div>
+    <div class="profile-cover-inner">
+      <div class="profile-avatar-frame"><div id="readerAvatar" class="profile-avatar" aria-label="صورتك الشخصية">✦</div><span class="profile-avatar-star">✧</span></div>
+      <div class="profile-main-identity"><span class="profile-kicker">بطاقة قارئ في مكتبة تحت ضوء القمر</span><h2 id="readerDisplayName">قارئ بين النجوم</h2><p id="readerIdentityLine">لكل قارئ حكاية... وهذه مساحتك.</p><div class="profile-demo-chip">حساب قارئ · مرتبط بـ Google</div></div>
+    </div>
+  </div>
+  <div class="profile-stats"><div><strong id="readerFavoriteCount">0</strong><span>حكايات مفضّلة</span></div><div><strong id="readerCommentCount">0</strong><span>مشاركات مسجّلة</span></div><div><strong>✧</strong><span>مكانك بين الرفوف</span></div></div>
+  <div class="profile-tabs" role="tablist" aria-label="أقسام الملف الشخصي">
+    <button class="profile-tab active" id="readerTabEdit" type="button" role="tab" aria-selected="true" aria-controls="readerPanelEdit" onclick="selectReaderTab('edit')">✦ بطاقتي</button>
+    <button class="profile-tab" id="readerTabFavorites" type="button" role="tab" aria-selected="false" aria-controls="readerPanelFavorites" onclick="selectReaderTab('favorites')">♡ رفّ المفضلة</button>
+    <button class="profile-tab" id="readerTabActivity" type="button" role="tab" aria-selected="false" aria-controls="readerPanelActivity" onclick="selectReaderTab('activity')">✎ أثري في المكتبة</button>
+  </div>
+  <div class="profile-paper">
+    <section id="readerPanelEdit" class="profile-panel" role="tabpanel" aria-labelledby="readerTabEdit">
+      <div class="profile-section-title"><span>✧ &nbsp; 01 / بطاقتي</span><h2>تعال نختار لك اسمًا بين الحكايات</h2><p>يمكنك تغييره متى شئت؛ الاسم المستعار يظهر بجانب مشاركاتك ولا يكشف بريدك الإلكتروني.</p></div>
+      <form id="readerProfileForm" class="profile-editor" onsubmit="saveReaderProfile(event)">
+        <div class="profile-image-editor">
+          <label for="readerAvatarFile" class="profile-avatar-upload"><span id="readerAvatarMini" class="profile-avatar-small">✦</span><span>اختيار صورة شخصية <small>JPG أو PNG أو WebP · بحد أقصى 4 MB</small></span></label>
+          <input id="readerAvatarFile" type="file" accept="image/png,image/jpeg,image/webp" onchange="handleReaderAvatarFile(event)" class="profile-file-input">
+          <button type="button" class="profile-link-button" onclick="removeReaderAvatar()">إزالة الصورة</button>
+        </div>
+        <label for="readerNickname" class="profile-form-label">اسمك المستعار</label>
+        <input id="readerNickname" type="text" class="profile-text-input" placeholder="مثل: ساهر بين الكتب..." maxlength="30" autocomplete="nickname" required>
+        <p id="readerProfileSaveStatus" class="profile-form-hint" role="status">سيُحفظ الاسم والصورة بأمان في حسابك ليراها صاحب الحساب على أجهزته.</p>
+        <button type="submit" class="profile-primary-button">احفظ بطاقتي ✧</button>
+      </form>
+      <p class="profile-safety-note">✧ ملاحظة: مشاركاتك العامة تظهر باسمك المستعار، بينما صورتك وبريدك ورفك الشخصي ودفتر نشاطك محفوظة لحسابك فقط.</p>
+    </section>
+    <section id="readerPanelFavorites" class="profile-panel hidden" role="tabpanel" aria-labelledby="readerTabFavorites">
+      <div class="profile-section-title"><span>✧ &nbsp; 02 / مكتبتي الصغيرة</span><h2>الكتب التي احتفظ بها القلب ♡</h2><p>يمكنك إضافة كتاب بالضغط على القلب فوق غلافه أو داخل صفحة القراءة.</p></div>
+      <div id="readerFavoriteShelf" class="profile-favorites"></div>
+    </section>
+    <section id="readerPanelActivity" class="profile-panel hidden" role="tabpanel" aria-labelledby="readerTabActivity">
+      <div class="profile-section-title"><span>✧ &nbsp; 03 / أثري في المكتبة</span><h2>كلمات تركتها بين الصفحات</h2><p>نقاشاتك في المقهى، وردودك، وإجاباتك بعد القصص مع روابط تعيدك إليها.</p></div>
+      <div class="profile-notice">هذه المعاينة تعرض المشاركات الجديدة التي أُرسلت من هذا المتصفح فقط. بعد تسجيل الدخول، سنربط المشاركات بمعرّف الحساب (UID) وليس بالاسم المستعار. لا يمكن إثبات ملكية التعليقات القديمة المجهولة تلقائيًا.</div>
+      <div id="readerActivityList" class="profile-activity"></div>
+    </section>
+  </div>
+  <footer class="site-footer">✦ &nbsp; بين كل هذه الحكايات، لك مكانٌ أيضًا &nbsp; ✦</footer>
+</section>
+
+<div id="bookPortal" class="book-portal" role="presentation" aria-hidden="true">
+  <div class="portal-glow"></div>
+  <div class="portal-stage">
+    <div id="portalBook" class="portal-book" aria-hidden="true">
+      <div class="portal-pages"></div>
+      <div class="portal-cover"><span class="portal-ornament">✧</span><strong id="portalTitle"></strong><span class="portal-ornament">☾</span></div>
+    </div>
+    <div class="portal-caption">بين كل غلاف وعالم... صفحة واحدة.</div>
+  </div>
+</div>
     <script>
       let isReadingStory = false;
 
@@ -932,9 +1835,10 @@ body.night-time {
             measurementId: "G-VE62Y5PRYJ"
         };
 
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
-        const serverTimestamp = firebase.firestore.FieldValue.serverTimestamp;
+        const firebaseReady = typeof firebase !== 'undefined' && !!firebase.firestore;
+        if (firebaseReady && !firebase.apps.length) firebase.initializeApp(firebaseConfig);
+        const db = firebaseReady ? firebase.firestore() : null;
+        const serverTimestamp = firebaseReady ? firebase.firestore.FieldValue.serverTimestamp : (() => new Date());
 
 // ========== البيانات الأساسية مع الثيمات ==========
 
@@ -5103,7 +6007,7 @@ function setTheme(themeClass, storyTitle = '') {
         function openDailyStory() {
             const story = getDailyStory();
             if (story) {
-                showStoryReading(story.id);
+                openBook(story.id);
             } else {
                 alert("⚠️ لا توجد قصة متاحة اليوم");
             }
@@ -5113,7 +6017,7 @@ function setTheme(themeClass, storyTitle = '') {
             event.stopPropagation();
             localStorage.removeItem('daily_story');
             displayDailyStory();
-            alert('🔄 تم إعادة تعيين قصة اليوم - جربي تضغطين على قصة اليوم مرة ثانية!');
+            alert('🔄 تم إعادة تعيين قصة اليوم - يمكن الآن فتح حكاية اليوم الجديدة!');
         }
 
         // ========== أفكار (ideas) ==========
@@ -5164,12 +6068,12 @@ async function displayIdeas() {
             try {
                 await saveIdeaToDB(idea, name);
                 ideaInput.value = '';
-                // نخلي الاسم كما هو لو حابة تكرر
+                // نخلي الاسم كما هو عند تكرار الإرسال
                 await displayIdeas();
                 alert('✨ شكراً لك! تم إرسال فكرتك بنجاح');
             } catch (e) {
                 console.error(e);
-                 alert('✨ شكراً لك! تم إرسال فكرتك بنجاح');
+                 alert('تعذّر إرسال الرسالة حالياً. تحقق من الاتصال ثم حاول مجدداً.');
             }
         }
 
@@ -5196,13 +6100,15 @@ async function displayIdeas() {
         }
 
         async function saveDiscussionToDB(text, userName) {
-            await db.collection("discussions").add({
+            const postedDiscussion = await db.collection("discussions").add({
                 text,
                 userName,
+                authorUid: readerCurrentUser().uid,
                 likeCount: 0,
                 replies: [],
                 createdAt: serverTimestamp()
             });
+            return postedDiscussion.id;
         }
         
 // ====== نظام مقهى الحوار مع ردود متداخلة ولايكات لكل رد ======
@@ -5266,9 +6172,7 @@ async function displayDiscussions() {
             });
 
             // لو عدّلنا أي شيء، نحدّث الوثيقة في Firestore (مرة وحدة فقط)
-            if (changed) {
-                await doc.ref.update({ replies });
-            }
+            // Legacy reply normalization happens only in memory; don't mutate older documents while reading.
 
             discussions.push({
                 id: doc.id,
@@ -5282,13 +6186,13 @@ async function displayDiscussions() {
 
         // الآن نعرضها في الصفحة
         discussionsList.innerHTML = discussions.map(discussion => `
-            <div class="discussion-item">
+            <div class="discussion-item" id="discussion-${discussion.id}">
                 <div class="discussion-meta">
-                    <span>⏰ ${discussion.timestamp}</span>
-                    <span class="user-badge">${discussion.userName}</span>
+                    <span>⏰ ${escapeHTML(discussion.timestamp)}</span>
+                    <span class="user-badge">${escapeHTML(discussion.userName)}</span>
                 </div>
 
-                <p>${discussion.text}</p>
+                <p>${escapeHTML(discussion.text)}</p>
 
                 <div class="discussion-actions">
                     <button class="like-btn" onclick="handleLike('${discussion.id}', ${discussion.likeCount})">
@@ -5312,6 +6216,8 @@ async function displayDiscussions() {
                 </div>
             </div>
         `).join('');
+        readerResolvePendingAnchor();
+        readerPrefillNames();
 
     } catch (e) {
         console.error(e);
@@ -5321,10 +6227,11 @@ async function displayDiscussions() {
 
 // نشر نقاش جديد
 async function submitDiscussion() {
+    if(!readerRequireLogin())return;
     const discussionNameInput = document.getElementById('discussionName');
     const discussionInput = document.getElementById('discussionInput');
 
-    const name = discussionNameInput.value.trim() || "مجهول";
+    const name = readerName();
     const text = discussionInput.value.trim();
 
     if (!text) {
@@ -5333,7 +6240,8 @@ async function submitDiscussion() {
     }
 
     try {
-        await saveDiscussionToDB(text, name);
+        const postedId = await saveDiscussionToDB(text, name);
+        readerRecordActivity({kind:'discussion', targetId:postedId, text, location:'مقهى القرّاء', page:'cafe'});
         discussionInput.value = '';
         await displayDiscussions();
         alert('💬 تم نشر نقاشك بنجاح');
@@ -5352,10 +6260,11 @@ function toggleReplyForm(discussionId) {
 
 // إرسال رد على "النقاش نفسه" (رد مستوى أول)
 async function submitReply(discussionId) {
+    if(!readerRequireLogin())return;
     const replyNameInput = document.getElementById(`replyName-${discussionId}`);
     const replyInput = document.getElementById(`replyInput-${discussionId}`);
 
-    const name = replyNameInput.value.trim() || "مجهول";
+    const name = readerName();
     const replyText = replyInput.value.trim();
 
     if (!replyText) {
@@ -5371,16 +6280,19 @@ async function submitReply(discussionId) {
         const data = docSnap.data();
         const replies = Array.isArray(data.replies) ? data.replies : [];
 
+        const postedReplyId = generateReplyId();
         replies.unshift({
-            id: generateReplyId(),
+            id: postedReplyId,
             parentId: null,          // رد على النقاش مباشرة
             text: replyText,
             userName: name,
+            authorUid: readerCurrentUser().uid,
             likeCount: 0,
             timestamp: new Date().toLocaleString('ar-SA')
         });
 
         await docRef.update({ replies });
+        readerRecordActivity({kind:'reply', targetId:postedReplyId, discussionId, text:replyText, location:'رد في مقهى القرّاء', page:'cafe'});
         replyInput.value = '';
         // نخلي الاسم كما هو
         document.getElementById(`replyForm-${discussionId}`).style.display = 'none';
@@ -5414,10 +6326,11 @@ function toggleNestedReplyForm(discussionId, replyId) {
 
 // إرسال رد على "رد معيّن" (Nested Reply)
 async function submitNestedReply(discussionId, parentReplyId) {
+    if(!readerRequireLogin())return;
     const nameInput = document.getElementById(`nestedReplyName-${discussionId}-${parentReplyId}`);
     const textInput = document.getElementById(`nestedReplyInput-${discussionId}-${parentReplyId}`);
 
-    const name = nameInput.value.trim() || "مجهول";
+    const name = readerName();
     const text = textInput.value.trim();
 
     if (!text) {
@@ -5433,16 +6346,19 @@ async function submitNestedReply(discussionId, parentReplyId) {
         const data = snap.data();
         const replies = Array.isArray(data.replies) ? data.replies : [];
 
+        const postedReplyId = generateReplyId();
         replies.unshift({
-            id: generateReplyId(),
+            id: postedReplyId,
             parentId: parentReplyId,   // هنا السحر: هذا رد على رد قبله
             text,
             userName: name,
+            authorUid: readerCurrentUser().uid,
             likeCount: 0,
             timestamp: new Date().toLocaleString('ar-SA')
         });
 
         await docRef.update({ replies });
+        readerRecordActivity({kind:'reply', targetId:postedReplyId, discussionId, text, location:'رد في مقهى القرّاء', page:'cafe'});
 
         textInput.value = '';
         // ما نمسح الاسم
@@ -5486,14 +6402,14 @@ function renderReplies(allReplies, parentId = null, level = 0, discussionId) {
     return allReplies
         .filter(r => r.parentId === parentId)
         .map(r => `
-            <div class="reply-item" style="margin-right:${level * 20}px;">
+            <div class="reply-item" id="comment-${r.id}" style="margin-right:${Math.min(level,5) * 20}px;">
 
                 <div class="discussion-meta">
-                    <span>⏰ ${r.timestamp || ''}</span>
-                    <span class="user-badge">${r.userName || 'مجهول'}</span>
+                    <span>⏰ ${escapeHTML(r.timestamp || '')}</span>
+                    <span class="user-badge">${escapeHTML(r.userName || 'مجهول')}</span>
                 </div>
 
-                <p>${r.text}</p>
+                <p>${escapeHTML(r.text)}</p>
 
                 <div class="discussion-actions">
                     <button class="like-btn" onclick="handleReplyLike('${discussionId}', '${r.id}')">
@@ -5527,67 +6443,41 @@ let currentPages = [];
 let currentPageIndex = 0;
 
 function paginateContent(text, wordsPerPage = 150) {
-    const words = text.trim().split(/\s+/);
+    const tokens = String(text || '').match(/\S+|\s+/g) || [];
     const pages = [];
-
-    for (let i = 0; i < words.length; i += wordsPerPage) {
-        pages.push(words.slice(i, i + wordsPerPage).join(" "));
+    let page = [];
+    let wordCount = 0;
+    for (const token of tokens) {
+        page.push(token);
+        if (!/^\s+$/.test(token)) wordCount++;
+        if (wordCount >= wordsPerPage) {
+            pages.push(page.join('').trim());
+            page = [];
+            wordCount = 0;
+        }
     }
-
+    if (page.length) pages.push(page.join('').trim());
     return pages;
 }
 
 function renderPage() {
     const story = stories.find(s => s.id === currentStoryId);
-
-    document.getElementById('storyContent').innerHTML = `
-        <h2 style="color: var(--primary-color); text-align:center; margin-bottom:2rem;">
-            ${story.title}
-        </h2>
-        <div style="
-            background: var(--secondary-color);
-            padding: 2rem;
-            border-radius: 15px;
-            line-height: 1.9;
-            font-size: var(--reading-font-size);
-        ">
-            ${currentPages[currentPageIndex]}
-        </div>
-
-        <div class="pagination-box">
-            <button class="pagination-btn" onclick="previousPage()">السابق</button>
-            <span class="page-number">${currentPageIndex + 1} / ${currentPages.length}</span>
-            <button class="pagination-btn" onclick="nextPage()">التالي</button>
-        </div>
-    `;
-
-    // حفظ آخر صفحة
+    if (!story) return;
+    const pageText = currentPages[currentPageIndex] || '';
+    const content = document.getElementById('storyContent');
+    content.innerHTML = `<div class="reader-category">${escapeHTML(story.category)} &nbsp; ✦ &nbsp; صفحة ${currentPageIndex + 1}</div>
+      <button type="button" class="reader-heart-button ${readerIsFavorite(story.id) ? 'is-favorite' : ''}" onclick="toggleReaderFavorite(${story.id})" aria-pressed="${readerIsFavorite(story.id)}">${readerIsFavorite(story.id) ? '♥ في مفضلتي' : '♡ أضف إلى مفضلتي'}</button>
+      <h2 style="text-align:center;">${escapeHTML(story.title)}</h2>
+      <div class="reader-ornament" aria-hidden="true">✧ ☾ ✧</div>
+      <div class="reading-body" id="readingBody"></div>
+      <div class="pagination-box">
+        <button class="pagination-btn" type="button" onclick="previousPage()" ${currentPageIndex === 0 ? 'disabled' : ''}>السابق</button>
+        <span class="page-number">${currentPageIndex + 1} / ${currentPages.length}</span>
+        <button class="pagination-btn" type="button" onclick="nextPage()" ${currentPageIndex === currentPages.length - 1 ? 'disabled' : ''}>التالي</button>
+      </div>`;
+    document.getElementById('readingBody').textContent = pageText;
     localStorage.setItem(`story_${currentStoryId}_page`, currentPageIndex);
-
-
-}
-
-function showStoryReading(storyId, pushHash = true) {
-      isReadingStory = true;       // 🔥 أضف هذا
-    applyTimeBasedTheme();       // 🔥 ليتم إطفاء time-theme
-    if (pushHash) window.location.hash = `story-${storyId}`;
-    hideAllPages();
-    document.getElementById('storyReadingSection').classList.remove('hidden');
-
-    const story = stories.find(s => s.id === storyId);
-    currentStoryId = storyId;
-
-    setTheme(story.theme, story.title);
-
-    // تقسيم المحتوى لصفحات
-    currentPages = paginateContent(story.content, 150);
-
-    // استرجاع آخر صفحة
-    const savedPage = localStorage.getItem(`story_${storyId}_page`);
-    currentPageIndex = savedPage ? parseInt(savedPage) : 0;
-
-    // عرض الصفحة
-    renderPage();
+    applyFontSize();
 }
 
 function nextPage() {
@@ -5629,6 +6519,7 @@ async function displayStoryAnswers() {
         const allAnswers = snapshot.docs.map(doc => {
             const data = doc.data();
             return {
+                id: doc.id,
                 questionIndex: data.questionIndex,
                 text: data.text,
                 userName: data.userName || "مجهول",
@@ -5656,12 +6547,12 @@ async function displayStoryAnswers() {
                 `;
             } else {
                 fullHTML += relatedAnswers.map(ans => `
-                    <div class="discussion-item">
+                    <div class="discussion-item" id="answer-${ans.id}">
                         <div class="discussion-meta">
-                            <span>⏰ ${ans.timestamp}</span>
-                            <span class="user-badge">${ans.userName}</span>
+                            <span>⏰ ${escapeHTML(ans.timestamp)}</span>
+                            <span class="user-badge">${escapeHTML(ans.userName)}</span>
                         </div>
-                        <p>${ans.text}</p>
+                        <p>${escapeHTML(ans.text)}</p>
                     </div>
                 `).join('');
             }
@@ -5669,6 +6560,8 @@ async function displayStoryAnswers() {
 
         // 🧩 بدل += نضع HTML مرة واحدة
         answersContainer.innerHTML = fullHTML;
+        readerResolvePendingAnchor();
+        readerPrefillNames();
 
     } catch (e) {
         console.error(e);
@@ -5683,6 +6576,7 @@ async function displayStoryAnswers() {
 
 
         async function submitAnswers() {
+    if(!readerRequireLogin())return;
             if (!currentStoryId) {
                 alert('لا توجد قصة محددة.');
                 return;
@@ -5692,7 +6586,7 @@ async function displayStoryAnswers() {
             if (!story) return;
 
             const nameInput = document.getElementById('answersName');
-            const userName = nameInput.value.trim() || "مجهول";
+            const userName = readerName();
 
             let hasNew = false;
 
@@ -5701,13 +6595,15 @@ async function displayStoryAnswers() {
                     const answerInput = document.getElementById(`answer${i}`);
                     if (answerInput && answerInput.value.trim()) {
                         const text = answerInput.value.trim();
-                        await db.collection("storyAnswers").add({
+                        const answerRef = await db.collection("storyAnswers").add({
                             storyId: currentStoryId,
                             questionIndex: i,
                             text,
                             userName,
+                            authorUid: readerCurrentUser().uid,
                             createdAt: serverTimestamp()
                         });
+                        readerRecordActivity({kind:'answer', targetId:answerRef.id, storyId:currentStoryId, text, location:'أسئلة قصة ' + story.title, page:'questions-' + currentStoryId});
                         answerInput.value = '';
                         hasNew = true;
                     }
@@ -5724,17 +6620,89 @@ async function displayStoryAnswers() {
                 alert('حدث خطأ أثناء حفظ الأجوبة.');
             }
         }
-function displayAllStories() {
-    const storiesGrid = document.getElementById('storiesGrid');
-    if (!storiesGrid) return;
 
-    storiesGrid.innerHTML = stories.map(story => `
-        <div class="story-card" onclick="showStoryIntro(${story.id})">
-            <span class="category">${story.category}</span>
-            <h3>${story.title}</h3>
-            <p>${story.description}</p>
-        </div>
-    `).join('');
+const bookPalette = {
+  'theme-romance': {base:'#8e4966',dark:'#462a47',light:'#bd829a',ornament:'♡'},
+  'theme-drama': {base:'#9c6945',dark:'#583d38',light:'#c89d68',ornament:'✺'},
+  'theme-mystery': {base:'#635a8b',dark:'#303455',light:'#9998b8',ornament:'✧'},
+  'theme-suspense': {base:'#3f6a70',dark:'#23454f',light:'#7ca5a1',ornament:'♜'},
+  'theme-default': {base:'#58749c',dark:'#324263',light:'#a8b9dc',ornament:'☾'}
+};
+let selectedGenre = 'all';
+let bookPortalTimer = null;
+function escapeHTML(value) {
+  return String(value == null ? '' : value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function paletteForStory(story) { return bookPalette[story.theme] || bookPalette['theme-default']; }
+function colorStyle(story) {
+  const p = paletteForStory(story);
+  return `--cover:${p.base};--cover-dark:${p.dark};--cover-light:${p.light};`;
+}
+function filterGenre(genre) {
+  selectedGenre = genre;
+  document.querySelectorAll('.genre-filter').forEach(btn => btn.classList.toggle('active', btn.dataset.genre === genre));
+  displayAllStories();
+}
+function displayAllStories() {
+  const grid = document.getElementById('storiesGrid');
+  if (!grid) return;
+  const search = (document.getElementById('storySearch')?.value || '').trim().toLowerCase();
+  const filtered = stories.filter(story => {
+    const genreMatch = selectedGenre === 'all' || story.category === selectedGenre;
+    const queryMatch = !search || [story.title,story.category,story.description].join(' ').toLowerCase().includes(search);
+    return genreMatch && queryMatch;
+  });
+  if (!filtered.length) {
+    grid.innerHTML = '<div class="no-results">لم تظهر حكاية مطابقة... جرّب كلمة أخرى أو نوعاً مختلفاً ✧</div>';
+    return;
+  }
+  grid.innerHTML = filtered.map((story,i) => {
+    const p=paletteForStory(story);
+    return `<div class="book-slot">
+      <button type="button" class="story-book" style="${colorStyle(story)}" onclick="openBook(${story.id})" aria-label="فتح قصة ${escapeHTML(story.title)}" title="فتح ${escapeHTML(story.title)}">
+        <span class="book-front">
+          <span class="book-tiny">✦ &nbsp; حكايات تحت ضوء القمر &nbsp; ✦</span>
+          <span class="book-crest" aria-hidden="true"><span>${p.ornament}</span></span>
+          <strong class="book-title">${escapeHTML(story.title)}</strong>
+          <span class="book-author">بقلم بتول ✦</span>
+          <span class="book-category">${escapeHTML(story.category)} &nbsp; ✧</span>
+        </span>
+      </button>
+      <button class="book-favorite-button ${readerIsFavorite(story.id) ? 'is-favorite' : ''}" type="button" aria-pressed="${readerIsFavorite(story.id)}" aria-label="${readerIsFavorite(story.id) ? 'إزالة من المفضلة' : 'إضافة إلى المفضلة'}: ${escapeHTML(story.title)}" onclick="toggleReaderFavorite(${story.id})">${readerIsFavorite(story.id) ? '♥' : '♡'}</button>
+      <div class="book-slot-label"><span aria-hidden="true">✦</span>${escapeHTML(story.category)}</div>
+    </div>`;
+  }).join('');
+}
+function openBook(id) {
+  const story = stories.find(s => s.id === Number(id));
+  if(!story) return;
+  const portal = document.getElementById('bookPortal');
+  const pages = document.getElementById('portalBook');
+  if(!portal || !pages || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    showStoryReading(story.id);
+    return;
+  }
+  if(bookPortalTimer) clearTimeout(bookPortalTimer);
+  pages.style.cssText = colorStyle(story);
+  document.getElementById('portalTitle').textContent=story.title;
+  portal.classList.remove('turning');
+  portal.classList.add('active');
+  portal.setAttribute('aria-hidden','false');
+  // Force layout so repeated openings restart the CSS animation.
+  void pages.offsetWidth;
+  requestAnimationFrame(() => portal.classList.add('turning'));
+  bookPortalTimer = setTimeout(() => {
+    portal.classList.remove('active','turning');
+    portal.setAttribute('aria-hidden','true');
+    bookPortalTimer=null;
+    showStoryReading(story.id);
+    window.scrollTo({top:0,behavior:'instant'});
+  }, 930);
+}
+function openRandomStory() {
+  const pool = stories.filter(s=>s.id);
+  if(!pool.length) return;
+  openBook(pool[Math.floor(Math.random()*pool.length)].id);
 }
 
 // ========== التنقل بين الصفحات باستخدام الهاش (حل مشكلة الرفريش) ==========
@@ -5762,6 +6730,7 @@ function showHomePage(pushHash = true) {
 applyTimeBasedTheme();
     setTheme('theme-default', '');
     displayDailyStory();
+    window.scrollTo({top:0,behavior:'instant'});
 
 }
 
@@ -5777,6 +6746,7 @@ applyTimeBasedTheme();
     setTheme('', '');
     displayAllStories();
     displayLastRead();
+    window.scrollTo({top:0,behavior:'instant'});
 }
 
 function showCafePage(pushHash = true) {
@@ -5790,38 +6760,29 @@ applyTimeBasedTheme();
 applyTimeBasedTheme();
     setTheme('', '');
     displayDiscussions();
-    
+    window.scrollTo({top:0,behavior:'instant'});
 
 }
 
 
 function showStoryReading(storyId, pushHash = true) {
-    if (pushHash) window.location.hash = `story-${storyId}`;
+    const story = stories.find(s => s.id === Number(storyId));
+    if (!story) return showStoriesPage();
+    currentStoryId = story.id;
+    isReadingStory = true;
+    applyTimeBasedTheme();
+    if (pushHash) window.location.hash = `story-${story.id}`;
     hideAllPages();
     document.getElementById('storyReadingSection').classList.remove('hidden');
-  isReadingStory = true;
-applyTimeBasedTheme();
-
-    const story = stories.find(s => s.id === storyId);
-    currentStoryId = storyId;
-    localStorage.setItem("last_read_story", storyId);
-
+    localStorage.setItem('last_read_story', story.id);
     setTheme(story.theme, story.title);
-
-    // تقسيم المحتوى لصفحات
     currentPages = paginateContent(story.content, 150);
-
-    // استرجاع آخر صفحة
-    const savedPage = localStorage.getItem(`story_${storyId}_page`);
-    currentPageIndex = savedPage ? parseInt(savedPage) : 0;
-
-    // عرض الصفحة
+    if (!currentPages.length) currentPages = [''];
+    const savedPage = Number(localStorage.getItem(`story_${story.id}_page`));
+    currentPageIndex = Number.isFinite(savedPage) ? Math.min(Math.max(0,savedPage),currentPages.length-1) : 0;
     renderPage();
-
-    // تطبيق حجم الخط لو تم تغييره سابقاً
-    applyFontSize();
+    window.scrollTo({top:0,behavior:'instant'});
 }
-
 
 function showQuestions(pushHash = true) {
 
@@ -5910,6 +6871,7 @@ applyTimeBasedTheme();
     document.getElementById("introTitle").textContent = story.title;
     document.getElementById("introCategory").textContent = "النوع: " + story.category;
     document.getElementById("introDescription").textContent = story.description;
+    readerRefreshFavoriteButtons();
 
     document.getElementById("storyIntroPage").classList.remove("hidden");
 }
@@ -5941,13 +6903,11 @@ function displayLastRead() {
     titleEl.textContent = story.title;
     descEl.textContent = story.description;
 
-    // apply theme colors
-    lastBox.style.border = "2px solid var(--primary-color)";
-    lastBox.style.background = "var(--secondary-color)";
+    // Styling is controlled by the Moonlit theme; keep the stored reading progress.
 }
 function openLastRead() {
     const lastId = localStorage.getItem("last_read_story");
-    if (lastId) showStoryIntro(parseInt(lastId));
+    if (lastId) openBook(parseInt(lastId));
 }
 
 // ====================== نظام تكبير وتصغير الخط ======================
@@ -5956,7 +6916,7 @@ let currentFontSize = parseFloat(localStorage.getItem("fontSize")) || 1.1;
 function applyFontSize() {
     const storyContent = document.getElementById("storyContent");
     if (storyContent) {
-        storyContent.style.fontSize = currentFontSize + "rem";
+        storyContent.style.setProperty('--reading-font-size', currentFontSize + 'rem');
     }
 }
 
@@ -6005,63 +6965,55 @@ document.addEventListener("click", function(e) {
         menu.style.display = "none";
     }
 });
-// ========== نظام ليل / نهار مع تخزين ==========
-function toggleTheme() {
-    // فقط نضيف أو نشيل dark-mode بدون اللعب بالثيمات الأخرى
-    document.body.classList.toggle("dark-mode");
-
-    localStorage.setItem(
-        "themeMode",
-        document.body.classList.contains("dark-mode") ? "dark" : "light"
-    );
-
-    updateThemeIcon();
-}
-
-
-function updateThemeIcon() {
-    const icon = document.getElementById("themeToggle");
-    const isDark = document.body.classList.contains("dark-mode");
-
-    icon.textContent = isDark ? "☀️" : "🌙";
-}
-
-// عند أول دخول للموقع — لو في حفظ، نطبقه
-document.addEventListener("DOMContentLoaded", () => {
-    const saved = localStorage.getItem("themeMode");
-    if (saved === "dark") {
-        document.body.classList.add("dark-mode");
-    }
-    updateThemeIcon();
-});
-
-function applyTimeBasedTheme() {
-
-    // 🔥 إذا المستخدم داخل قصة → لا نطبق نهار/ليل
-    if (isReadingStory) {
-        document.body.classList.remove("day-time", "night-time");
-        return;
-    }
-
-    // 🔥 خارج القصة → شغّل نهار/ليل
+// ========== نظام نهار / ليل للموقع بالكامل ==========
+// Visitor choice wins over automatic daytime/nighttime detection.
+function getPreferredTheme() {
+    const saved = localStorage.getItem('themeMode');
+    if (saved === 'light' || saved === 'dark') return saved;
     const hour = new Date().getHours();
-
-    if (hour >= 6 && hour < 17) {
-        document.body.classList.add("day-time");
-        document.body.classList.remove("night-time");
-    } else {
-        document.body.classList.add("night-time");
-        document.body.classList.remove("day-time");
-    }
+    return hour >= 6 && hour < 18 ? 'light' : 'dark';
 }
-
-
-
-// تشغيله أول مرة
+function applyThemeMode(mode) {
+    const night = mode === 'dark';
+    document.body.classList.toggle('dark-mode',night);
+    document.body.classList.toggle('night-time',night);
+    document.body.classList.toggle('day-time',!night);
+    document.documentElement.style.colorScheme = night ? 'dark' : 'light';
+    updateThemeIcon();
+}
+function toggleTheme() {
+    const nextMode = document.body.classList.contains('dark-mode') ? 'light' : 'dark';
+    localStorage.setItem('themeMode',nextMode);
+    applyThemeMode(nextMode);
+}
+function updateThemeIcon() {
+    const btn = document.getElementById('themeToggle');
+    if (!btn) return;
+    const isDark = document.body.classList.contains('dark-mode');
+    btn.textContent = isDark ? '☀' : '☾';
+    const message = isDark ? 'التبديل إلى الوضع النهاري' : 'التبديل إلى الوضع الليلي';
+    btn.setAttribute('aria-label',message);
+    btn.title=message;
+    btn.setAttribute('aria-pressed',String(isDark));
+}
+function applyTimeBasedTheme() {
+    // Intentionally works on EVERY page, including inside a story.
+    applyThemeMode(getPreferredTheme());
+}
 applyTimeBasedTheme();
-
-// إعادة التشغيل كل ساعة (للي يقعدون بموقعج)
-setInterval(applyTimeBasedTheme, 60 * 60 * 1000);
+document.addEventListener('DOMContentLoaded', applyTimeBasedTheme);
+// Only automatic visitors change with time; manual setting persists.
+setInterval(() => {
+    if (!['light','dark'].includes(localStorage.getItem('themeMode'))) applyTimeBasedTheme();
+},60*60*1000);
+function toggleBatoulLetter() {
+    const note=document.getElementById('batoulLetter');
+    const button=document.getElementById('nookLetterToggle');
+    if(!note || !button) return;
+    note.hidden=!note.hidden;
+    button.setAttribute('aria-expanded',String(!note.hidden));
+    button.textContent=note.hidden?'افتح رسالة صغيرة من الكاتبة ✉':'أخفِ الرسالة ✦';
+}
 
 // كل مرة نفتح صفحة قراءة، يطبق الحجم المختار تلقائياً
 document.addEventListener("DOMContentLoaded", applyFontSize);
@@ -6108,8 +7060,586 @@ document.addEventListener("DOMContentLoaded", () => {
     startStars(".story-of-day", 2000);
 });
 </script>
+
+<script>
+// ===== شاي الكاتبة — authored notes, one-to-one messages, and the teapot prank =====
+// Replace this test list with Batoul's real notes when ready.
+// All example entries are clearly marked as previews until the writer supplies them.
+const teaNotes = [
+  'هذه ورقة تجريبية في انتظار ملاحظات الكاتبة الحقيقية. ربما تحمل هذه الصفحة يومًا سرًا عن إحدى الشخصيات…',
+  'ملاحظة تجريبية: هل يمكن أن تكون تفصيلة صغيرة في بداية قصة هي المفتاح لنهايتها؟',
+  'ورقة مؤقتة من دفتر الأفكار: بعض الحكايات تبدأ بسؤال واحد فقط… ماذا لو؟'
+];
+const TEA_AUTHOR_UID = 'REPLACE_WITH_YOUR_FIREBASE_AUTH_UID';
+const TEA_PRANK_KEY = 'batoul_tea_spill_until';
+const TEA_PRANK_MS = 2 * 60 * 1000;
+let teaLastNoteIndex = -1;
+let teaPrankTimeout = null;
+let teaPanicTimeout = null;
+let teaMessagesUnsubscribe = null;
+let teaVisitorUid = null;
+let teaMyMessages = [];
+let teaAuthReady = false;
+let teaSelectedWriterThread = null;
+let teaWriterConversationUnsubscribe = null;
+const teaAuth = (typeof firebase !== 'undefined' && firebase.apps.length && typeof firebase.auth === 'function') ? firebase.auth() : null;
+
+// Wrap existing navigation: hide the tea room whenever a regular page opens.
+const teaOriginalHideAllPages = hideAllPages;
+hideAllPages = function(){teaOriginalHideAllPages();document.getElementById('teaRoomPage').classList.add('hidden');};
+
+function showTeaRoom(pushHash=true){
+  if(pushHash) window.location.hash='tea';
+  hideAllPages();
+  document.getElementById('teaRoomPage').classList.remove('hidden');
+  isReadingStory=false;
+  applyTimeBasedTheme();
+  window.scrollTo({top:0,behavior:'instant'});
+  prepareTeaVisitor();
+}
+window.addEventListener('hashchange',()=>{if(window.location.hash==='#tea')showTeaRoom(false);});
+document.addEventListener('DOMContentLoaded',()=>{
+  if(window.location.hash==='#tea')showTeaRoom(false);
+  restoreTeaPrank();
+});
+
+function openTeaBook(){
+  const shell=document.getElementById('teaBookShell');
+  const cover=document.getElementById('teaMagicBook');
+  const pages=document.getElementById('teaBookPages');
+  const isOpening=!shell.classList.contains('is-open');
+  shell.classList.toggle('is-open',isOpening);
+  cover.setAttribute('aria-expanded',String(isOpening));
+  pages.inert=!isOpening;
+  pages.setAttribute('aria-hidden',String(!isOpening));
+  if(!isOpening){
+    document.getElementById('teaBookContents').classList.add('hidden');
+    setTeaPanel('menu');
+    cover.focus({preventScroll:true});
+  }
+}
+function setTeaPanel(which){
+  // Choices are printed on the two visible pages; only the selected detail opens below.
+  document.getElementById('teaBookMenu').classList.add('hidden');
+  document.getElementById('teaSecretPanel').classList.toggle('hidden',which!=='secret');
+  document.getElementById('teaQuestionsPanel').classList.toggle('hidden',which!=='questions');
+}
+function showTeaMenu(){
+  setTeaPanel('menu');
+  document.getElementById('teaBookContents').classList.add('hidden');
+  document.getElementById('teaBookShell').scrollIntoView({behavior:'smooth',block:'center'});
+}
+function showTeaDetails(which){
+  setTeaPanel(which);
+  const panel=document.getElementById('teaBookContents');
+  panel.classList.remove('hidden');
+  setTimeout(()=>panel.scrollIntoView({behavior:'smooth',block:'start'}),80);
+}
+function showTeaSecrets(){showTeaDetails('secret');revealTeaSecret();}
+function showTeaQuestions(){showTeaDetails('questions');prepareTeaVisitor();}
+function revealTeaSecret(){
+  if(!teaNotes.length){document.getElementById('teaSecretText').textContent='هذه الصفحة تنتظر كلمة من الكاتبة…';return;}
+  const other=teaNotes.map((_,i)=>i).filter(i=>i!==teaLastNoteIndex);
+  const choices=other.length?other:[0];
+  const index=choices[Math.floor(Math.random()*choices.length)];
+  teaLastNoteIndex=index;
+  document.getElementById('teaSecretText').textContent=teaNotes[index];
+  document.getElementById('teaSecretFooter').textContent='— نموذج مؤقت • تُضاف ملاحظات بتول لاحقًا ✦';
+}
+
+function dismissTeaPanic(){document.getElementById('teaPanic').classList.add('hidden');}
+function restoreTeaPrank(){
+  const until=Number(localStorage.getItem(TEA_PRANK_KEY))||0;
+  if(teaPrankTimeout)clearTimeout(teaPrankTimeout);
+  if(until>Date.now()){
+    document.body.classList.add('tea-spilled');
+    teaPrankTimeout=setTimeout(endTeaPrank,Math.max(10,until-Date.now()));
+  }else{endTeaPrank();}
+}
+function endTeaPrank(){
+  localStorage.removeItem(TEA_PRANK_KEY);
+  document.body.classList.remove('tea-spilled');
+  dismissTeaPanic();
+  if(teaPrankTimeout)clearTimeout(teaPrankTimeout);
+  teaPrankTimeout=null;
+}
+function spillGreenTea(){
+  const cup=document.getElementById('teaPrankCup');
+  const splash=document.getElementById('teaSplash');
+  const panic=document.getElementById('teaPanic');
+  cup.classList.remove('spilling');splash.classList.remove('active');
+  void cup.offsetWidth;
+  cup.classList.add('spilling');splash.classList.add('active');
+  localStorage.setItem(TEA_PRANK_KEY,String(Date.now()+TEA_PRANK_MS));
+  document.body.classList.add('tea-spilled');
+  panic.classList.remove('hidden');
+  if(teaPrankTimeout)clearTimeout(teaPrankTimeout);
+  teaPrankTimeout=setTimeout(endTeaPrank,TEA_PRANK_MS);
+  if(teaPanicTimeout)clearTimeout(teaPanicTimeout);
+  teaPanicTimeout=setTimeout(()=>panic.classList.add('hidden'),14000);
+  setTimeout(()=>{cup.classList.remove('spilling');splash.classList.remove('active');},1900);
+}
+
+function teaStatus(text){document.getElementById('teaReaderStatus').textContent=text;}
+function teaErrorDescription(e){
+  if(e?.code==='auth/operation-not-allowed')return 'يجب تفعيل تسجيل الدخول بـ Google في Firebase أولًا.';
+  if(e?.code==='auth/unauthorized-domain')return 'أضف نطاق الموقع إلى Firebase Authorized Domains.';
+  if(e?.code==='permission-denied')return 'يلزم إضافة قواعد الأمان الخاصة برسائل شاي الكاتبة في Firestore.';
+  return e?.message||'تعذر الاتصال الآن. حاول لاحقًا.';
+}
+function teaIsWriter(user){return !!user&&TEA_AUTHOR_UID!=='REPLACE_WITH_YOUR_FIREBASE_AUTH_UID'&&user.uid===TEA_AUTHOR_UID;}
+async function prepareTeaVisitor(){
+  if(!teaAuth){teaStatus('خدمة تسجيل الدخول غير متاحة الآن.');return;}
+  const user=teaAuth.currentUser;
+  if(!user || user.isAnonymous){
+    teaStatus('سجّل الدخول بحساب Google لبدء محادثة خاصة يمكن العودة إليها من أي جهاز.');
+    document.getElementById('teaGoogleAuthButton')?.classList.remove('hidden');
+    document.getElementById('teaSendButton').disabled=true;
+    document.getElementById('teaQuestionInput').disabled=true;
+    return;
+  }
+  document.getElementById('teaGoogleAuthButton')?.classList.add('hidden');
+  if(teaIsWriter(user)){teaStatus('مرحبًا بالكاتبة. الرسائل الواردة تظهر في لوحة الكاتبة.');return;}
+  teaVisitorUid=user.uid;watchTeaVisitorMessages();
+}
+if(teaAuth){
+  teaAuth.onAuthStateChanged(user=>{
+    if(teaMessagesUnsubscribe){teaMessagesUnsubscribe();teaMessagesUnsubscribe=null;}
+    teaVisitorUid=null;teaMyMessages=[];
+    const sendButton=document.getElementById('teaSendButton');
+    if(sendButton)sendButton.disabled=true;
+    if(user&&!teaIsWriter(user)){
+      teaVisitorUid=user.uid;
+      watchTeaVisitorMessages();
+    }else if(user&&teaIsWriter(user)){
+      teaStatus('مرحبًا بالكاتبة. أجب عن الأسئلة من لوحة الكاتبة أسفل الكتاب.');
+      document.getElementById('teaReaderConversation').replaceChildren();
+    }
+    document.getElementById('teaGoogleAuthButton')?.classList.toggle('hidden',!!user&&!user.isAnonymous);
+    if(!user || user.isAnonymous){
+      teaStatus('سجّل الدخول بحساب Google لطرح سؤال خاص.');
+      document.getElementById('teaQuestionInput').disabled=true;
+      document.getElementById('teaReaderConversation').replaceChildren();
+    }
+    updateTeaAuthorStatus(user);
+  });
+}
+function teaMessageNode(msg){
+  const item=document.createElement('div');
+  item.className='tea-message'+(msg.senderRole==='author'?' from-author':'');
+  const body=document.createElement('div');body.textContent=msg.text||'';
+  const meta=document.createElement('small');
+  meta.textContent=msg.senderRole==='author'?'✦ رد بتول':'✉ رسالة القارئ';
+  item.append(body,meta);return item;
+}
+function teaRenderMessages(elementId,messages){
+  const el=document.getElementById(elementId);
+  el.replaceChildren();
+  if(!messages.length){const p=document.createElement('p');p.style.textAlign='center';p.textContent='لا توجد رسائل بعد…';el.append(p);return;}
+  messages.forEach(message=>el.appendChild(teaMessageNode(message)));
+  el.scrollTop=el.scrollHeight;
+}
+function watchTeaVisitorMessages(){
+  if(!db||!teaVisitorUid)return;
+  if(teaMessagesUnsubscribe){teaMessagesUnsubscribe();teaMessagesUnsubscribe=null;}
+  const watched=teaVisitorUid;
+  teaMessagesUnsubscribe=db.collection('teaConversations').doc(watched)
+    .collection('messages').orderBy('createdAt','asc')
+    .onSnapshot(snapshot=>{
+      if(teaVisitorUid!==watched)return;
+      teaMyMessages=snapshot.docs.map(doc=>doc.data());
+      teaRenderMessages('teaReaderConversation',teaMyMessages);
+      const last=teaMyMessages[teaMyMessages.length-1];
+      const waiting=last?.senderRole==='reader';
+      document.getElementById('teaSendButton').disabled=waiting;
+      document.getElementById('teaQuestionInput').disabled=waiting;
+      teaStatus(waiting?'وصل سؤالك! بانتظار رد الكاتبة 💌':'يمكنك إرسال سؤال خاص. الرد سيظهر هنا عندما تجيب الكاتبة.');
+    },e=>teaStatus('تعذّر قراءة رسائلك: '+teaErrorDescription(e)));
+}
+async function refreshTeaConversation(){
+  if(!teaAuth?.currentUser)return prepareTeaVisitor();
+  if(teaIsWriter(teaAuth.currentUser))return;
+  watchTeaVisitorMessages();
+}
+async function sendTeaQuestion(event){
+  event.preventDefault();
+  const input=document.getElementById('teaQuestionInput');
+  const button=document.getElementById('teaSendButton');
+  const text=input.value.trim();
+  if(!readerRequireLogin())return;
+  if(text.length<2||text.length>600||!teaVisitorUid)return;
+  if(teaMyMessages.length&&teaMyMessages.at(-1).senderRole==='reader')return;
+  button.disabled=true;
+  try{
+    const thread=db.collection('teaConversations').doc(teaVisitorUid);
+    const exists=await thread.get();
+    if(!exists.exists){await thread.set({ownerUid:teaVisitorUid,alias:readerName(),createdAt:serverTimestamp(),updatedAt:serverTimestamp()});}
+    await thread.collection('messages').add({senderUid:teaVisitorUid,senderRole:'reader',text,createdAt:serverTimestamp()});
+    await thread.update({updatedAt:serverTimestamp()});
+    input.value='';teaStatus('أُرسلت رسالتك إلى الكاتبة ✉');
+  }catch(e){teaStatus('تعذّر الإرسال: '+teaErrorDescription(e));button.disabled=false;}
+}
+function toggleTeaAuthorAccess(){
+  document.getElementById('teaAuthorAccessPanel').classList.toggle('hidden');
+  if(teaAuth?.currentUser)updateTeaAuthorStatus(teaAuth.currentUser);
+}
+function updateTeaAuthorStatus(user){
+  const el=document.getElementById('teaAuthorStatus');if(!el)return;
+  if(teaIsWriter(user)){
+    el.textContent='تم التحقق من دخول الكاتبة. بإمكانك قراءة الرسائل والرد عليها.';
+    document.getElementById('teaAuthorInbox').classList.remove('hidden');
+    loadTeaInbox();
+  }else{
+    el.textContent=user?`مُعرّف الحساب الحالي (UID): ${user.uid}. إذا كنت الكاتبة، ضع مُعرّف حساب Google الخاص بك في إعدادات الكود وقواعد Firestore ثم سجّل الدخول بحساب Google.`:'سجّل الدخول بحساب الكاتبة للوصول إلى الرسائل.';
+    document.getElementById('teaAuthorInbox').classList.add('hidden');
+  }
+}
+async function teaAuthorSignIn(){
+  if(!teaAuth){document.getElementById('teaAuthorStatus').textContent='Firebase Authentication غير متاح.';return;}
+  try{await readerSignInWithGoogle();}
+  catch(e){document.getElementById('teaAuthorStatus').textContent='تعذّر تسجيل الدخول: '+teaErrorDescription(e);}
+}
+async function loadTeaInbox(){
+  const container=document.getElementById('teaThreadList');
+  if(!teaIsWriter(teaAuth?.currentUser))return;
+  container.textContent='جاري قراءة الأسئلة الخاصة…';
+  try{
+    const snapshot=await db.collection('teaConversations').orderBy('updatedAt','desc').limit(60).get();
+    container.replaceChildren();
+    if(snapshot.empty){container.textContent='لا توجد أسئلة خاصة بعد.';return;}
+    for(const doc of snapshot.docs){
+      const button=document.createElement('button');button.type='button';button.className='tea-thread-pick';
+      button.textContent=`✉ محادثة ${doc.id.slice(0,8)}…  — فتح الرسائل`;
+      button.addEventListener('click',()=>selectTeaWriterThread(doc.id));container.append(button);
+    }
+  }catch(e){container.textContent='تعذّر قراءة البريد: '+teaErrorDescription(e);}
+}
+function selectTeaWriterThread(uid){
+  if(!teaIsWriter(teaAuth?.currentUser))return;
+  teaSelectedWriterThread=uid;
+  if(teaWriterConversationUnsubscribe)teaWriterConversationUnsubscribe();
+  document.getElementById('teaReplyForm').classList.remove('hidden');
+  teaWriterConversationUnsubscribe=db.collection('teaConversations').doc(uid).collection('messages')
+    .orderBy('createdAt','asc').onSnapshot(snapshot=>{
+      teaRenderMessages('teaActiveThread',snapshot.docs.map(d=>d.data()));
+    },e=>{document.getElementById('teaActiveThread').textContent=teaErrorDescription(e);});
+}
+async function sendTeaAuthorReply(event){
+  event.preventDefault();
+  if(!teaIsWriter(teaAuth?.currentUser)||!teaSelectedWriterThread)return;
+  const input=document.getElementById('teaReplyInput');
+  const text=input.value.trim();if(!text||text.length>600)return;
+  const button=event.target.querySelector('button[type=submit]');button.disabled=true;
+  try{
+    const thread=db.collection('teaConversations').doc(teaSelectedWriterThread);
+    await thread.collection('messages').add({senderUid:teaAuth.currentUser.uid,senderRole:'author',text,createdAt:serverTimestamp()});
+    await thread.update({updatedAt:serverTimestamp()});
+    input.value='';loadTeaInbox();
+  }catch(e){document.getElementById('teaAuthorStatus').textContent='فشل إرسال الرد: '+teaErrorDescription(e);}
+  finally{button.disabled=false;}
+}
+</script>
+
+
+<script>
+// ===== Moonlit Library • Firebase Google accounts =====
+// Only the signed-in user's Firebase UID identifies a reader (never a nickname).
+const READER_PROFILE_KEY = 'moonlit_reader_profile_v1'; // previous browser-only preview
+const READER_FAVORITES_KEY = 'moonlit_reader_favorites_v1';
+const READER_ACTIVITY_KEY = 'moonlit_reader_activity_v1';
+const readerAuthService = (typeof firebase !== 'undefined' && typeof firebase.auth === 'function') ? firebase.auth() : null;
+let readerSignedUser = null;
+let readerCloudProfile = {nickname:'',avatar:'',avatarMode:'google',favorites:[]};
+let readerCloudActivity = [];
+let readerCloudReady = false;
+let readerProfileUnsubscribe = null;
+let readerActivityUnsubscribe = null;
+let readerPendingAnchor = null;
+let readerAnchorResolveTimer = null;
+let readerCurrentTab = 'edit';
+let readerAvatarDraft = null;
+let readerAuthGeneration = 0;
+function readerCurrentUser(){
+  const u = readerAuthService?.currentUser;
+  return u && !u.isAnonymous ? u : null;
+}
+function readerName(){return readerGetProfile().nickname.trim() || 'قارئ بين النجوم';}
+function readerGetProfile(){
+  if(!readerCurrentUser())return {nickname:'',avatar:''};
+  const p=readerCloudProfile;
+  const fallback=readerCurrentUser()?.photoURL;
+  const avatar=p.avatarMode==='none' ? '' : (p.avatarMode==='custom' ? p.avatar : ((typeof fallback==='string' && /^https:\/\//.test(fallback)) ? fallback : ''));
+  return {nickname:typeof p.nickname==='string' ? p.nickname : '',avatar};
+}
+function readerFavorites(){return readerCurrentUser() && readerCloudReady ? readerCloudProfile.favorites.filter(x=>Number.isInteger(x)&&stories.some(s=>s.id===x)) : [];}
+function readerActivity(){return readerCurrentUser() ? readerCloudActivity : [];}
+function readerIsFavorite(id){return readerFavorites().includes(Number(id));}
+function readerGetJSON(key,fallback){try{const value=JSON.parse(localStorage.getItem(key));return value===null?fallback:value;}catch(e){return fallback;}}
+function readerRequireLogin(){
+  if(readerCurrentUser())return true;
+  // Keep the user's text so they can submit it after signing in.
+  readerSignInWithGoogle();
+  return false;
+}
+function readerAuthError(e){
+  const labels={
+    'auth/unauthorized-domain':'هذا النطاق غير مسموح في Firebase. أضفه إلى Authentication → Settings → Authorized domains.',
+    'auth/operation-not-allowed':'يلزم تفعيل Google من Firebase Authentication → Sign-in method.',
+    'auth/popup-blocked':'منع المتصفح نافذة Google. اسمح بالنوافذ المنبثقة لهذا الموقع وحاول مجددًا.',
+    'auth/popup-closed-by-user':'أغلقت نافذة تسجيل الدخول قبل إتمام العملية.',
+    'auth/cancelled-popup-request':'أُلغيت محاولة تسجيل دخول سابقة.',
+    'auth/network-request-failed':'تعذّر الاتصال بخدمة Google الآن. تحقق من الشبكة.',
+    'auth/invalid-api-key':'إعدادات Firebase غير صحيحة.'
+  };
+  return labels[e?.code] || 'تعذّر تسجيل الدخول الآن. '+(e?.message||'');
+}
+function readerAuthNotice(text){
+  const target=document.getElementById('readerLoginNotice');if(target)target.textContent=text;
+  const saveStatus=document.getElementById('readerProfileSaveStatus');
+  if(saveStatus)saveStatus.textContent=text;
+}
+async function readerSignInWithGoogle(){
+  if(!readerAuthService){readerAuthNotice('Firebase Authentication غير متاح. تحقق من تحميل ملفات Firebase.');showReaderProfile();return;}
+  if(location.protocol==='file:'){
+    readerAuthNotice('تسجيل الدخول عبر Google يحتاج إلى موقع https:// (مثل GitHub Pages)، وليس ملف HTML مفتوحًا من الكمبيوتر.');
+    showReaderProfile();return;
+  }
+  try{
+    const provider=new firebase.auth.GoogleAuthProvider();
+    provider.setCustomParameters({prompt:'select_account'});
+    await readerAuthService.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+    await readerAuthService.signInWithPopup(provider);
+    readerAuthNotice('✧ أهلاً بك! جارٍ تحميل ركنك الشخصي…');
+  }catch(e){console.error('Google sign-in',e);readerAuthNotice(readerAuthError(e));if(!document.getElementById('readerProfilePage').classList.contains('hidden'))renderReaderProfile();}
+}
+async function readerNavAccountClick(){if(readerCurrentUser()){showReaderProfile();return;}await readerSignInWithGoogle();if(readerCurrentUser())showReaderProfile();}
+async function readerSignOut(){
+  if(!readerAuthService)return;
+  try{await readerAuthService.signOut();readerAvatarDraft=null;showReaderProfile();}
+  catch(e){alert('تعذّر تسجيل الخروج. حاول مجددًا.');}
+}
+function readerSetAvatar(el,avatar){
+  if(!el)return;el.replaceChildren();
+  if(avatar){const img=document.createElement('img');img.src=avatar;img.alt='';img.referrerPolicy='no-referrer';img.onerror=()=>{el.replaceChildren();el.textContent='✦';};el.append(img);}else el.textContent='✦';
+}
+function readerRefreshAll(){
+  const user=readerCurrentUser();
+  const gate=document.getElementById('readerGuestGate');
+  const account=document.getElementById('readerAccountStatus');
+  const page=document.getElementById('readerProfilePage');
+  if(page)page.classList.toggle('reader-guest-mode',!user);
+  if(gate)gate.classList.toggle('hidden',!!user);
+  if(account)account.classList.toggle('hidden',!user);
+  const email=document.getElementById('readerAccountEmail');if(email)email.textContent=user?('✧ الحساب: '+(user.email||'Google')):'';
+  for(const id of ['readerNavAuth','readerMobileAuth']){
+    const button=document.getElementById(id);
+    if(button)button.textContent=user?'ملفي ✦':'الدخول عبر Google ✦';
+  }
+  document.getElementById('teaGoogleAuthButton')?.classList.toggle('hidden',!!user);
+  readerRefreshFavoriteButtons();renderReaderProfile();
+  if(document.getElementById('storiesPage') && !document.getElementById('storiesPage').classList.contains('hidden')) displayAllStories();
+  if(document.getElementById('storyReadingSection') && !document.getElementById('storyReadingSection').classList.contains('hidden') && currentStoryId) renderPage();
+  readerPrefillNames();
+}
+function readerResetListeners(){
+  if(readerProfileUnsubscribe){readerProfileUnsubscribe();readerProfileUnsubscribe=null;}
+  if(readerActivityUnsubscribe){readerActivityUnsubscribe();readerActivityUnsubscribe=null;}
+}
+function readerLocalPreview(){
+  const p=readerGetJSON(READER_PROFILE_KEY,{});
+  const f=readerGetJSON(READER_FAVORITES_KEY,[]);
+  return {nickname:typeof p.nickname==='string'?p.nickname.slice(0,30):'',
+    avatar:typeof p.avatar==='string' && /^data:image\/jpeg;base64,/.test(p.avatar) && p.avatar.length<130000?p.avatar:'',
+    favorites:Array.isArray(f)?f.filter(x=>Number.isInteger(x)&&stories.some(s=>s.id===x)).slice(0,30):[]};
+}
+async function readerEnsureCloudProfile(user){
+  const ref=db.collection('readerProfiles').doc(user.uid);
+  const existing=await ref.get();
+  if(existing.exists)return;
+  const old=readerLocalPreview();
+  const hasOld=!!(old.nickname||old.avatar||old.favorites.length);
+  const consent=hasOld && window.confirm('وجدنا اسمًا أو صورة أو كتبًا مفضّلة محفوظة في هذا المتصفح من النسخة السابقة. هل تريد نسخ الاسم والصورة والمفضّلة إلى حساب Google الحالي؟\n\nلن ننسب التعليقات القديمة إلى الحساب تلقائيًا حفاظًا على خصوصية القرّاء.');
+  const nickname=consent?old.nickname:'';
+  const avatar=consent?old.avatar:'';
+  const favorites=consent?old.favorites:[];
+  await ref.set({nickname,avatar,avatarMode:avatar?'custom':'google',favorites,createdAt:serverTimestamp(),updatedAt:serverTimestamp()});
+}
+async function readerStartCloud(user,generation){
+  try{
+    await readerEnsureCloudProfile(user);
+    if(generation!==readerAuthGeneration)return;
+    const ref=db.collection('readerProfiles').doc(user.uid);
+    readerProfileUnsubscribe=ref.onSnapshot(snap=>{
+      if(generation!==readerAuthGeneration)return;
+      const data=snap.data()||{};
+      readerCloudProfile={nickname:typeof data.nickname==='string'?data.nickname:'',
+        avatar:typeof data.avatar==='string' ? data.avatar:'',
+        avatarMode:typeof data.avatarMode==='string'?data.avatarMode:'google',
+        favorites:Array.isArray(data.favorites)?data.favorites:[]};
+      readerCloudReady=true;readerRefreshAll();
+    },e=>{readerAuthNotice('تعذّر تحميل بطاقة القارئ. تحقق من قواعد Firestore: '+e.message);console.error(e);});
+    readerActivityUnsubscribe=ref.collection('activity').orderBy('createdAt','desc').onSnapshot(snap=>{
+      if(generation!==readerAuthGeneration)return;
+      readerCloudActivity=snap.docs.map(d=>({id:d.id,...d.data(),createdAt:d.data().createdAt?.toMillis?.()||Date.now()}));
+      renderReaderActivity();const count=document.getElementById('readerCommentCount');if(count)count.textContent=readerCloudActivity.length;
+    },e=>{console.error('Activity history',e);readerAuthNotice('تعذّر تحميل سجل المشاركات. تحقق من قواعد Firestore.');});
+  }catch(e){console.error('Reader profile setup',e);readerAuthNotice('تعذّر إعداد حسابك في Firestore: '+e.message);}
+}
+if(readerAuthService){
+  readerAuthService.onAuthStateChanged(user=>{
+    readerAuthGeneration++;const generation=readerAuthGeneration;
+    readerResetListeners();readerCloudReady=false;readerSignedUser=user&&!user.isAnonymous?user:null;
+    readerCloudProfile={nickname:'',avatar:'',avatarMode:'google',favorites:[]};readerCloudActivity=[];readerAvatarDraft=null;
+    readerRefreshAll();
+    if(readerSignedUser){readerStartCloud(readerSignedUser,generation);}
+  },e=>readerAuthNotice(readerAuthError(e)));
+}
+async function toggleReaderFavorite(id){
+  id=Number(id);if(!stories.some(s=>s.id===id))return;
+  if(!readerRequireLogin())return;
+  if(!readerCloudReady){alert('جارٍ تجهيز رفّك الشخصي. حاول بعد لحظة.');return;}
+  const saved=readerIsFavorite(id);
+  try{
+    const ref=db.collection('readerProfiles').doc(readerCurrentUser().uid);
+    await ref.update({favorites:saved?firebase.firestore.FieldValue.arrayRemove(id):firebase.firestore.FieldValue.arrayUnion(id),updatedAt:serverTimestamp()});
+  }catch(e){console.error(e);alert('تعذّر تحديث المفضّلة: '+e.message);}
+}
+function readerRefreshFavoriteButtons(){
+  const btn=document.getElementById('introFavoriteButton');
+  if(btn){const saved=readerIsFavorite(currentStoryId);btn.textContent=saved?'♥ محفوظة في المفضّلة':'♡ أضف إلى المفضّلة';btn.classList.toggle('is-favorite',saved);btn.setAttribute('aria-pressed',String(saved));}
+}
+function showReaderProfile(pushHash=true){
+  if(pushHash)location.hash='profile';hideAllPages();
+  document.getElementById('readerProfilePage').classList.remove('hidden');
+  isReadingStory=false;applyTimeBasedTheme();selectReaderTab(readerCurrentTab);readerRefreshAll();
+  window.scrollTo({top:0,behavior:'instant'});
+}
+const readerPreviousHideAllPages=hideAllPages;
+hideAllPages=function(){readerPreviousHideAllPages();document.getElementById('readerProfilePage').classList.add('hidden');};
+window.addEventListener('hashchange',()=>{if(location.hash==='#profile')showReaderProfile(false);});
+document.addEventListener('DOMContentLoaded',()=>{if(location.hash==='#profile')showReaderProfile(false);else readerRefreshAll();});
+function selectReaderTab(tab){
+  if(!['edit','favorites','activity'].includes(tab))tab='edit';readerCurrentTab=tab;
+  for(const [key,suffix] of Object.entries({edit:'Edit',favorites:'Favorites',activity:'Activity'})){
+    const active=key===tab;
+    document.getElementById('readerPanel'+suffix).classList.toggle('hidden',!active);
+    const btn=document.getElementById('readerTab'+suffix);btn.classList.toggle('active',active);btn.setAttribute('aria-selected',String(active));
+  }
+  if(tab==='favorites')renderReaderFavorites();if(tab==='activity')renderReaderActivity();
+}
+function renderReaderProfile(){
+  const p=readerGetProfile();
+  const display=readerCurrentUser()?(p.nickname||'قارئ بين النجوم'):'قارئ بين النجوم';
+  document.getElementById('readerDisplayName').textContent=display;
+  document.getElementById('readerIdentityLine').textContent=readerCurrentUser()?'ركنك الشخصي مرتبط بحساب Google.':'سجّل الدخول لتبدأ حكايتك.';
+  document.getElementById('readerFavoriteCount').textContent=readerFavorites().length;
+  document.getElementById('readerCommentCount').textContent=readerActivity().length;
+  const nickInput=document.getElementById('readerNickname');
+  if(document.activeElement!==nickInput)nickInput.value=p.nickname;
+  readerSetAvatar(document.getElementById('readerAvatar'),readerAvatarDraft!==null?readerAvatarDraft:p.avatar);
+  readerSetAvatar(document.getElementById('readerAvatarMini'),readerAvatarDraft!==null?readerAvatarDraft:p.avatar);
+  renderReaderFavorites();renderReaderActivity();
+}
+async function saveReaderProfile(event){
+  event.preventDefault();if(!readerRequireLogin())return;
+  const name=document.getElementById('readerNickname').value.trim().replace(/\s+/g,' ');
+  const status=document.getElementById('readerProfileSaveStatus');
+  if(!name||name.length>30){status.textContent='اختر اسمًا مستعارًا من حرف إلى 30 حرفًا.';return;}
+  if(!readerCloudReady){status.textContent='انتظر تحميل الحساب ثم حاول مجددًا.';return;}
+  const avatar=readerAvatarDraft===null?readerCloudProfile.avatar:readerAvatarDraft;
+  const avatarMode=readerAvatarDraft===null?readerCloudProfile.avatarMode:readerAvatarDraft?'custom':'none';
+  if(avatar.length>130000){status.textContent='الصورة كبيرة جدًا، جرّب صورة أخرى.';return;}
+  try{
+    status.textContent='جاري حفظ بطاقتك…';
+    await db.collection('readerProfiles').doc(readerCurrentUser().uid).set({nickname:name,avatar,avatarMode,updatedAt:serverTimestamp()},{merge:true});
+    readerAvatarDraft=null;status.textContent='✦ حُفظت البطاقة في حسابك. ستظهر على أجهزتك الأخرى.';
+  }catch(e){status.textContent='تعذّر حفظ البطاقة: '+e.message;console.error(e);}
+}
+async function handleReaderAvatarFile(event){
+  const file=event.target.files?.[0];const status=document.getElementById('readerProfileSaveStatus');
+  if(!file)return;
+  if(!['image/jpeg','image/png','image/webp'].includes(file.type)||file.size>4*1024*1024){status.textContent='اختر صورة JPG أو PNG أو WebP لا تتجاوز 4 MB.';event.target.value='';return;}
+  let url;
+  try{
+    url=URL.createObjectURL(file);const img=new Image();await new Promise((res,rej)=>{img.onload=res;img.onerror=rej;img.src=url;});
+    const canvas=document.createElement('canvas');const size=180;canvas.width=size;canvas.height=size;
+    const ctx=canvas.getContext('2d');const scale=Math.max(size/img.naturalWidth,size/img.naturalHeight);
+    const w=img.naturalWidth*scale,h=img.naturalHeight*scale;
+    ctx.fillStyle='#f8f7f2';ctx.fillRect(0,0,size,size);ctx.drawImage(img,(size-w)/2,(size-h)/2,w,h);
+    let quality=.75;let encoded='';
+    do{encoded=canvas.toDataURL('image/jpeg',quality);quality-=.1;}while(encoded.length>125000&&quality>.3);
+    if(encoded.length>125000)throw Error('large-image');
+    readerAvatarDraft=encoded;
+    readerSetAvatar(document.getElementById('readerAvatar'),encoded);readerSetAvatar(document.getElementById('readerAvatarMini'),encoded);
+    status.textContent='✧ الصورة جاهزة. اضغط «احفظ بطاقتي» لتخزينها في حسابك.';
+  }catch(e){status.textContent='تعذّر تجهيز الصورة. جرّب صورة أصغر.';}
+  finally{if(url)URL.revokeObjectURL(url);event.target.value='';}
+}
+function removeReaderAvatar(){readerAvatarDraft='';readerSetAvatar(document.getElementById('readerAvatar'),'');readerSetAvatar(document.getElementById('readerAvatarMini'),'');document.getElementById('readerProfileSaveStatus').textContent='ستُزال الصورة بعد حفظ البطاقة.';}
+function renderReaderFavorites(){
+  const grid=document.getElementById('readerFavoriteShelf');if(!grid)return;
+  const chosen=readerFavorites().map(id=>stories.find(s=>s.id===id)).filter(Boolean);
+  if(!chosen.length){grid.innerHTML='<div class="profile-empty"><span class="profile-empty-symbol">♡</span><strong>الرف ينتظر أول كتاب</strong><p>عندما تعجبك حكاية، احفظها بالقلب لتجدها هنا على أجهزتك.</p><button type="button" onclick="showStoriesPage()">تصفّح رفوف الحكايات ←</button></div>';return;}
+  grid.innerHTML=chosen.map(story=>`<article class="profile-favorite-card"><button class="profile-favorite-book" type="button" onclick="openBook(${story.id})" style="${colorStyle(story)}" aria-label="فتح ${escapeHTML(story.title)}"><span>✧ ☾ ✧</span><strong>${escapeHTML(story.title)}</strong><span>${escapeHTML(story.category)}</span></button><small>${escapeHTML(story.category)}</small><button type="button" class="profile-mini-remove" onclick="toggleReaderFavorite(${story.id})">♥ إزالة من المفضّلة</button></article>`).join('');
+}
+async function readerRecordActivity(entry){
+  // Only posts created while the Google account is signed in are linked to that account.
+  const user=readerCurrentUser();if(!user)return;
+  const kind=String(entry.kind||'');const targetId=String(entry.targetId||'');if(!targetId)return;
+  const id=kind+'_'+targetId;
+  try{
+    await db.collection('readerProfiles').doc(user.uid).collection('activity').doc(id).set({
+      ownerUid:user.uid,kind,targetId,discussionId:String(entry.discussionId||''),storyId:Number(entry.storyId)||0,
+      text:String(entry.text||'').slice(0,1800),location:String(entry.location||''),page:String(entry.page||''),createdAt:serverTimestamp()
+    });
+  }catch(e){console.error('Comment was published, but its personal history did not save:',e);alert('تم نشر المشاركة، لكن تعذّر تسجيلها في «أثري في المكتبة». تحقق من قواعد Firebase.');}
+}
+function renderReaderActivity(){
+  const list=document.getElementById('readerActivityList');if(!list)return;
+  const activity=readerActivity();
+  if(!activity.length){list.innerHTML='<div class="profile-empty"><span class="profile-empty-symbol">✎</span><strong>لم تترك كلمة هنا بعد</strong><p>مشاركاتك الجديدة بعد تسجيل الدخول تظهر هنا تلقائيًا.</p><button type="button" onclick="showCafePage()">إلى مقهى القرّاء ←</button></div>';return;}
+  list.innerHTML=activity.map((a,i)=>{
+    const kind=a.kind==='answer'?'إجابة على سؤال':a.kind==='discussion'?'نقاش في المقهى':'رد في المقهى';
+    const day=Number.isFinite(Number(a.createdAt))?new Date(Number(a.createdAt)).toLocaleDateString('ar-KW'):'';
+    return `<article class="profile-activity-item"><div><span class="profile-activity-type">${kind} · ${escapeHTML(day)}</span><strong>${escapeHTML(a.location)}</strong><p>${escapeHTML(a.text)}</p></div><button type="button" onclick="readerGoToActivity(${i})">انتقل إلى تعليقي ↗</button></article>`;
+  }).join('');
+}
+function readerGoToActivity(index){
+  const a=readerActivity()[index];if(!a)return;
+  readerPendingAnchor=a.kind==='answer'?'answer-'+a.targetId:a.kind==='discussion'?'discussion-'+a.targetId:'comment-'+a.targetId;
+  if(a.kind==='answer'){
+    const story=stories.find(s=>s.id===a.storyId);if(!story){readerPendingAnchor=null;return;}
+    currentStoryId=story.id;showQuestions();
+  }else showCafePage();
+  setTimeout(readerResolvePendingAnchor,700);
+}
+function readerResolvePendingAnchor(){
+  if(!readerPendingAnchor)return;
+  const anchor=readerPendingAnchor;
+  if(!document.getElementById(anchor))return;
+  if(readerAnchorResolveTimer)clearTimeout(readerAnchorResolveTimer);
+  readerAnchorResolveTimer=setTimeout(()=>{
+    if(readerPendingAnchor!==anchor)return;
+    const target=document.getElementById(anchor);if(!target)return;
+    readerPendingAnchor=null;target.classList.add('reader-comment-focus');
+    target.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'center'});
+    setTimeout(()=>{document.getElementById(anchor)?.classList.remove('reader-comment-focus');},2800);
+  },300);
+}
+function readerPrefillNames(){
+  const signed=!!readerCurrentUser();const name=readerName();
+  for(const input of document.querySelectorAll('#discussionName,#answersName,.reply-name-input')){
+    if(signed)input.value=name;
+    else input.value='';
+    input.readOnly=signed;
+    input.placeholder=signed?'اسم الحساب المستعار':'سجّل الدخول للنشر';
+  }
+}
+document.addEventListener('DOMContentLoaded',readerPrefillNames);
+
+</script>
+
 </body>
 </html>
-
 
 

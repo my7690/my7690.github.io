@@ -1148,19 +1148,22 @@ body.day-time .batoul-nook {box-shadow:0 16px 38px rgba(98,137,177,.13);}
 .tea-book-front small,.tea-book-symbol,.tea-book-star{color:#decaa2;z-index:1;}
 .tea-book-symbol{font-size:1.5rem;letter-spacing:12px;}.tea-book-star{font-size:2rem;}
 .tea-book-spine{position:absolute;top:0;left:0;width:20px;height:100%;background:linear-gradient(90deg,#0d2546,#4d719d,#192c47);border:1px solid #cfb785;border-radius:7px 0 0 7px;}
-.tea-cup-button{position:relative;width:242px;height:240px;background:transparent;border:0;cursor:pointer;filter:drop-shadow(7px 16px 10px #11151d77);transition:transform .3s ease;}
-.tea-cup-button:hover,.tea-cup-button:focus-visible{transform:rotate(-5deg) translateY(-5px);outline:none;}
+.tea-cup-button{position:relative;width:252px;height:252px;background:transparent;border:0;cursor:pointer;filter:drop-shadow(6px 14px 10px #11151d55);transition:transform .24s ease,filter .24s ease;transform-origin:center bottom;}
+.tea-cup-button:hover,.tea-cup-button:focus-visible{transform:translateY(-3px);filter:drop-shadow(7px 16px 12px #11151d66);outline:none;}
 .tea-cup-button.spilling{animation:cupTilt .75s both;}
 @keyframes cupTilt{0%,100%{transform:rotate(0)}45%{transform:rotate(-37deg) translate(-25px,6px)}}
-.tea-saucer{position:absolute;bottom:32px;left:27px;right:27px;height:46px;border-radius:50%;background:radial-gradient(ellipse at center,#b9c9c2 0 24%,#f9fff3 25% 57%,#789f93 58% 61%,#eff7ed 65%);box-shadow:0 10px 11px #111a233b;}
-.tea-cup{position:absolute;bottom:47px;left:63px;width:121px;height:110px;border-radius:7px 7px 52px 52px;background:linear-gradient(90deg,#c2d5c8,#f6fff5 28%,#fafff4 64%,#a2bbae 100%);box-shadow:inset 3px 0 9px #859e9299;z-index:2;}
-.tea-cup::before{content:"";position:absolute;left:0;top:-10px;width:121px;height:34px;border-radius:50%;background:radial-gradient(ellipse at center,#829d46 0%,#b2c781 49%,#f4fdef 53%,#aabdad 64%,#f9fff5 72%);box-shadow:0 2px 5px #61785d77;}
-.tea-cup-handle{position:absolute;width:65px;height:72px;border:16px solid #e5f1e6;border-left:8px solid #d7eadd;border-radius:50%;left:155px;bottom:78px;box-shadow:2px 0 5px #576e6155;}
-.tea-cup-bloom{position:absolute;top:41px;left:43px;color:#58847c;font-size:1.65rem;opacity:.74;}
-.tea-steam{position:absolute;width:22px;height:66px;left:100px;bottom:153px;border-radius:50%;border-right:3px solid rgba(240,250,246,.55);filter:blur(3px);animation:steamRise 3s ease-in-out infinite;}
-.steam-b{left:128px;animation-delay:-1s;height:54px}.steam-c{left:152px;animation-delay:-2s;height:60px}
-@keyframes steamRise{0%,100%{transform:translateY(2px) scale(.85);opacity:.12}50%{transform:translateY(-23px) scale(1.1);opacity:.7}}
-.tea-cup-label{position:absolute;bottom:0;left:0;width:100%;font:normal 1.45rem 'Amiri',serif !important;color:#f1ddba;text-align:center;}
+.tea-saucer{position:absolute;bottom:34px;left:34px;right:34px;height:38px;border-radius:50%;background:radial-gradient(ellipse at center,#c6d4cc 0 22%,#fefffb 23% 54%,#87a49a 55% 58%,#f2f8f1 62%);box-shadow:0 7px 10px rgba(17,26,35,.22);}
+.tea-saucer::before{content:"";position:absolute;left:17px;right:17px;top:8px;bottom:8px;border-radius:50%;border:2px solid rgba(130,156,149,.55);}
+.tea-saucer::after{content:"";position:absolute;left:48px;right:48px;bottom:-7px;height:14px;border-radius:50%;background:rgba(17,26,35,.12);filter:blur(2px);}
+.tea-cup{position:absolute;bottom:52px;left:73px;width:106px;height:96px;border-radius:12px 12px 42px 42px;background:linear-gradient(90deg,#d2dfd6 0%,#fbfffb 26%,#ffffff 62%,#b1c6bb 100%);box-shadow:inset 3px 0 8px rgba(133,158,146,.42),0 1px 0 rgba(255,255,255,.55);z-index:2;}
+.tea-cup::before{content:"";position:absolute;left:-1px;top:-10px;width:108px;height:28px;border-radius:50%;background:radial-gradient(ellipse at center,#96af63 0%,#b6ca83 40%,#eff7dc 51%,#fdfefb 62%,#aac0b2 76%,#fbfffd 100%);box-shadow:0 1px 4px rgba(97,120,93,.35);}
+.tea-cup::after{content:"";position:absolute;left:8px;right:8px;top:-2px;height:10px;border-radius:50%;border-top:2px solid rgba(255,255,255,.88);opacity:.75;}
+.tea-cup-handle{position:absolute;width:49px;height:58px;border:12px solid #f0f7f0;border-left:7px solid #e0ece2;border-radius:50%;left:164px;bottom:80px;box-shadow:2px 0 4px rgba(87,110,97,.25);z-index:1;}
+.tea-cup-bloom{position:absolute;top:37px;left:38px;color:#78958f;font-size:1.3rem;opacity:.7;}
+.tea-steam{position:absolute;width:16px;height:52px;left:109px;bottom:152px;border-radius:50%;border-right:2px solid rgba(240,250,246,.34);filter:blur(3px);animation:steamRise 3s ease-in-out infinite;opacity:.55;}
+.steam-b{left:127px;animation-delay:-1s;height:46px}.steam-c{left:143px;animation-delay:-2s;height:49px}
+@keyframes steamRise{0%,100%{transform:translateY(3px) scale(.92);opacity:.06}50%{transform:translateY(-14px) scale(1.03);opacity:.34}}
+.tea-cup-label{position:absolute;bottom:3px;left:0;width:100%;font:normal 1.42rem 'Amiri',serif !important;color:#f1ddba;text-align:center;letter-spacing:.2px;}
 .tea-desk-hint{text-align:center;margin:6px 0 0;color:#f1d9b8;font-size:.9rem;opacity:.86;}
 .tea-book-contents{max-width:860px;margin:12px auto 25px;border:8px solid #af9578;border-radius:13px;background:linear-gradient(90deg,#fff9ed 0%,#fffaf0 48%,#e9e1d3 50%,#fff9ed 52%,#fff9ed 100%);box-shadow:inset 0 0 30px #baa78844,0 25px 60px #060c1755;padding:38px 50px 42px;color:#303f59;animation:teaOpenContents .6s both;}
 @keyframes teaOpenContents{from{opacity:0;transform:translateY(12px) scale(.97)}to{opacity:1;transform:none}}
@@ -1335,8 +1338,8 @@ body.day-time .tea-author-trigger{color:#6b86a2;border-color:#a6afba;}
   .tea-page{padding:15px 9px;gap:7px;}
   .tea-page-option{min-height:112px;padding:8px 5px;}
   .tea-page-option strong{font-size:1.32rem;}
-  .tea-cup-button{flex:none;width:190px;height:178px;transform:scale(.76);transform-origin:center;}
-  .tea-cup-button:hover,.tea-cup-button:focus-visible{transform:scale(.76) rotate(-4deg);}
+  .tea-cup-button{flex:none;width:190px;height:178px;transform:scale(.76);transform-origin:center bottom;}
+  .tea-cup-button:hover,.tea-cup-button:focus-visible{transform:scale(.77) translateY(-2px);}
   .tea-desk{padding:19px 13px 21px;}
   .tea-desk-hint{margin-top:0;}
 }
@@ -1524,6 +1527,15 @@ body.day-time .tea-writer-desk,body.night-time .tea-writer-desk,body.tea-spilled
 body.day-time .tea-writer-desk h2,body.night-time .tea-writer-desk h2{color:#314768;}
 body.tea-spilled .tea-admin-thread{border-color:#86a47b;}
 @media(max-width:600px){.tea-admin-card{padding:13px 11px;gap:9px}.tea-admin-icon{width:34px;height:34px}.tea-admin-card-cta{font-size:.75rem}.tea-admin-thread{padding:12px}.tea-writer-heading h2{font-size:2rem}}
+
+/* Rare note surprise: quietly different paper, only for the one hidden message. */
+.tea-secret-paper.is-rare {
+  border: 2px solid #c49b46;
+  background: linear-gradient(155deg, #fffdf2, #fff5d8 55%, #fff9e9);
+  box-shadow: 0 0 0 5px rgba(219,180,90,.16), 0 14px 30px rgba(94,66,22,.25);
+}
+.tea-secret-paper.is-rare::before { content: '✦ ✧ ✦ ✧ ✦'; color: #b18436; }
+.tea-secret-paper.is-rare small { color: #926b2d; font-weight: 700; }
 </style>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8C%99%3C/text%3E%3C/svg%3E">
 </head>
@@ -7071,14 +7083,40 @@ document.addEventListener("DOMContentLoaded", () => {
 </script>
 
 <script>
-// ===== شاي الكاتبة — authored notes, one-to-one messages, and the teapot prank =====
-// Replace this test list with Batoul's real notes when ready.
-// All example entries are clearly marked as previews until the writer supplies them.
+// ===== شاي الكاتبة — notes written by Batoul, private messages, and tea prank =====
+// The 27 regular notes below use the author's own wording.
 const teaNotes = [
-  'هذه ورقة تجريبية في انتظار ملاحظات الكاتبة الحقيقية. ربما تحمل هذه الصفحة يومًا سرًا عن إحدى الشخصيات…',
-  'ملاحظة تجريبية: هل يمكن أن تكون تفصيلة صغيرة في بداية قصة هي المفتاح لنهايتها؟',
-  'ورقة مؤقتة من دفتر الأفكار: بعض الحكايات تبدأ بسؤال واحد فقط… ماذا لو؟'
+  "قصة الكاتبة المفضلة هي في المكتبة ولكن من يهتم",
+  "قصة يبتسم هي اكثر حزينة بالنسبة للكاتبة",
+  "بلا عنوان هي فعليا بلا عنوان لانها تنتظر من قارئها ان يعطيها عنوان مناسب",
+  "قصة دعوة ومصعد هي قصص كتبتها الكاتبة وهي نصف نائمة حرفيا .. حتى انها لا تتذكر كتابتها لقصة دعوة اصلا",
+  "قصة الغرفة 302 تم كتابتها في محاولة لاتسعادة الالهام الذي غادر قلم الكاتبة ونعم لم تنجح في استعادته ولكن كتبت قصة",
+  "قصة زوجته كانت سبب في الكثير من المشاكل كونها ابرزت احد اقوى نزعات الكاتبة الشخصية",
+  "كل قصة تكتبها الكاتبة تحمل جزء من مشاعرها وحياتها الشخصية بين طياتها",
+  "احيانا تخفي القصص الاغرب اقوى المشاعر المكبوتة",
+  "لا تقرا قصة غرفة واحدة",
+  "على الاريكة تحمل معنى خاص ورسالة موجهة لشخص معين",
+  "قصة في غرفته قصة خاصة جدا جدا جدا",
+  "فكر مرتين قبل ان تشرب الشاي",
+  "لا تتحدث بصوت عالي عن ما في خلدك من افكار... تعلمت هذا بالطريقة الصعبة",
+  "احب التحدث بصوت غير مسموع لان كلامي غير منطقي في كثير من الاحيان",
+  "احب التنمر على المتنمرين -نعم انا متنمرة :)-",
+  "احيانا الخيال هو المهرب الوحيد من المسؤولية",
+  "الشخص الذكي لا يقرأ هذه الملاحظات ... اذهب للقيام بما يفيدك",
+  "إذا كنت هنا لتكتشف أسرار الكاتبة، يؤسفني إخبارك أن الكاتبة نفسها لا تعرف ذلك",
+  "طبعا احب كل قصصي بالتساوي.... انا اكذب عندي مفضلة",
+  "إذا كنت تكره إحدى شخصياتي، لا تقلق، أنا أيضًا أكره بعضها. والفرق بيننا أني استطيع كرهها وانت لا.. اذا كنت تكره شخصية فابقي ذلك لنفسك",
+  "بعض شخصياتي تحتاج إلى طبيب نفسي، لكن للأسف ميزانية الرواية لا تسمح بذلك",
+  "أحب النهايات السعيدة... جرب قراءة قصة يبتسم وستفهم قصدي :)",
+  "إن كنت تبحث عن الحكمة هنا، فأنت في المكان الخطأ. جرّب المكتبة المجاورة.",
+  "اذا قرأت قصة وجاء لك احساس غريب بالالفة نحو شخصية معينة اعلم انها مستوحاة منك",
+  "هناك سر خطير جدًا مخبأ في إحدى قصصي... لكنني نسيت أي قصة. حظًا موفقًا في البحث",
+  "أرجو أن تكون قد تعلمت من أخطاء الآخرين... لا أحد يلمس كوب شاي الكاتبة ويخرج دون عواقب",
+  "أنت تقرأ ملاحظات شخص غريب الأطوار في موقع مليء بالقصص الجميلة... هل يمكنني أن أسألك عن أولوياتك"
 ];
+// Hidden special note: approximately 1% chance per reveal.
+const TEA_RARE_NOTE = "واو هذه الملاحظة نادرة جدا جدا!!! انت محظوظظظ ... ماذا؟ لا ليس هناك جائزة";
+const TEA_RARE_CHANCE = 0.01;
 const TEA_AUTHOR_UID = 'qznWkLTA1NND81aszb2F4KnsYC93';
 const TEA_PRANK_KEY = 'batoul_tea_spill_until';
 const TEA_PRANK_MS = 2 * 60 * 1000;
@@ -7147,13 +7185,28 @@ function showTeaDetails(which){
 function showTeaSecrets(){showTeaDetails('secret');revealTeaSecret();}
 function showTeaQuestions(){showTeaDetails('questions');prepareTeaVisitor();}
 function revealTeaSecret(){
-  if(!teaNotes.length){document.getElementById('teaSecretText').textContent='هذه الصفحة تنتظر كلمة من الكاتبة…';return;}
-  const other=teaNotes.map((_,i)=>i).filter(i=>i!==teaLastNoteIndex);
-  const choices=other.length?other:[0];
-  const index=choices[Math.floor(Math.random()*choices.length)];
-  teaLastNoteIndex=index;
-  document.getElementById('teaSecretText').textContent=teaNotes[index];
-  document.getElementById('teaSecretFooter').textContent='— نموذج مؤقت • تُضاف ملاحظات بتول لاحقًا ✦';
+  const noteText = document.getElementById('teaSecretText');
+  const noteFooter = document.getElementById('teaSecretFooter');
+  const paper = document.getElementById('teaSecretPaper');
+  if (!teaNotes.length) {
+    noteText.textContent = 'هذه الصفحة تنتظر كلمة من الكاتبة…';
+    return;
+  }
+  // Rare note has a real 1-in-100 chance on each reveal. Never show it twice consecutively.
+  const isRare = teaLastNoteIndex !== -2 && Math.random() < TEA_RARE_CHANCE;
+  if (isRare) {
+    teaLastNoteIndex = -2;
+    noteText.textContent = TEA_RARE_NOTE;
+    noteFooter.textContent = '✦ ورقة نادرة جدًا ✦';
+    paper.classList.add('is-rare');
+  } else {
+    const choices = teaNotes.map((_, i) => i).filter(i => i !== teaLastNoteIndex);
+    const index = choices[Math.floor(Math.random() * choices.length)];
+    teaLastNoteIndex = index;
+    noteText.textContent = teaNotes[index];
+    noteFooter.textContent = '— من أوراق الكاتبة ✦';
+    paper.classList.remove('is-rare');
+  }
 }
 
 function dismissTeaPanic(){document.getElementById('teaPanic').classList.add('hidden');}

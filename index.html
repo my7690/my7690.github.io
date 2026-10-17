@@ -6184,6 +6184,29 @@ async function displayDiscussions() {
             });
         }
 
+        // New replies are stored as separate documents, so they can be secured independently.
+        // Legacy replies remain visible from each discussion's original replies array.
+        const newRepliesByDiscussion = await Promise.all(discussions.map(async discussion => {
+            const snap = await db.collection('discussions').doc(discussion.id)
+                .collection('replies').orderBy('createdAt', 'asc').get();
+            return snap.docs.map(doc => {
+                const r = doc.data();
+                return {
+                    id: doc.id,
+                    parentId: r.parentId || null,
+                    text: r.text || '',
+                    userName: r.userName || 'مجهول',
+                    likeCount: Number(r.likeCount) || 0,
+                    timestamp: r.timestamp || r.createdAt?.toDate?.().toLocaleString('ar-SA') || '',
+                    authorUid: r.authorUid || '',
+                    legacy: false
+                };
+            });
+        }));
+        discussions.forEach((discussion, i) => {
+            discussion.replies = [...discussion.replies.map(r => ({...r, legacy:true})), ...newRepliesByDiscussion[i]];
+        });
+
         // الآن نعرضها في الصفحة
         discussionsList.innerHTML = discussions.map(discussion => `
             <div class="discussion-item" id="discussion-${discussion.id}">
@@ -6260,55 +6283,36 @@ function toggleReplyForm(discussionId) {
 
 // إرسال رد على "النقاش نفسه" (رد مستوى أول)
 async function submitReply(discussionId) {
-    if(!readerRequireLogin())return;
-    const replyNameInput = document.getElementById(`replyName-${discussionId}`);
+    if (!readerRequireLogin()) return;
     const replyInput = document.getElementById(`replyInput-${discussionId}`);
-
-    const name = readerName();
-    const replyText = replyInput.value.trim();
-
-    if (!replyText) {
-        alert('⚠️ الرجاء كتابة رد أولاً');
-        return;
-    }
-
+    const replyText = replyInput?.value.trim() || '';
+    if (!replyText) { alert('⚠️ الرجاء كتابة رد أولاً'); return; }
+    if (replyText.length > 1800) { alert('الرد طويل جدًا. الحد الأقصى 1800 حرف.'); return; }
     try {
-        const docRef = db.collection("discussions").doc(discussionId);
-        const docSnap = await docRef.get();
-        if (!docSnap.exists) return;
-
-        const data = docSnap.data();
-        const replies = Array.isArray(data.replies) ? data.replies : [];
-
-        const postedReplyId = generateReplyId();
-        replies.unshift({
-            id: postedReplyId,
-            parentId: null,          // رد على النقاش مباشرة
-            text: replyText,
-            userName: name,
-            authorUid: readerCurrentUser().uid,
-            likeCount: 0,
-            timestamp: new Date().toLocaleString('ar-SA')
+        const docRef = db.collection('discussions').doc(discussionId)
+            .collection('replies').doc();
+        await docRef.set({
+            parentId: null, text: replyText, userName: readerName(),
+            authorUid: readerCurrentUser().uid, likeCount: 0,
+            timestamp: new Date().toLocaleString('ar-SA'), createdAt: serverTimestamp()
         });
-
-        await docRef.update({ replies });
-        readerRecordActivity({kind:'reply', targetId:postedReplyId, discussionId, text:replyText, location:'رد في مقهى القرّاء', page:'cafe'});
+        readerRecordActivity({kind:'reply', targetId:docRef.id,
+            discussionId, text:replyText, location:'رد في مقهى القرّاء', page:'cafe'});
         replyInput.value = '';
-        // نخلي الاسم كما هو
         document.getElementById(`replyForm-${discussionId}`).style.display = 'none';
         await displayDiscussions();
     } catch (e) {
-        console.error(e);
-        alert('حدث خطأ أثناء إرسال الرد.');
+        console.error(e); alert('حدث خطأ أثناء إرسال الرد.');
     }
 }
 
 // لايك على النقاش نفسه
 async function handleLike(discussionId, currentLikeCount) {
+    if (!readerRequireLogin()) return;
     try {
         const docRef = db.collection("discussions").doc(discussionId);
         await docRef.update({
-            likeCount: (currentLikeCount || 0) + 1
+            likeCount: firebase.firestore.FieldValue.increment(1)
         });
         await displayDiscussions();
     } catch (e) {
@@ -6326,75 +6330,36 @@ function toggleNestedReplyForm(discussionId, replyId) {
 
 // إرسال رد على "رد معيّن" (Nested Reply)
 async function submitNestedReply(discussionId, parentReplyId) {
-    if(!readerRequireLogin())return;
-    const nameInput = document.getElementById(`nestedReplyName-${discussionId}-${parentReplyId}`);
+    if (!readerRequireLogin()) return;
     const textInput = document.getElementById(`nestedReplyInput-${discussionId}-${parentReplyId}`);
-
-    const name = readerName();
-    const text = textInput.value.trim();
-
-    if (!text) {
-        alert("⚠️ الرجاء كتابة رد أولاً");
-        return;
-    }
-
+    const text = textInput?.value.trim() || '';
+    if (!text) { alert('⚠️ الرجاء كتابة رد أولاً'); return; }
+    if (text.length > 1800) { alert('الرد طويل جدًا. الحد الأقصى 1800 حرف.'); return; }
     try {
-        const docRef = db.collection("discussions").doc(discussionId);
-        const snap = await docRef.get();
-        if (!snap.exists) return;
-
-        const data = snap.data();
-        const replies = Array.isArray(data.replies) ? data.replies : [];
-
-        const postedReplyId = generateReplyId();
-        replies.unshift({
-            id: postedReplyId,
-            parentId: parentReplyId,   // هنا السحر: هذا رد على رد قبله
-            text,
-            userName: name,
-            authorUid: readerCurrentUser().uid,
-            likeCount: 0,
-            timestamp: new Date().toLocaleString('ar-SA')
+        const docRef = db.collection('discussions').doc(discussionId)
+            .collection('replies').doc();
+        await docRef.set({
+            parentId: parentReplyId, text, userName: readerName(),
+            authorUid: readerCurrentUser().uid, likeCount: 0,
+            timestamp: new Date().toLocaleString('ar-SA'), createdAt: serverTimestamp()
         });
-
-        await docRef.update({ replies });
-        readerRecordActivity({kind:'reply', targetId:postedReplyId, discussionId, text, location:'رد في مقهى القرّاء', page:'cafe'});
-
+        readerRecordActivity({kind:'reply', targetId:docRef.id,
+            discussionId, text, location:'رد في مقهى القرّاء', page:'cafe'});
         textInput.value = '';
-        // ما نمسح الاسم
         await displayDiscussions();
-    } catch (e) {
-        console.error(e);
-        alert('حدث خطأ أثناء إرسال الرد.');
-    }
+    } catch (e) { console.error(e); alert('حدث خطأ أثناء إرسال الرد.'); }
 }
 
 // لايك على رد معيّن
 async function handleReplyLike(discussionId, replyId) {
+    if (!readerRequireLogin()) return;
     try {
-        const docRef = db.collection("discussions").doc(discussionId);
-        const snap = await docRef.get();
-        if (!snap.exists) return;
-
-        const data = snap.data();
-        const replies = Array.isArray(data.replies) ? data.replies : [];
-
-        const updatedReplies = replies.map(r => {
-            if (r.id === replyId) {
-                const likeCount = typeof r.likeCount === 'number' ? r.likeCount : 0;
-                return { ...r, likeCount: likeCount + 1 };
-            }
-            return r;
-        });
-
-        await docRef.update({ replies: updatedReplies });
+        const ref = db.collection('discussions').doc(discussionId)
+            .collection('replies').doc(replyId);
+        await ref.update({likeCount:firebase.firestore.FieldValue.increment(1)});
         await displayDiscussions();
-    } catch (e) {
-        console.error(e);
-        alert('حدث خطأ أثناء تسجيل إعجاب على الرد.');
-    }
+    } catch(e) {console.error(e);alert('حدث خطأ أثناء تسجيل إعجاب على الرد.');}
 }
-
 
 function renderReplies(allReplies, parentId = null, level = 0, discussionId) {
     if (!Array.isArray(allReplies) || allReplies.length === 0) return "";
@@ -6412,9 +6377,7 @@ function renderReplies(allReplies, parentId = null, level = 0, discussionId) {
                 <p>${escapeHTML(r.text)}</p>
 
                 <div class="discussion-actions">
-                    <button class="like-btn" onclick="handleReplyLike('${discussionId}', '${r.id}')">
-                        ❤️ ${typeof r.likeCount === 'number' ? r.likeCount : 0}
-                    </button>
+                    ${r.legacy ? `<span class="like-btn" title="إعجابات الردود القديمة للعرض فقط">❤️ ${typeof r.likeCount === 'number' ? r.likeCount : 0}</span>` : `<button class="like-btn" onclick="handleReplyLike('${discussionId}', '${r.id}')">❤️ ${typeof r.likeCount === 'number' ? r.likeCount : 0}</button>`}
                     <button class="reply-btn" onclick="toggleNestedReplyForm('${discussionId}', '${r.id}')">
                         💬 رد
                     </button>
@@ -7070,7 +7033,7 @@ const teaNotes = [
   'ملاحظة تجريبية: هل يمكن أن تكون تفصيلة صغيرة في بداية قصة هي المفتاح لنهايتها؟',
   'ورقة مؤقتة من دفتر الأفكار: بعض الحكايات تبدأ بسؤال واحد فقط… ماذا لو؟'
 ];
-const TEA_AUTHOR_UID = 'REPLACE_WITH_YOUR_FIREBASE_AUTH_UID';
+const TEA_AUTHOR_UID = 'qznWkLTA1NND81aszb2F4KnsYC93';
 const TEA_PRANK_KEY = 'batoul_tea_spill_until';
 const TEA_PRANK_MS = 2 * 60 * 1000;
 let teaLastNoteIndex = -1;

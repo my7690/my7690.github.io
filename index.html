@@ -1488,6 +1488,42 @@ body.day-time .reader-auth-nav{color:#3c567c;border-color:#8cabc9;background:#e9
 @media(max-width:800px){.reader-auth-nav{padding:7px 9px;font-size:.75rem;max-width:130px;overflow:hidden;text-overflow:ellipsis}.reader-guest-gate{padding:24px 16px}}
 
 @media(max-width:450px){.reader-auth-nav{display:none}.nav-logo{font-size:.91rem;gap:6px}.nav-logo small{font-size:.56rem;letter-spacing:0}.brand-emblem{width:30px;height:30px;font-size:17px}.nav-actions{gap:7px}}
+
+
+/* V9 • the writer has an inbox, not the visitor's question form */
+.tea-writer-desk{max-width:760px;margin:auto;color:#314767;}
+.tea-writer-heading{text-align:center;margin:0 0 26px;}
+.tea-writer-heading h2{font:normal 2.45rem 'Amiri',serif !important;margin:7px auto;color:#314768;}
+.tea-writer-heading p{color:#6d7891;line-height:1.8;margin:3px auto 0;}
+.tea-writer-emblem{font-size:1.4rem;letter-spacing:.55rem;color:#ab905b;}
+.tea-writer-toolbar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:14px auto;}
+.tea-writer-toolbar strong{color:#344f72;font-size:1.04rem;}
+.tea-writer-toolbar .tea-text-back{margin:0;}
+.tea-admin-inbox{display:flex;flex-direction:column;gap:12px;}
+.tea-admin-card{text-align:right;width:100%;display:flex;gap:15px;align-items:flex-start;border:1px solid #d3c3a7;background:#fffdf8;color:#314564;border-radius:13px;padding:17px 19px;cursor:pointer;box-shadow:0 5px 17px rgba(52,60,80,.07);transition:transform .2s,background .2s,border-color .2s;}
+.tea-admin-card:hover,.tea-admin-card:focus-visible{background:#f2f5fb;transform:translateY(-2px);border-color:#92abcf;outline:2px solid transparent;}
+.tea-admin-icon{width:43px;height:43px;flex:none;display:grid;place-items:center;border-radius:50%;background:#e4ecf8;color:#44668f;font-size:1.24rem;}
+.tea-admin-card-content{display:flex;flex-direction:column;gap:5px;min-width:0;flex:1;}
+.tea-admin-card-title{font-weight:700;font-size:1.05rem;}
+.tea-admin-card-snippet{color:#526780;font-size:.91rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;direction:rtl;}
+.tea-admin-card-meta{font-size:.79rem;color:#7c8190;}
+.tea-admin-card-cta{color:#476fa5;font-size:.85rem;flex:none;align-self:center;}
+.tea-admin-unanswered{display:inline-flex;align-items:center;gap:4px;width:max-content;background:#f8eee0;border:1px solid #ebd2ac;border-radius:99px;padding:3px 9px;color:#795222;font-size:.78rem;}
+.tea-admin-done{display:inline-flex;width:max-content;background:#e8f1e6;padding:3px 9px;border-radius:99px;color:#47704f;font-size:.78rem;}
+.tea-admin-thread{background:rgba(255,255,255,.45);border:1px solid #d5c4a8;border-radius:16px;padding:18px;margin-top:14px;}
+.tea-admin-thread-header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;border-bottom:1px solid #d8c8ac;padding-bottom:13px;margin-bottom:16px;}
+.tea-admin-thread-header .tea-text-back{margin:0;}
+.tea-admin-thread-header strong{display:block;text-align:right;color:#324b6d;font-size:1.08rem;}
+.tea-admin-thread-header small{display:block;text-align:right;color:#7d8091;margin-top:4px;}
+.tea-admin-chat{max-height:470px;min-height:160px;background:#fffdf8;}
+.tea-admin-send-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;}
+.tea-admin-send-row span{color:#67788e;font-size:.85rem;}
+.tea-writer-desk .tea-status{background:#eaf1f7;color:#344e70;}
+body.day-time .tea-admin-card,body.night-time .tea-admin-card,body.tea-spilled .tea-admin-card{color:#314564;background:#fffdf8;}
+body.day-time .tea-writer-desk,body.night-time .tea-writer-desk,body.tea-spilled .tea-writer-desk{color:#314767;}
+body.day-time .tea-writer-desk h2,body.night-time .tea-writer-desk h2{color:#314768;}
+body.tea-spilled .tea-admin-thread{border-color:#86a47b;}
+@media(max-width:600px){.tea-admin-card{padding:13px 11px;gap:9px}.tea-admin-icon{width:34px;height:34px}.tea-admin-card-cta{font-size:.75rem}.tea-admin-thread{padding:12px}.tea-writer-heading h2{font-size:2rem}}
 </style>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8C%99%3C/text%3E%3C/svg%3E">
 </head>
@@ -1718,6 +1754,7 @@ body.day-time .reader-auth-nav{color:#3c567c;border-color:#8cabc9;background:#e9
     <div id="teaQuestionsPanel" class="tea-detail-panel hidden">
       <button class="tea-text-back" type="button" onclick="showTeaMenu()">← العودة إلى فهرس الكتاب</button>
       <span class="tea-panel-kicker">✉ رسائل لا يراها إلا أصحابها ✉</span>
+      <div id="teaReaderArea">
       <h2>اسأل أي ما تشاء</h2>
       <p class="tea-help">هنا يمكنك طرح سؤال خاص، والعودة لقراءة سؤالك السابق ورد الكاتبة. بعد الرد يمكنك إرسال سؤال جديد في نفس المحادثة.</p>
       <p class="tea-help tea-auth-note">تُحفظ المحادثة في حساب Google لتعود إليها من أي جهاز. لا يطلع على محتواها إلا صاحب الحساب والكاتبة بعد إعداد قواعد Firebase.</p>
@@ -1730,26 +1767,35 @@ body.day-time .reader-auth-nav{color:#3c567c;border-color:#8cabc9;background:#e9
         <div class="tea-form-bottom"><span>رسالة واحدة في انتظار الرد في كل مرة.</span><button type="submit" id="teaSendButton" class="tea-small-action" disabled>أرسل السؤال ✉</button></div>
       </form>
       <button id="teaRefreshButton" class="tea-text-back" type="button" onclick="refreshTeaConversation()">↻ تحديث الرسائل</button>
+      </div>
+      <section id="teaWriterDesk" class="tea-writer-desk hidden" aria-label="صندوق الرسائل الخاصة">
+        <div class="tea-writer-heading">
+          <span class="tea-writer-emblem" aria-hidden="true">✉ ☾ ✦</span>
+          <h2>صندوق رسائل الكاتبة</h2>
+          <p>رسائل القرّاء لك وحدك، اختاري رسالة للقراءة والرد.</p>
+        </div>
+        <div class="tea-writer-toolbar">
+          <strong id="teaAdminCount">الرسائل الخاصة</strong>
+          <button class="tea-text-back" type="button" onclick="loadTeaInbox()">↻ تحديث الرسائل</button>
+        </div>
+        <p id="teaAdminStatus" class="tea-status" role="status">جاري الاتصال بصندوق الرسائل…</p>
+        <div id="teaAdminThreadList" class="tea-admin-inbox" aria-live="polite"></div>
+        <section id="teaAdminActiveThread" class="tea-admin-thread hidden" aria-label="الرسائل والرد">
+          <div class="tea-admin-thread-header">
+            <button type="button" class="tea-text-back" onclick="closeTeaWriterThread()">← كل الرسائل</button>
+            <div><strong id="teaAdminReaderName">رسائل قارئ</strong><small id="teaAdminThreadDate"></small></div>
+          </div>
+          <div id="teaAdminConversation" class="tea-messages tea-admin-chat" aria-live="polite"></div>
+          <form id="teaAdminReplyForm" class="tea-question-form" onsubmit="sendTeaAuthorReply(event)">
+            <label for="teaAdminReplyInput">ردّ الكاتبة</label>
+            <textarea id="teaAdminReplyInput" minlength="2" maxlength="600" required placeholder="اكتب ردّك إلى هذا القارئ…"></textarea>
+            <div class="tea-admin-send-row"><span id="teaAdminReplyStatus" role="status">سيصل ردّك إلى المحادثة الخاصة للقارئ.</span><button type="submit" class="tea-small-action">إرسال الرد ✉</button></div>
+          </form>
+        </section>
+      </section>
     </div>
   </div>
 
-  <aside class="tea-author-access">
-    <button type="button" class="tea-author-trigger" onclick="toggleTeaAuthorAccess()">✒ دخول الكاتبة</button>
-    <div id="teaAuthorAccessPanel" class="tea-author-panel hidden">
-      <p>مساحة خاصة للكاتبة لإجابة رسائل الزوار. يتطلب تفعيل تسجيل الدخول بحساب Google وتحديد معرّف حساب الكاتبة في إعدادات Firebase.</p>
-      <button id="teaAuthorLogin" type="button" class="tea-small-action" onclick="teaAuthorSignIn()">دخول بحساب Google</button>
-      <p id="teaAuthorStatus" class="tea-status" role="status"></p>
-      <div id="teaAuthorInbox" class="hidden">
-        <button type="button" class="tea-text-back" onclick="loadTeaInbox()">↻ تحديث قائمة الرسائل</button>
-        <div id="teaThreadList" class="tea-inbox-list"></div>
-        <div id="teaActiveThread" class="tea-messages"></div>
-        <form id="teaReplyForm" class="tea-question-form hidden" onsubmit="sendTeaAuthorReply(event)">
-          <label for="teaReplyInput">رد الكاتبة</label><textarea id="teaReplyInput" maxlength="600" required placeholder="اكتب ردك هنا..."></textarea>
-          <button type="submit" class="tea-small-action">إرسال الرد ✉</button>
-        </form>
-      </div>
-    </div>
-  </aside>
   <footer class="site-footer">✧ الشاي جيد... إن بقي في الكوب ✧</footer>
 </section>
 
@@ -7150,11 +7196,42 @@ function teaErrorDescription(e){
   if(e?.code==='permission-denied')return 'يلزم إضافة قواعد الأمان الخاصة برسائل شاي الكاتبة في Firestore.';
   return e?.message||'تعذر الاتصال الآن. حاول لاحقًا.';
 }
-function teaIsWriter(user){return !!user&&TEA_AUTHOR_UID!=='REPLACE_WITH_YOUR_FIREBASE_AUTH_UID'&&user.uid===TEA_AUTHOR_UID;}
+function teaIsWriter(user){return !!user && !user.isAnonymous && user.uid===TEA_AUTHOR_UID;}
+let teaAdminListUnsubscribe=null;
+let teaAdminLastMessageWatch=null;
+let teaAdminThreads=[];
+let teaAdminMessageCache=new Map();
+let teaAdminListGeneration=0;
+let teaAdminListLoading=false;
+
+function teaWriterStatus(message){const e=document.getElementById('teaAdminStatus');if(e)e.textContent=message;}
+function teaWriterTime(value){
+  const date=value?.toDate?.()||((value instanceof Date)?value:null);
+  return date?date.toLocaleString('ar-KW',{dateStyle:'medium',timeStyle:'short'}):'حديثًا';
+}
+function teaDisplayName(doc){
+  const alias=String(doc.data()?.alias||'').trim();
+  return alias&&alias!=='مجهول' ? alias.slice(0,40) : 'قارئ من المكتبة';
+}
+function teaCheckRole(user){
+  const writer=teaIsWriter(user);
+  document.getElementById('teaReaderArea').classList.toggle('hidden',writer);
+  document.getElementById('teaWriterDesk').classList.toggle('hidden',!writer);
+  if(writer){
+    // Writer must never see the visitor's input or submit a reader question.
+    document.getElementById('teaQuestionInput').disabled=true;
+    document.getElementById('teaSendButton').disabled=true;
+    if(!document.getElementById('teaQuestionsPanel').classList.contains('hidden') && !teaAdminListUnsubscribe)loadTeaInbox();
+  }else{
+    stopTeaWriterInbox();
+  }
+}
 async function prepareTeaVisitor(){
   if(!teaAuth){teaStatus('خدمة تسجيل الدخول غير متاحة الآن.');return;}
   const user=teaAuth.currentUser;
-  if(!user || user.isAnonymous){
+  teaCheckRole(user);
+  if(teaIsWriter(user))return;
+  if(!user||user.isAnonymous){
     teaStatus('سجّل الدخول بحساب Google لبدء محادثة خاصة يمكن العودة إليها من أي جهاز.');
     document.getElementById('teaGoogleAuthButton')?.classList.remove('hidden');
     document.getElementById('teaSendButton').disabled=true;
@@ -7162,29 +7239,24 @@ async function prepareTeaVisitor(){
     return;
   }
   document.getElementById('teaGoogleAuthButton')?.classList.add('hidden');
-  if(teaIsWriter(user)){teaStatus('مرحبًا بالكاتبة. الرسائل الواردة تظهر في لوحة الكاتبة.');return;}
-  teaVisitorUid=user.uid;watchTeaVisitorMessages();
+  teaVisitorUid=user.uid;
+  if(!teaMessagesUnsubscribe)watchTeaVisitorMessages();
 }
 if(teaAuth){
   teaAuth.onAuthStateChanged(user=>{
     if(teaMessagesUnsubscribe){teaMessagesUnsubscribe();teaMessagesUnsubscribe=null;}
     teaVisitorUid=null;teaMyMessages=[];
-    const sendButton=document.getElementById('teaSendButton');
-    if(sendButton)sendButton.disabled=true;
-    if(user&&!teaIsWriter(user)){
+    document.getElementById('teaSendButton').disabled=true;
+    document.getElementById('teaQuestionInput').disabled=true;
+    document.getElementById('teaReaderConversation').replaceChildren();
+    teaCheckRole(user);
+    if(user&&!user.isAnonymous&&!teaIsWriter(user)){
       teaVisitorUid=user.uid;
       watchTeaVisitorMessages();
-    }else if(user&&teaIsWriter(user)){
-      teaStatus('مرحبًا بالكاتبة. أجب عن الأسئلة من لوحة الكاتبة أسفل الكتاب.');
-      document.getElementById('teaReaderConversation').replaceChildren();
+    }else if(!user||user.isAnonymous){
+      teaStatus('سجّل الدخول بحساب Google لطرح سؤال خاص.');
     }
     document.getElementById('teaGoogleAuthButton')?.classList.toggle('hidden',!!user&&!user.isAnonymous);
-    if(!user || user.isAnonymous){
-      teaStatus('سجّل الدخول بحساب Google لطرح سؤال خاص.');
-      document.getElementById('teaQuestionInput').disabled=true;
-      document.getElementById('teaReaderConversation').replaceChildren();
-    }
-    updateTeaAuthorStatus(user);
   });
 }
 function teaMessageNode(msg){
@@ -7192,7 +7264,7 @@ function teaMessageNode(msg){
   item.className='tea-message'+(msg.senderRole==='author'?' from-author':'');
   const body=document.createElement('div');body.textContent=msg.text||'';
   const meta=document.createElement('small');
-  meta.textContent=msg.senderRole==='author'?'✦ رد بتول':'✉ رسالة القارئ';
+  meta.textContent=(msg.senderRole==='author'?'✦ رد بتول':'✉ رسالة القارئ')+' • '+teaWriterTime(msg.createdAt);
   item.append(body,meta);return item;
 }
 function teaRenderMessages(elementId,messages){
@@ -7226,6 +7298,7 @@ async function refreshTeaConversation(){
 }
 async function sendTeaQuestion(event){
   event.preventDefault();
+  if(teaIsWriter(teaAuth?.currentUser))return;
   const input=document.getElementById('teaQuestionInput');
   const button=document.getElementById('teaSendButton');
   const text=input.value.trim();
@@ -7240,67 +7313,123 @@ async function sendTeaQuestion(event){
     await thread.collection('messages').add({senderUid:teaVisitorUid,senderRole:'reader',text,createdAt:serverTimestamp()});
     await thread.update({updatedAt:serverTimestamp()});
     input.value='';teaStatus('أُرسلت رسالتك إلى الكاتبة ✉');
-  }catch(e){teaStatus('تعذّر الإرسال: '+teaErrorDescription(e));button.disabled=false;}
+  }catch(e){console.error('Tea question error',e);teaStatus('تعذّر الإرسال: '+teaErrorDescription(e));button.disabled=false;}
 }
-function toggleTeaAuthorAccess(){
-  document.getElementById('teaAuthorAccessPanel').classList.toggle('hidden');
-  if(teaAuth?.currentUser)updateTeaAuthorStatus(teaAuth.currentUser);
+function stopTeaWriterInbox(){
+  teaAdminListGeneration++;
+  if(teaAdminListUnsubscribe){teaAdminListUnsubscribe();teaAdminListUnsubscribe=null;}
+  if(teaWriterConversationUnsubscribe){teaWriterConversationUnsubscribe();teaWriterConversationUnsubscribe=null;}
+  teaSelectedWriterThread=null;
+  teaAdminThreads=[];teaAdminMessageCache.clear();
+  const active=document.getElementById('teaAdminActiveThread');if(active)active.classList.add('hidden');
 }
-function updateTeaAuthorStatus(user){
-  const el=document.getElementById('teaAuthorStatus');if(!el)return;
-  if(teaIsWriter(user)){
-    el.textContent='تم التحقق من دخول الكاتبة. بإمكانك قراءة الرسائل والرد عليها.';
-    document.getElementById('teaAuthorInbox').classList.remove('hidden');
-    loadTeaInbox();
-  }else{
-    el.textContent=user?`مُعرّف الحساب الحالي (UID): ${user.uid}. إذا كنت الكاتبة، ضع مُعرّف حساب Google الخاص بك في إعدادات الكود وقواعد Firestore ثم سجّل الدخول بحساب Google.`:'سجّل الدخول بحساب الكاتبة للوصول إلى الرسائل.';
-    document.getElementById('teaAuthorInbox').classList.add('hidden');
+function renderTeaAdminInbox(){
+  const list=document.getElementById('teaAdminThreadList');
+  if(!list)return;
+  list.replaceChildren();
+  const activeCount=teaAdminThreads.length;
+  document.getElementById('teaAdminCount').textContent=`${activeCount} محادثة خاصة`;
+  document.getElementById('teaAdminStatus').classList.toggle('hidden',activeCount>0);
+  if(!activeCount){teaWriterStatus('لا توجد رسائل حتى الآن. إن أُرسلت رسالة من حساب آخر، ستظهر هنا تلقائيًا.');return;}
+  for(const doc of teaAdminThreads){
+    const cache=teaAdminMessageCache.get(doc.id);
+    const latest=cache?.last;
+    const awaiting=latest?.senderRole==='reader';
+    const card=document.createElement('button');card.type='button';card.className='tea-admin-card';
+    const icon=document.createElement('span');icon.className='tea-admin-icon';icon.textContent='✉';
+    const content=document.createElement('span');content.className='tea-admin-card-content';
+    const title=document.createElement('span');title.className='tea-admin-card-title';title.textContent=teaDisplayName(doc);
+    const message=document.createElement('span');message.className='tea-admin-card-snippet';
+    message.textContent=latest?.text || (cache ? 'لا توجد رسالة في هذه المحادثة بعد' : 'جاري تحميل الرسالة…');
+    const badge=document.createElement('span');badge.className=awaiting?'tea-admin-unanswered':'tea-admin-done';
+    badge.textContent=cache ? (awaiting?'✦ بانتظار ردك':'✓ تم الرد') : '…';
+    const date=document.createElement('span');date.className='tea-admin-card-meta';date.textContent=teaWriterTime(doc.data()?.updatedAt||doc.data()?.createdAt);
+    const cta=document.createElement('span');cta.className='tea-admin-card-cta';cta.textContent='عرض والرد ←';
+    content.append(title,message,badge,date);card.append(icon,content,cta);
+    card.addEventListener('click',()=>selectTeaWriterThread(doc.id));list.append(card);
   }
 }
-async function teaAuthorSignIn(){
-  if(!teaAuth){document.getElementById('teaAuthorStatus').textContent='Firebase Authentication غير متاح.';return;}
-  try{await readerSignInWithGoogle();}
-  catch(e){document.getElementById('teaAuthorStatus').textContent='تعذّر تسجيل الدخول: '+teaErrorDescription(e);}
-}
 async function loadTeaInbox(){
-  const container=document.getElementById('teaThreadList');
   if(!teaIsWriter(teaAuth?.currentUser))return;
-  container.textContent='جاري قراءة الأسئلة الخاصة…';
-  try{
-    const snapshot=await db.collection('teaConversations').orderBy('updatedAt','desc').limit(60).get();
-    container.replaceChildren();
-    if(snapshot.empty){container.textContent='لا توجد أسئلة خاصة بعد.';return;}
-    for(const doc of snapshot.docs){
-      const button=document.createElement('button');button.type='button';button.className='tea-thread-pick';
-      button.textContent=`✉ محادثة ${doc.id.slice(0,8)}…  — فتح الرسائل`;
-      button.addEventListener('click',()=>selectTeaWriterThread(doc.id));container.append(button);
-    }
-  }catch(e){container.textContent='تعذّر قراءة البريد: '+teaErrorDescription(e);}
+  if(!db){teaWriterStatus('تعذّر الاتصال بـ Firebase Firestore.');return;}
+  // Live reader conversations; avoid orderBy here, because older parent documents
+  // without updatedAt would be silently excluded by Firestore.
+  if(teaAdminListUnsubscribe)teaAdminListUnsubscribe();
+  teaAdminListUnsubscribe=null;
+  const generation=++teaAdminListGeneration;
+  teaWriterStatus('جاري تحميل الرسائل من Firebase…');
+  teaAdminListUnsubscribe=db.collection('teaConversations').onSnapshot(async snapshot=>{
+    if(generation!==teaAdminListGeneration||!teaIsWriter(teaAuth?.currentUser))return;
+    teaAdminThreads=snapshot.docs.sort((a,b)=>{
+      const t=d=>d.data()?.updatedAt?.toMillis?.()||d.data()?.createdAt?.toMillis?.()||0;
+      return t(b)-t(a);
+    });
+    renderTeaAdminInbox();
+    // Fetch each conversation's latest message. This does not expose private data
+    // in a public collection, and does not require a collection-group index.
+    await Promise.all(teaAdminThreads.map(async doc=>{
+      try{
+        const latest=await doc.ref.collection('messages').orderBy('createdAt','desc').limit(1).get();
+        if(generation!==teaAdminListGeneration)return;
+        teaAdminMessageCache.set(doc.id,{last:latest.empty?null:latest.docs[0].data()});
+      }catch(e){console.error('Tea last message',e);}
+    }));
+    if(generation===teaAdminListGeneration)renderTeaAdminInbox();
+  },e=>{
+    console.error('Writer inbox Firestore error:',e);
+    teaAdminThreads=[];
+    document.getElementById('teaAdminThreadList').replaceChildren();
+    teaWriterStatus('تعذّر فتح رسائل الكاتبة: '+teaErrorDescription(e)+' تأكد من نشر قواعد V8 الآمنة للحساب الصحيح.');
+  });
+}
+function closeTeaWriterThread(){
+  teaSelectedWriterThread=null;
+  if(teaWriterConversationUnsubscribe){teaWriterConversationUnsubscribe();teaWriterConversationUnsubscribe=null;}
+  document.getElementById('teaAdminActiveThread').classList.add('hidden');
+  document.getElementById('teaAdminThreadList').classList.remove('hidden');
+  document.getElementById('teaAdminReplyStatus').textContent='سيصل ردّك إلى المحادثة الخاصة للقارئ.';
+  document.getElementById('teaAdminReplyInput').value='';
 }
 function selectTeaWriterThread(uid){
   if(!teaIsWriter(teaAuth?.currentUser))return;
+  const thread=teaAdminThreads.find(d=>d.id===uid);
+  if(!thread)return;
   teaSelectedWriterThread=uid;
   if(teaWriterConversationUnsubscribe)teaWriterConversationUnsubscribe();
-  document.getElementById('teaReplyForm').classList.remove('hidden');
+  document.getElementById('teaAdminReaderName').textContent='محادثة '+teaDisplayName(thread);
+  document.getElementById('teaAdminThreadDate').textContent=teaWriterTime(thread.data()?.updatedAt||thread.data()?.createdAt);
+  document.getElementById('teaAdminActiveThread').classList.remove('hidden');
+  document.getElementById('teaAdminThreadList').classList.add('hidden');
   teaWriterConversationUnsubscribe=db.collection('teaConversations').doc(uid).collection('messages')
     .orderBy('createdAt','asc').onSnapshot(snapshot=>{
-      teaRenderMessages('teaActiveThread',snapshot.docs.map(d=>d.data()));
-    },e=>{document.getElementById('teaActiveThread').textContent=teaErrorDescription(e);});
+      if(teaSelectedWriterThread!==uid)return;
+      const messages=snapshot.docs.map(d=>d.data());
+      teaRenderMessages('teaAdminConversation',messages);
+      const last=messages[messages.length-1];
+      document.getElementById('teaAdminReplyStatus').textContent=last?.senderRole==='reader'?'هذا القارئ ينتظر ردّك.':'يمكنك إرسال رد آخر في هذه المحادثة.';
+      teaAdminMessageCache.set(uid,{last:last||null});
+    },e=>{
+      console.error('Writer message thread',e);
+      document.getElementById('teaAdminConversation').textContent='تعذّر قراءة المحادثة: '+teaErrorDescription(e);
+    });
 }
 async function sendTeaAuthorReply(event){
   event.preventDefault();
   if(!teaIsWriter(teaAuth?.currentUser)||!teaSelectedWriterThread)return;
-  const input=document.getElementById('teaReplyInput');
-  const text=input.value.trim();if(!text||text.length>600)return;
+  const input=document.getElementById('teaAdminReplyInput');
+  const text=input.value.trim();if(text.length<2||text.length>600)return;
   const button=event.target.querySelector('button[type=submit]');button.disabled=true;
+  const chosen=teaSelectedWriterThread;
+  const replyStatus=document.getElementById('teaAdminReplyStatus');
   try{
-    const thread=db.collection('teaConversations').doc(teaSelectedWriterThread);
+    const thread=db.collection('teaConversations').doc(chosen);
     await thread.collection('messages').add({senderUid:teaAuth.currentUser.uid,senderRole:'author',text,createdAt:serverTimestamp()});
     await thread.update({updatedAt:serverTimestamp()});
-    input.value='';loadTeaInbox();
-  }catch(e){document.getElementById('teaAuthorStatus').textContent='فشل إرسال الرد: '+teaErrorDescription(e);}
+    input.value='';replyStatus.textContent='وصل ردّك إلى المحادثة ✓';
+  }catch(e){console.error('Writer tea reply error',e);replyStatus.textContent='فشل إرسال الرد: '+teaErrorDescription(e);}
   finally{button.disabled=false;}
 }
+
 </script>
 
 

@@ -1791,6 +1791,81 @@ body.day-time:not(.tea-spilled) .arch-curtain-svg{filter:saturate(.86)}
   .arch-scene .arch-book-stack{left:10%;bottom:25px;transform:scale(.67);}
 }
 
+
+/* ================= V22 — Enchanted Reading Room ================= */
+#storyReadingSection .story-reading .reading-book-heading h2 {color:#f1e9d9!important;}
+body.day-time #storyReadingSection .story-reading .reading-book-heading h2{color:#345375!important;}
+body.reader-quiet-mode { overflow-x:hidden; }
+body.reader-quiet-mode .navbar,body.reader-quiet-mode .site-footer,body.reader-quiet-mode .reading-entry-nav,body.reader-quiet-mode #readingSettings,body.reader-quiet-mode #readingQuoteHint,body.reader-quiet-mode #storyReadingSection>.questions-action {display:none!important;}
+body.reader-quiet-mode #storyReadingSection{padding-top:14px;}
+body.reader-quiet-mode .reading-command-bar{justify-content:center;}
+body.reader-quiet-mode .reading-tool:not(#readerQuietButton){display:none;}
+body.reader-quiet-mode #readerQuietButton{background:#56729b;color:white;}
+.moon-reading-room{max-width:1160px!important;}
+.reading-entry-nav{display:flex;justify-content:space-between;align-items:center;gap:12px;color:#b9cbe4;margin-bottom:12px;font-size:.84rem;}
+.reading-entry-nav .back-button{margin:0;}
+.reading-command-bar{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:5px auto 15px;}
+.reading-tool{border:1px solid #9bafc9;border-radius:999px;padding:10px 17px;background:rgba(224,237,250,.12);color:#eff4ff;cursor:pointer;font-size:.89rem;transition:background .2s,transform .2s;}
+.reading-tool:hover,.reading-tool:focus-visible{background:rgba(129,168,217,.24);transform:translateY(-2px);}
+body.day-time .reading-tool{background:#e3edf8;color:#284566;border-color:#a9c3df;}
+body.day-time .reading-tool:hover{background:#cbdff3;}
+.reading-settings{max-width:930px;margin:0 auto 18px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px;padding:17px;border:1px solid #afc4dc;background:#e6f0fb;color:#2a4564;border-radius:14px;box-shadow:0 13px 33px #0b1d3a22;}
+.reading-setting{display:flex;flex-direction:column;gap:7px;min-width:0;font-size:.88rem;}
+.reading-setting label{font-weight:700;color:#334f73;}
+.reading-setting select,.reading-setting input{accent-color:#597eae;min-width:0;width:100%;border:1px solid #aec1d7;border-radius:7px;padding:8px;background:#fcfefe;color:#2a4465;font-family:inherit;}
+.reading-privacy-note{grid-column:1/-1;margin:0;color:#647895;font-size:.79rem;}
+.reading-save-status{color:#cdd9ea;text-align:center;min-height:1.6em;margin:1px auto 12px;font-size:.83rem;}
+body.day-time .reading-save-status{color:#4a698d;}
+#storyReadingSection .story-reading{--rp-bg:#fff9ed;--rp-ink:#273a55;--rp-border:#d5bfa2;--rp-line:#d5c3a8;--rp-soft:#997c56;--rp-size:19px;--rp-leading:2;--rp-font:'Tajawal',sans-serif;max-width:960px;width:100%;padding:22px clamp(12px,2.8vw,31px)!important;background:linear-gradient(110deg,#d3dceb,#e9edf5)!important;border:9px solid #344666!important;border-radius:9px 18px 18px 9px;box-shadow:0 18px 50px #060f2866,inset 0 0 3px #fff9;position:relative;transition:max-width .2s;}
+body.dark-mode #storyReadingSection .story-reading{background:linear-gradient(110deg,#273856,#192740)!important;border-color:#75829e!important;}
+#storyReadingSection .story-reading[data-paper="blue"]{--rp-bg:#e2effa;--rp-ink:#26445f;--rp-border:#b4cbe0;--rp-line:#b9cde0;--rp-soft:#617f9c;}
+#storyReadingSection .story-reading[data-paper="night"]{--rp-bg:#24334e;--rp-ink:#f3eddf;--rp-border:#657999;--rp-line:#687f9d;--rp-soft:#e0c79d;}
+#storyReadingSection .story-reading[data-width="narrow"]{max-width:750px;}
+#storyReadingSection .story-reading[data-width="wide"]{max-width:1100px;}
+.reading-book-heading{text-align:center;color:#d4e1f5;padding:5px 0 15px;}
+.reading-book-heading h2,#storyReadingSection .story-reading h2{font-family:'Amiri',serif!important;font-weight:400;color:var(--rp-ink)!important;margin:6px 0!important;font-size:clamp(1.55rem,3vw,2.15rem)!important;}
+.reading-spread{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);direction:rtl;position:relative;min-height:495px;isolation:isolate;perspective:1600px;}
+.reading-spread::after{content:'';position:absolute;inset:0 auto 0 50%;width:1px;background:var(--rp-line);box-shadow:0 0 14px #2229;z-index:2;pointer-events:none;}
+.reading-page{background:var(--rp-bg);color:var(--rp-ink);min-width:0;position:relative;padding:26px clamp(15px,2vw,29px) 45px;border:1px solid var(--rp-border);box-shadow:inset -11px 0 21px #9c876212,0 6px 14px #00000011;}
+.reading-spread>.reading-page:nth-of-type(1){border-radius:3px 9px 9px 3px;}
+.reading-spread>.reading-page:nth-of-type(2){border-radius:9px 3px 3px 9px;box-shadow:inset 10px 0 17px #a49a7017;}
+.reading-page-top{display:flex;justify-content:space-between;color:var(--rp-soft);font-size:.72rem;margin-bottom:19px;gap:6px;}
+.reading-page-text{font-family:var(--rp-font)!important;color:var(--rp-ink)!important;font-size:var(--rp-size)!important;line-height:var(--rp-leading)!important;text-align:right;word-break:normal;overflow-wrap:anywhere;direction:rtl;user-select:text;}
+.reading-page-text .reading-paragraph{white-space:pre-line;margin:0 0 .8em;}
+.reading-page-number{position:absolute;bottom:13px;left:15px;right:15px;text-align:center;color:var(--rp-soft);font-size:.74rem;}
+.reading-blank{display:grid;place-items:center;font-family:'Amiri',serif;color:var(--rp-soft);font-size:2rem;}
+.reading-page-turn{position:absolute;inset:0 0 0 50%;background:linear-gradient(120deg,var(--rp-bg),#c9c3bc,var(--rp-bg));transform-origin:right center;z-index:6;pointer-events:none;opacity:0;}
+.reading-spread.turn-next .reading-page-turn{animation:moonPageFlipNext .55s ease-in-out forwards;}
+.reading-spread.turn-prev .reading-page-turn{animation:moonPageFlipPrev .55s ease-in-out forwards;}
+@keyframes moonPageFlipNext{0%{opacity:0;transform:rotateY(0deg)}12%{opacity:.95}80%{opacity:.8}100%{opacity:0;transform:rotateY(165deg)}}
+@keyframes moonPageFlipPrev{0%{opacity:0;transform:rotateY(165deg)}12%{opacity:.9}85%{opacity:.8}100%{opacity:0;transform:rotateY(0deg)}}
+.reading-navigation{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:14px auto 0;flex-wrap:wrap;}
+.reading-navigation .pagination-btn{min-width:95px;border-radius:8px!important;}
+.reading-navigation .page-number{color:#d9e3f1!important;padding:7px 12px;}
+.reading-progress-track{height:6px;background:#a2b3ca55;border-radius:99px;overflow:hidden;margin:17px 3px 5px;}
+.reading-progress-fill{height:100%;background:linear-gradient(90deg,#89add5,#e7d39e);border-radius:99px;transition:width .4s;}
+.reading-bookmark-ribbon{position:absolute;top:0;left:15px;width:24px;height:50px;background:linear-gradient(#a3bde1,#4b729e);z-index:3;clip-path:polygon(0 0,100% 0,100% 100%,50% 79%,0 100%);filter:drop-shadow(0 2px 3px #0004);}
+.reading-bookmark-ribbon:not(.marked){opacity:.24;}
+.reading-quote-hint{text-align:center;color:#c5d8ee;font-size:.81rem;max-width:850px;margin:13px auto 0;}
+body.day-time .reading-quote-hint{color:#476a91;}
+.reading-end-card{border:1px solid var(--rp-border);border-radius:8px;padding:40px 23px;background:var(--rp-bg);color:var(--rp-ink);text-align:center;min-height:380px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:13px;}
+.reading-end-card h3{font-family:'Amiri',serif!important;font-size:2rem;color:var(--rp-ink);margin:0;}
+.reading-end-card p{color:var(--rp-ink);line-height:1.9;}
+.reading-end-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+.reading-end-actions button,.reader-quote-actions button{border:1px solid var(--rp-border);border-radius:8px;background:#34577e;color:#fff9e8;padding:10px 15px;cursor:pointer;}
+.reading-end-card details{max-width:550px;border-top:1px solid var(--rp-line);padding-top:16px;margin-top:13px;width:100%;}
+.reading-end-card summary{cursor:pointer;color:var(--rp-soft);}
+.reader-quotes-list{display:flex;flex-direction:column;gap:14px;margin:12px 0;}
+.reader-quote-card{border:1px solid #b7c8dc;background:#f7fafd;border-radius:12px;padding:20px;color:#294568;}
+.reader-quote-card blockquote{margin:0 0 12px;font-family:'Amiri',serif!important;font-size:1.42rem;line-height:1.8;color:#294568;}
+.reader-quote-card small{color:#6d839d;}
+.reader-quote-actions{display:flex;justify-content:flex-end;gap:9px;flex-wrap:wrap;margin-top:10px;}
+.reader-quote-actions button{font-size:.8rem;padding:8px 12px;}
+.reader-quote-actions button:last-child{background:transparent;color:#45658e;}
+@media(max-width:790px){.reading-settings{grid-template-columns:repeat(2,minmax(0,1fr))}.reading-spread{grid-template-columns:minmax(0,1fr)}.reading-spread::after{display:none}.reading-spread>.reading-page:nth-of-type(2){display:none}.reading-page{min-height:410px;padding:22px 19px 40px}.reading-spread>.reading-page:nth-of-type(1){border-radius:7px!important}.reading-page-turn{inset:0}.reading-entry-nav span{display:none}}
+@media(max-width:460px){#storyReadingSection .story-reading{padding:13px 8px!important;border-width:5px!important}.reading-settings{gap:9px;padding:12px}.reading-tool{padding:9px 11px;font-size:.76rem}.reading-page{padding:16px 14px 39px;min-height:440px}.reading-book-heading h2{font-size:1.55rem!important}.reading-navigation .pagination-btn{min-width:80px;padding:9px 11px}.reading-navigation .page-number{font-size:.76rem!important}}
+@media(prefers-reduced-motion:reduce){.reading-page-turn,.reading-spread.turn-next .reading-page-turn,.reading-spread.turn-prev .reading-page-turn{animation:none!important}.reading-progress-fill{transition:none}}
+
 </style>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8C%99%3C/text%3E%3C/svg%3E">
 </head>
@@ -1955,19 +2030,27 @@ body.day-time:not(.tea-spilled) .arch-curtain-svg{filter:saturate(.86)}
     </div>
 </section>
 
-    <!-- Story Reading Section -->
-    <section id="storyReadingSection" class="container hidden">
-        <button class="back-button" onclick="showStoriesPage()">↗ العودة إلى رفوف الحكايات</button>
-        <div class="reader-topline"><span>✦</span><span>بين صفحات الحكاية</span><span>✦</span></div>
-            <div class="font-controls">
-        <button onclick="changeFontSize('increase')">+</button>
-        <button onclick="changeFontSize('decrease')">-</button>
-        <button onclick="changeFontSize('reset')">🔄</button>
-    </div>
-        <div class="story-reading" id="storyContent">
-            <!-- Story content will be loaded here -->
-        </div>
-        <button class="submit-idea-btn questions-action" onclick="showQuestions()" style="margin-top: 2rem;">إلى أسئلة ما بعد الحكاية ✧</button>
+    <!-- Enhanced Reading Room · V22 -->
+    <section id="storyReadingSection" class="container hidden moon-reading-room">
+      <div class="reading-entry-nav"><button class="back-button" type="button" onclick="showStoriesPage()">↗ العودة إلى رفوف الحكايات</button><span>✧ غرفة القراءة ✧</span></div>
+      <div class="reading-command-bar" role="toolbar" aria-label="أدوات القراءة">
+        <button type="button" class="reading-tool" onclick="toggleReaderQuiet()" id="readerQuietButton" aria-pressed="false">☾ وضع السكون</button>
+        <button type="button" class="reading-tool" onclick="toggleReadingSettings()" id="readerSettingsToggle" aria-expanded="false" aria-controls="readingSettings">⚙ تفضيلات القراءة</button>
+        <button type="button" class="reading-tool" onclick="toggleBookmark()" id="readerBookmarkButton" aria-pressed="false">♢ حفظ الصفحة</button>
+        <button type="button" class="reading-tool" onclick="saveSelectedQuote()" title="حدّد جملة من الحكاية أولاً">❝ احفظ اقتباسًا</button>
+      </div>
+      <div id="readingSettings" class="reading-settings hidden" dir="rtl">
+        <div class="reading-setting"><label for="readingPaper">لون الصفحات</label><select id="readingPaper" onchange="setReadingPref('paper',this.value)"><option value="ivory">عاجي دافئ</option><option value="blue">أزرق هادئ</option><option value="night">ليلي</option></select></div>
+        <div class="reading-setting"><label for="readingSize">حجم الخط <output id="readingSizeOutput"></output></label><input id="readingSize" type="range" min="16" max="28" step="1" oninput="setReadingPref('size',Number(this.value))"></div>
+        <div class="reading-setting"><label for="readingLines">تباعد السطور</label><select id="readingLines" onchange="setReadingPref('line',Number(this.value))"><option value="1.7">قريب</option><option value="2">متوسط</option><option value="2.35">مريح</option></select></div>
+        <div class="reading-setting"><label for="readingWidth">عرض الصفحة</label><select id="readingWidth" onchange="setReadingPref('width',this.value)"><option value="normal">عادي</option><option value="narrow">ضيّق</option><option value="wide">واسع</option></select></div>
+        <div class="reading-setting"><label for="readingMotion">تقليب الصفحات</label><select id="readingMotion" onchange="setReadingPref('motion',this.value)"><option value="on">تشغيل</option><option value="off">بدون حركة</option></select></div>
+        <p class="reading-privacy-note">تُحفظ تفضيلاتك على هذا الجهاز.</p>
+      </div>
+      <div class="reading-save-status" id="readingSaveStatus" role="status" aria-live="polite"></div>
+      <div class="story-reading" id="storyContent" dir="rtl" aria-live="polite"></div>
+      <div id="readingQuoteHint" class="reading-quote-hint" role="status" aria-live="polite">✧ ظلّل عبارة من الحكاية ثم اضغط «احفظ اقتباسًا» لإضافتها إلى دفتر اقتباساتك.</div>
+      <button class="submit-idea-btn questions-action" type="button" onclick="showQuestions()" style="margin-top:2rem">إلى أسئلة ما بعد الحكاية ✧</button>
     </section>
 
     <!-- Questions Section -->
@@ -2127,6 +2210,7 @@ body.day-time:not(.tea-spilled) .arch-curtain-svg{filter:saturate(.86)}
     <button class="profile-tab active" id="readerTabEdit" type="button" role="tab" aria-selected="true" aria-controls="readerPanelEdit" onclick="selectReaderTab('edit')">✦ بطاقتي</button>
     <button class="profile-tab" id="readerTabFavorites" type="button" role="tab" aria-selected="false" aria-controls="readerPanelFavorites" onclick="selectReaderTab('favorites')">♡ رفّ المفضلة</button>
     <button class="profile-tab" id="readerTabActivity" type="button" role="tab" aria-selected="false" aria-controls="readerPanelActivity" onclick="selectReaderTab('activity')">✎ أثري في المكتبة</button>
+    <button class="profile-tab" id="readerTabQuotes" type="button" role="tab" aria-selected="false" aria-controls="readerPanelQuotes" onclick="selectReaderTab('quotes')">❝ اقتباساتي</button>
   </div>
   <div class="profile-paper">
     <section id="readerPanelEdit" class="profile-panel" role="tabpanel" aria-labelledby="readerTabEdit">
@@ -2147,6 +2231,11 @@ body.day-time:not(.tea-spilled) .arch-curtain-svg{filter:saturate(.86)}
     <section id="readerPanelFavorites" class="profile-panel hidden" role="tabpanel" aria-labelledby="readerTabFavorites">
       <div class="profile-section-title"><span>✧ &nbsp; 02 / مكتبتي الصغيرة</span><h2>الكتب التي احتفظ بها القلب ♡</h2><p>يمكنك إضافة كتاب بالضغط على القلب فوق غلافه أو داخل صفحة القراءة.</p></div>
       <div id="readerFavoriteShelf" class="profile-favorites"></div>
+    </section>
+    <section id="readerPanelQuotes" class="profile-panel hidden" role="tabpanel" aria-labelledby="readerTabQuotes">
+      <div class="profile-section-title"><span>✧ &nbsp; 04 / دفتر اقتباساتي</span><h2>كلمات لم يرغب القلب في نسيانها</h2><p>جُمل حفظتها من الحكايات. عد إليها متى أردت، ومنها إلى الكتاب.</p></div>
+      <p id="readingQuotesCloudStatus" class="profile-form-hint" role="status"></p>
+      <div id="readerQuotesList" class="reader-quotes-list"></div>
     </section>
     <section id="readerPanelActivity" class="profile-panel hidden" role="tabpanel" aria-labelledby="readerTabActivity">
       <div class="profile-section-title"><span>✧ &nbsp; 03 / أثري في المكتبة</span><h2>كلمات تركتها بين الصفحات</h2><p>نقاشاتك في المقهى، وردودك، وإجاباتك بعد القصص مع روابط تعيدك إليها.</p></div>
@@ -8072,6 +8161,293 @@ document.addEventListener('DOMContentLoaded',readerPrefillNames);
 
 </script>
 
+<script>
+/* مكتبة القمر — reading-room upgrade V22. All original stories are unchanged. */
+const readingDefaultPreferences = {paper:'ivory',size:19,line:2,width:'normal',motion:'on'};
+function loadReadingPreferences(){
+  try{const data=JSON.parse(localStorage.getItem('moonReadingPrefs')||'{}');return Object.fromEntries(Object.keys(readingDefaultPreferences).map(key=>[key,data[key]??readingDefaultPreferences[key]]));}
+  catch(e){return {...readingDefaultPreferences};}
+}
+let readingPreferences=loadReadingPreferences();
+let readingEnding=false, readingIsTurning=false, readingSelectedQuote=null;
+let readingBookmarkPage=-1, readingFlipTimer=null, readingSyncTimer=null, readingRevision=0;
+let readingQuotes=[], readingQuoteUnsub=null, readingQuotesUser=null;
+const readingSmallScreen=window.matchMedia('(max-width:790px)');
+function readingPageStep(){return readingSmallScreen.matches?1:2;}
+function safeReadingLocalSet(key,val){try{localStorage.setItem(key,String(val));}catch(e){console.warn('Local reading save unavailable',e);}}
+function readingBookmarkKey(){return 'moonBookmarked_'+(readerCurrentUser()?.uid||'guest')+'_'+currentStoryId;}
+function readingStatus(message){const el=document.getElementById('readingSaveStatus');if(el)el.textContent=message||'';}
+function readingWordCount(txt){return (String(txt).match(/\S+/g)||[]).length;}
+// Keep complete paragraphs together when possible. Large ones split by sentences or short segments.
+function paginateContent(text, limit=80){
+  // The legacy story loader passes 150; cap that to a comfortable physical page length.
+  limit=Math.max(60,Math.min(80,Number(limit)||80));
+  const result=[], blocks=String(text||'').replace(/\r\n/g,'\n').trim().split(/\n\s*\n/).filter(x=>x.trim());
+  let chunks=[], count=0;
+  const flush=()=>{if(chunks.length){result.push(chunks.join('\n\n'));chunks=[];count=0;}};
+  const append=fragment=>{const words=readingWordCount(fragment);if(count>0 && count+words>limit)flush();chunks.push(fragment);count+=words;};
+  for(const block of blocks){
+    if(readingWordCount(block)<=limit){append(block);continue;}
+    flush();
+    // Preserve original text (including line breaks) at word boundaries for oversized paragraphs.
+    const tokens=block.match(/\S+|\s+/g)||[];let part='',partCount=0;
+    for(const token of tokens){
+      if(!/^\s+$/.test(token)){
+        if(partCount>=limit){append(part.trim());flush();part='';partCount=0;}
+        partCount++;
+      }
+      part+=token;
+    }
+    if(part.trim())append(part.trim());
+    flush();
+  }
+  flush();return result.length?result:[''];
+}
+function applyReadingPrefs(){
+  const container=document.getElementById('storyContent');if(!container)return;
+  const p=readingPreferences;
+  const paper=['ivory','blue','night'].includes(p.paper)?p.paper:'ivory';
+  const width=['narrow','normal','wide'].includes(p.width)?p.width:'normal';
+  container.dataset.paper=paper;container.dataset.width=width;
+  container.style.setProperty('--rp-font',"'Tajawal',sans-serif");
+  container.style.setProperty('--rp-size',Math.max(16,Math.min(28,Number(p.size)||19))+'px');
+  container.style.setProperty('--rp-leading',String(p.line));
+  const controls={readingPaper:p.paper,readingSize:p.size,readingLines:String(p.line),readingWidth:p.width,readingMotion:p.motion};
+  for(const [key,value] of Object.entries(controls)){const input=document.getElementById(key);if(input&&document.activeElement!==input)input.value=value;}
+  const out=document.getElementById('readingSizeOutput');if(out)out.textContent=p.size+'px';
+}
+function setReadingPref(key,value){
+  if(!(key in readingDefaultPreferences))return;
+  if(key==='size')value=Math.max(16,Math.min(28,Number(value)||19));
+  if(key==='line')value=[1.7,2,2.35].includes(Number(value))?Number(value):2;
+  readingPreferences[key]=value;
+  safeReadingLocalSet('moonReadingPrefs',JSON.stringify(readingPreferences));
+  applyReadingPrefs();
+}
+function toggleReadingSettings(){
+  const box=document.getElementById('readingSettings'),btn=document.getElementById('readerSettingsToggle');
+  const show=box.classList.contains('hidden');box.classList.toggle('hidden',!show);btn.setAttribute('aria-expanded',String(show));
+  if(show)applyReadingPrefs();
+}
+function toggleReaderQuiet(force){
+  const newState=typeof force==='boolean'?force:!document.body.classList.contains('reader-quiet-mode');
+  document.body.classList.toggle('reader-quiet-mode',newState);
+  const btn=document.getElementById('readerQuietButton');if(btn){btn.textContent=newState?'☀ العودة للغرفة':'☾ وضع السكون';btn.setAttribute('aria-pressed',String(newState));}
+  if(newState)document.getElementById('readingSettings')?.classList.add('hidden');
+}
+function readingParagraphHTML(text){
+  return String(text).split(/\n\s*\n/).map(p=>'<p class="reading-paragraph">'+escapeHTML(p)+'</p>').join('');
+}
+function readingSheet(pageIndex,empty=false){
+  if(empty)return '<div class="reading-page reading-blank" aria-hidden="true">✧ ☾ ✧</div>';
+  return `<div class="reading-page"><div class="reading-page-top"><span>✧ من نسج الخيال</span><span>${pageIndex+1} / ${currentPages.length}</span></div><div class="reading-page-text" data-page="${pageIndex}">${readingParagraphHTML(currentPages[pageIndex]||'')}</div><span class="reading-page-number">✦ ${pageIndex+1} ✦</span></div>`;
+}
+function readingEndingNote(story){
+  if(typeof teaNotes==='undefined')return '';
+  const matched=teaNotes.find(note=>note.includes(story.title)&&(/قصة|الكاتبة/.test(note)));
+  return matched?`<details><summary>✦ ورقة صغيرة من الكاتبة (افتحها إن أحببت)</summary><p>${escapeHTML(matched)}</p></details>`:'';
+}
+function showReaderEnding(){
+  const story=stories.find(s=>s.id===currentStoryId);if(!story)return;
+  readingEnding=true;readingRevision++;
+  const other=stories.find(s=>s.id!==story.id&&s.category===story.category)||stories.find(s=>s.id!==story.id);
+  const content=document.getElementById('storyContent');
+  content.innerHTML=`<div class="reading-end-card"><span style="font-size:2.1rem;color:var(--rp-soft)">✧ ☾ ✧</span><h3>انتهت الكلمات... لكن هل انتهت الحكاية في خيالك؟</h3><p>ها قد أُغلقت آخر صفحات «${escapeHTML(story.title)}»... لكن الأثر يبقى مع القارئ.</p><div class="reading-end-actions"><button type="button" onclick="showQuestions()">✎ أسئلة ما بعد الحكاية</button><button type="button" onclick="toggleReaderFavorite(${story.id})">♡ ${readerIsFavorite(story.id)?'إزالة من المفضّلة':'احتفظ بالحكاية'}</button>${other?`<button type="button" onclick="openBook(${other.id})">✦ حكاية تالية</button>`:''}<button type="button" onclick="readingReturnToLastPage()">↶ عودة إلى الصفحات</button></div>${readingEndingNote(story)}</div>`;
+  applyReadingPrefs();saveReadingProgress();
+  content.scrollIntoView({block:'start',behavior:'smooth'});
+}
+function readingReturnToLastPage(){readingEnding=false;renderPage();}
+function renderPage(){
+  const story=stories.find(s=>s.id===currentStoryId);if(!story)return;
+  if(readingEnding){showReaderEnding();return;}
+  currentPageIndex=Math.max(0,Math.min(currentPages.length-1,currentPageIndex));
+  const step=readingPageStep();
+  const shownIndex=step===2?Math.floor(currentPageIndex/2)*2:currentPageIndex;
+  const lastShown=Math.min(currentPages.length,shownIndex+step);
+  const progress=Math.round(lastShown/currentPages.length*100);
+  const content=document.getElementById('storyContent');
+  const marked=readingBookmarkPage===currentPageIndex;
+  content.innerHTML=`<div class="reading-book-heading"><div class="reader-category">${escapeHTML(story.category)} · ✧ ☾ ✧</div><h2>${escapeHTML(story.title)}</h2></div>
+    <div class="reading-spread" dir="rtl">
+      ${readingBookmarkPage>=shownIndex&&readingBookmarkPage<lastShown?'<span class="reading-bookmark-ribbon marked" title="صفحتك المحفوظة"></span>':'<span class="reading-bookmark-ribbon" aria-hidden="true"></span>'}
+      ${readingSheet(shownIndex)}${step===2?(shownIndex+1<currentPages.length?readingSheet(shownIndex+1):readingSheet(0,true)):''}
+      <div class="reading-page-turn" aria-hidden="true"></div>
+    </div>
+    <div class="reading-navigation"><button class="pagination-btn" type="button" onclick="previousPage()" ${shownIndex===0?'disabled':''}>→ السابقة</button><span class="page-number">${shownIndex+1}${lastShown>shownIndex+1?' – '+lastShown:''} / ${currentPages.length}</span><button class="pagination-btn" type="button" onclick="nextPage()">${lastShown>=currentPages.length?'✦ نهاية الحكاية':'التالية ←'}</button></div>
+    <div class="reading-progress-track" role="progressbar" aria-label="تقدم القراءة" aria-valuenow="${progress}" aria-valuemin="0" aria-valuemax="100"><div class="reading-progress-fill" style="width:${progress}%"></div></div>`;
+  applyReadingPrefs();
+  const btn=document.getElementById('readerBookmarkButton');if(btn){btn.setAttribute('aria-pressed',String(marked));btn.textContent=marked?'♦ صفحة محفوظة':'♢ احفظ هذه الصفحة';}
+  safeReadingLocalSet('story_'+currentStoryId+'_page',currentPageIndex);
+}
+function readingMovePage(direction){
+  if(readingIsTurning)return;
+  if(readingEnding){if(direction<0)readingReturnToLastPage();return;}
+  const next=currentPageIndex+readingPageStep()*direction;
+  if(next>=currentPages.length){showReaderEnding();return;}
+  if(next<0)return;
+  const spread=document.querySelector('#storyContent .reading-spread');
+  const shouldAnimate=readingPreferences.motion==='on'&&!window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!shouldAnimate||!spread){currentPageIndex=next;readingRevision++;renderPage();saveReadingProgress();return;}
+  readingIsTurning=true;
+  spread.classList.add(direction>0?'turn-next':'turn-prev');
+  readingFlipTimer=setTimeout(()=>{
+    readingFlipTimer=null;readingIsTurning=false;currentPageIndex=next;readingRevision++;renderPage();saveReadingProgress();
+    document.getElementById('storyContent')?.scrollIntoView({block:'start',behavior:'smooth'});
+  },540);
+}
+function nextPage(){readingMovePage(1);}
+function previousPage(){readingMovePage(-1);}
+function readingAbortFlip(){if(readingFlipTimer)clearTimeout(readingFlipTimer);readingFlipTimer=null;readingIsTurning=false;}
+function readingMigratePreviousProgress(storyId){
+  // V21 counted 150 words per page. Preserve approximate reading position on first V22 visit.
+  const marker='moonPaginationV22_'+storyId;
+  if(localStorage.getItem(marker)==='1')return;
+  const key='story_'+storyId+'_page';
+  const previous=Number(localStorage.getItem(key));
+  if(Number.isInteger(previous)&&previous>0) safeReadingLocalSet(key,Math.floor(previous*150/80));
+  safeReadingLocalSet(marker,'1');
+}
+const originalMoonShowStoryReading=showStoryReading;
+showStoryReading=function(storyId,pushHash=true){
+  readingAbortFlip();readingEnding=false;readingSelectedQuote=null;readingRevision++;
+  readingMigratePreviousProgress(Number(storyId));
+  const target=Number(storyId),previousStory=currentStoryId;
+  originalMoonShowStoryReading(target,pushHash);
+  if(currentStoryId!==target)return;
+  readingBookmarkPage=Number(localStorage.getItem(readingBookmarkKey())??-1);
+  renderPage();
+  readingStatus(readerCurrentUser()?'✦ تُحفظ قراءتك في المكتبة وعلى حسابك بعد السماح بذلك في قواعد Firebase.':'✦ يُحفظ تقدمك على هذا الجهاز. سجّل الدخول لمزامنته.');
+  readingLoadCloudProgress(target,readingRevision);
+};
+function toggleBookmark(){
+  if(!currentStoryId)return;
+  readingBookmarkPage=readingBookmarkPage===currentPageIndex?-1:currentPageIndex;
+  safeReadingLocalSet(readingBookmarkKey(),readingBookmarkPage);
+  renderPage();saveReadingProgress(true);
+  readingStatus(readingBookmarkPage>=0?'✦ وُضعت علامة القمر على صفحتك.':'✦ أُزيلت العلامة.');
+}
+async function readingLoadCloudProgress(storyId,revision){
+  const user=readerCurrentUser();if(!user)return;
+  try{
+    const doc=await db.collection('readerProfiles').doc(user.uid).collection('readingProgress').doc(String(storyId)).get();
+    if(!doc.exists||readerCurrentUser()?.uid!==user.uid||currentStoryId!==storyId||revision!==readingRevision)return;
+    const data=doc.data(),saved=Number(data.page);
+    if(Number.isInteger(saved)&&saved>=0){currentPageIndex=Math.min(currentPages.length-1,saved);safeReadingLocalSet('story_'+storyId+'_page',currentPageIndex);}
+    if(Number.isInteger(data.bookmarkPage)){readingBookmarkPage=data.bookmarkPage;safeReadingLocalSet(readingBookmarkKey(),readingBookmarkPage);}
+    renderPage();readingStatus('✦ استعدنا آخر صفحة من حساب Google.');
+  }catch(e){console.warn('Reader progress sync unavailable',e);readingStatus('✦ القراءة تعمل محليًا. يلزم نشر قواعد V22 للمزامنة بين الأجهزة.');}
+}
+function saveReadingProgress(immediate=false){
+  if(!currentStoryId)return;
+  safeReadingLocalSet('story_'+currentStoryId+'_page',currentPageIndex);
+  const user=readerCurrentUser();if(!user)return;
+  const state={uid:user.uid,storyId:currentStoryId,page:currentPageIndex,bookmarkPage:readingBookmarkPage,completed:readingEnding};
+  if(readingSyncTimer)clearTimeout(readingSyncTimer);
+  readingSyncTimer=setTimeout(async()=>{
+    readingSyncTimer=null;
+    try{
+      await db.collection('readerProfiles').doc(state.uid).collection('readingProgress').doc(String(state.storyId)).set({
+        storyId:state.storyId,page:state.page,bookmarkPage:state.bookmarkPage,completed:state.completed,updatedAt:serverTimestamp()
+      });
+      if(currentStoryId===state.storyId)readingStatus('✦ حُفظ تقدّمك في حسابك.');
+    }catch(e){console.warn('Cloud progress write failed',e);if(currentStoryId===state.storyId)readingStatus('✦ حُفظ محليًا، لكن مزامنة الحساب تحتاج قواعد V22.');}
+  },immediate?80:550);
+}
+const originalMoonHideAll=hideAllPages;
+hideAllPages=function(){
+  if(!document.getElementById('storyReadingSection')?.classList.contains('hidden')){
+    readingAbortFlip();toggleReaderQuiet(false);
+  }
+  originalMoonHideAll();
+};
+readingSmallScreen.addEventListener('change',()=>{
+  if(currentStoryId&&!document.getElementById('storyReadingSection')?.classList.contains('hidden')&&!readingEnding){readingAbortFlip();renderPage();}
+});
+function readingSelectionChanged(){
+  const selection=window.getSelection();if(!selection||selection.isCollapsed)return;
+  const text=selection.toString().trim().replace(/\s+/g,' ');
+  if(!text)return;
+  const node=selection.anchorNode?.nodeType===1?selection.anchorNode:selection.anchorNode?.parentElement;
+  const target=node?.closest?.('#storyContent .reading-page-text');
+  if(!target)return;
+  const containing=target.contains(selection.focusNode);
+  if(!containing)return;
+  readingSelectedQuote={storyId:currentStoryId,page:Number(target.dataset.page),text:text.slice(0,420)};
+  const hint=document.getElementById('readingQuoteHint');if(hint)hint.textContent='✧ اقتباس جاهز: «'+readingSelectedQuote.text.slice(0,70)+(text.length>70?'…':'')+'» · اضغط «احفظ اقتباسًا».';
+}
+document.addEventListener('mouseup',readingSelectionChanged);
+document.addEventListener('touchend',()=>setTimeout(readingSelectionChanged,120));
+async function saveSelectedQuote(){
+  const q=readingSelectedQuote;
+  if(!q||q.storyId!==currentStoryId){readingStatus('ظلّل جملة من صفحة القراءة أولًا، ثم اضغط زر الاقتباس.');return;}
+  const user=readerCurrentUser();if(!user){readingStatus('✦ سجّل الدخول باستخدام Google لحفظ اقتباساتك.');readerSignInWithGoogle();return;}
+  if(q.text.length>420||q.text.length<2){readingStatus('اختر عبارة لا تزيد على 420 حرفًا.');return;}
+  if(readingQuotes.filter(x=>x.storyId===q.storyId&&x.text===q.text).length){readingStatus('✦ هذا الاقتباس محفوظ بالفعل.');return;}
+  try{
+    await db.collection('readerProfiles').doc(user.uid).collection('quotes').add({storyId:q.storyId,page:q.page,text:q.text,createdAt:serverTimestamp()});
+    readingStatus('✦ حُفظ اقتباسك في ملفك ← اقتباساتي.');readingSelectedQuote=null;window.getSelection()?.removeAllRanges();
+  }catch(e){console.warn('Quote save error',e);readingStatus('تعذّر حفظ الاقتباس في حسابك. تأكد من نشر قواعد V22 أولًا.');}
+}
+function readingSubscribeQuotes(user){
+  if(readingQuoteUnsub){readingQuoteUnsub();readingQuoteUnsub=null;}
+  readingQuotes=[];readingQuotesUser=user?.uid||null;renderReaderQuotes();
+  if(!user)return;
+  const uid=user.uid;
+  readingQuoteUnsub=db.collection('readerProfiles').doc(uid).collection('quotes').orderBy('createdAt','desc').onSnapshot(snap=>{
+    if(readingQuotesUser!==uid)return;
+    readingQuotes=snap.docs.map(d=>({id:d.id,...d.data()}));renderReaderQuotes();
+    const status=document.getElementById('readingQuotesCloudStatus');if(status)status.textContent='✦ اقتباساتك مرتبطة بحساب Google ويمكنك رؤيتها على أجهزتك.';
+  },e=>{
+    console.warn('Quotes unavailable',e);
+    const status=document.getElementById('readingQuotesCloudStatus');if(status)status.textContent='لا يمكن تحميل الاقتباسات بعد؛ تأكد من نشر قواعد Firestore الخاصة بـ V22.';
+    renderReaderQuotes();
+  });
+}
+function renderReaderQuotes(){
+  const list=document.getElementById('readerQuotesList');if(!list)return;
+  if(!readerCurrentUser()){list.innerHTML='<div class="profile-empty">سجّل الدخول بحساب Google لتظهر اقتباساتك هنا.</div>';return;}
+  if(!readingQuotes.length){list.innerHTML='<div class="profile-empty"><span class="profile-empty-symbol">❝</span><strong>دفتر اقتباساتك ينتظر أول عبارة</strong><p>ظلّل جملة أثناء القراءة واحفظها في ملفك.</p></div>';return;}
+  list.innerHTML=readingQuotes.map((q,i)=>{
+    const story=stories.find(s=>s.id===q.storyId);
+    return `<article class="reader-quote-card"><blockquote dir="rtl">«${escapeHTML(q.text||'')}»</blockquote><small>${escapeHTML(story?.title||'حكاية')} · صفحة ${Number(q.page)+1}</small><div class="reader-quote-actions"><button type="button" onclick="openSavedReaderQuote(${i})">↗ العودة إلى المقطع</button><button type="button" onclick="deleteSavedReaderQuote(${i})">حذف الاقتباس</button></div></article>`;
+  }).join('');
+}
+function openSavedReaderQuote(index){
+  const q=readingQuotes[index],story=stories.find(s=>s.id===q?.storyId);if(!story)return;
+  showStoryReading(story.id);
+  currentPageIndex=Math.min(currentPages.length-1,Math.max(0,Number(q.page)||0));readingRevision++;
+  renderPage();saveReadingProgress();
+}
+async function deleteSavedReaderQuote(index){
+  const q=readingQuotes[index],user=readerCurrentUser();if(!q||!user)return;
+  if(!window.confirm('حذف هذا الاقتباس من دفتر اقتباساتك؟'))return;
+  try{await db.collection('readerProfiles').doc(user.uid).collection('quotes').doc(q.id).delete();}
+  catch(e){alert('تعذّر حذف الاقتباس. حاول مجددًا.');}
+}
+function selectReaderTab(tab){
+  if(!['edit','favorites','activity','quotes'].includes(tab))tab='edit';readerCurrentTab=tab;
+  for(const [key,suffix] of Object.entries({edit:'Edit',favorites:'Favorites',activity:'Activity',quotes:'Quotes'})){
+    const active=key===tab,panel=document.getElementById('readerPanel'+suffix),button=document.getElementById('readerTab'+suffix);
+    panel?.classList.toggle('hidden',!active);button?.classList.toggle('active',active);button?.setAttribute('aria-selected',String(active));
+  }
+  if(tab==='favorites')renderReaderFavorites();if(tab==='activity')renderReaderActivity();if(tab==='quotes')renderReaderQuotes();
+}
+if(readerAuthService)readerAuthService.onAuthStateChanged(user=>{
+  readingSubscribeQuotes(user&&!user.isAnonymous?user:null);
+  if(user&&currentStoryId&&!document.getElementById('storyReadingSection')?.classList.contains('hidden')){
+    readingBookmarkPage=Number(localStorage.getItem(readingBookmarkKey())??-1);renderPage();readingLoadCloudProgress(currentStoryId,readingRevision);
+  }
+});
+document.addEventListener('keydown',event=>{
+  if(event.key==='Escape'&&document.body.classList.contains('reader-quiet-mode')){toggleReaderQuiet(false);return;}
+  if(document.getElementById('storyReadingSection')?.classList.contains('hidden'))return;
+  const tag=document.activeElement?.tagName;if(['INPUT','TEXTAREA','SELECT'].includes(tag))return;
+  if(event.key==='ArrowLeft'){event.preventDefault();nextPage();}
+  if(event.key==='ArrowRight'){event.preventDefault();previousPage();}
+});
+document.addEventListener('DOMContentLoaded',applyReadingPrefs);
+
+</script>
 </body>
 </html>
 

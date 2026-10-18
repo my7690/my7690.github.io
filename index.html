@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مكتبة تحت ضوء القمر | شاي الكاتبة</title>
+    <title>مكتبة القمر | شاي الكاتبة</title>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
 
@@ -1536,6 +1536,261 @@ body.tea-spilled .tea-admin-thread{border-color:#86a47b;}
 }
 .tea-secret-paper.is-rare::before { content: '✦ ✧ ✦ ✧ ✦'; color: #b18436; }
 .tea-secret-paper.is-rare small { color: #926b2d; font-weight: 700; }
+
+/* ============================================================
+   V13 | Misty-blue daytime palette
+   Deliberately scoped to day-time so moonlit night AND the
+   two-minute green-tea prank remain exactly as before.
+   ============================================================ */
+body.day-time:not(.tea-spilled) {
+  --night:#dce7f2;
+  --night-2:#d3e1ef;
+  --midnight:#c9d9e9;
+  --primary-color:#47698e;
+  --secondary-color:#dce9f5;
+  --card-bg:#e5eef7;
+  --gold:#997e5c;
+  --gold-light:#c5ab87;
+  --shadow:0 16px 36px rgba(60,92,128,.13);
+  background:linear-gradient(153deg,#d9e6f2 0%,#cbdcec 43%,#dce9f5 76%,#cfdfef 100%) !important;
+  color:#2f4c6a;
+}
+body.day-time:not(.tea-spilled)::before {
+  background:
+    radial-gradient(circle at 78% 14%,rgba(214,230,248,.66),transparent 30%),
+    radial-gradient(circle at 15% 65%,rgba(115,158,196,.14),transparent 35%);
+}
+body.day-time:not(.tea-spilled) .navbar {
+  background:rgba(211,226,241,.96) !important;
+  box-shadow:0 1px 0 rgba(96,130,163,.28),0 6px 18px rgba(67,103,142,.07);
+}
+body.day-time:not(.tea-spilled) .nav-logo,
+body.day-time:not(.tea-spilled) .nav-links a {color:#314f71;}
+body.day-time:not(.tea-spilled) .brand-emblem,
+body.day-time:not(.tea-spilled) .theme-toggle {
+  color:#50759b;
+  background:#dce9f6;
+  border-color:#a2bad1;
+}
+body.day-time:not(.tea-spilled) .reader-auth-nav {
+  background:#dbe8f6;
+  border-color:#9fb9d4;
+  color:#36577c;
+}
+body.day-time:not(.tea-spilled) .mobile-nav {background:#dce8f5;}
+body.day-time:not(.tea-spilled) .main-header {
+  background:linear-gradient(121deg,#dce9f5 0%,#cbdff0 48%,#bed6eb 100%) !important;
+  border-color:#afc7db;
+  box-shadow:0 24px 55px rgba(67,103,142,.16);
+}
+body.day-time:not(.tea-spilled) .main-header::after {border-color:rgba(105,146,183,.25);}
+body.day-time:not(.tea-spilled) .main-header h1 {color:#2a4768;text-shadow:none;}
+body.day-time:not(.tea-spilled) .main-header h1 em {color:#577ea9;}
+body.day-time:not(.tea-spilled) .hero-subtitle {color:#456783;}
+body.day-time:not(.tea-spilled) .hero-quote {color:#607d97;}
+body.day-time:not(.tea-spilled) .eyebrow,
+body.day-time:not(.tea-spilled) .lobby-heading>span,
+body.day-time:not(.tea-spilled) .shelf-caption>span {color:#806d5a;}
+body.day-time:not(.tea-spilled) .moon-btn.secondary {
+  background:rgba(218,233,246,.85);
+  color:#355a7d;
+  border-color:#8facc7;
+}
+body.day-time:not(.tea-spilled) .moon-btn.primary {
+  background:linear-gradient(125deg,#5f86b2,#3d638e);
+  border-color:#587da7;
+  color:#fff;
+}
+body.day-time:not(.tea-spilled) .arch-frame {
+  border-color:#abc0d4;
+  border-bottom-color:#92acc4;
+  box-shadow:inset 0 0 0 5px #d6e4ef,0 0 0 2px #9eb6cd,0 18px 40px rgba(67,105,148,.16);
+}
+body.day-time:not(.tea-spilled) .arch-inner {
+  background:linear-gradient(180deg,#95b6d4 0%,#bed5e4 57%,#d9e5ee 100%);
+}
+body.day-time:not(.tea-spilled) .arch-moon {
+  background:radial-gradient(circle at 40% 35%,#fff1c8,#f4dca1 61%,#e9bb82 100%);
+  box-shadow:0 0 30px 9px rgba(250,222,164,.38),0 0 70px 18px rgba(249,230,190,.20);
+}
+body.day-time:not(.tea-spilled) .arch-horizon {
+  background:linear-gradient(#9ebdc9,#85a6b7);
+  box-shadow:-140px -12px 0 -24px #b9c9d3;
+}
+body.day-time:not(.tea-spilled) .lobby-heading h2,
+body.day-time:not(.tea-spilled) .library-heading h1 {color:#2f5071;}
+body.day-time:not(.tea-spilled) .lobby-heading p,
+body.day-time:not(.tea-spilled) .library-heading p {color:#51718b;}
+body.day-time:not(.tea-spilled) .story-of-day,
+body.day-time:not(.tea-spilled) .whisper-card {
+  background:linear-gradient(122deg,#e0ebf5,#d4e3f1) !important;
+  border-color:#aebfd2;
+  color:#314e6a;
+  box-shadow:0 15px 27px rgba(72,105,145,.11);
+}
+body.day-time:not(.tea-spilled) .widget-icon {background:#d0e0ef;border-color:#9db8d2;color:#587a9d;}
+body.day-time:not(.tea-spilled) .story-of-day .daily-badge,
+body.day-time:not(.tea-spilled) .whisper-card .daily-badge {color:#776b5e;}
+body.day-time:not(.tea-spilled) .story-of-day p,
+body.day-time:not(.tea-spilled) .whisper-card p {color:#526f89;}
+body.day-time:not(.tea-spilled) .ideas-section,
+body.day-time:not(.tea-spilled) .cafe-section,
+body.day-time:not(.tea-spilled) .story-intro-box,
+body.day-time:not(.tea-spilled) .library-tools {
+  background:linear-gradient(145deg,#e6eff8,#d9e7f3) !important;
+  border-color:#b0c7db;
+  box-shadow:0 13px 32px rgba(65,100,139,.11);
+}
+body.day-time:not(.tea-spilled) .idea-form,
+body.day-time:not(.tea-spilled) .discussion-form,
+body.day-time:not(.tea-spilled) .search-wrap {background:#eaf2fa;border-color:#b0c8df;}
+body.day-time:not(.tea-spilled) .search-wrap input {background:transparent;}
+body.day-time:not(.tea-spilled) .genre-filter {background:#e1edf8;color:#456380;border-color:#adc3d8;}
+body.day-time:not(.tea-spilled) .genre-filter.active,
+body.day-time:not(.tea-spilled) .genre-filter:hover {background:#527ba4;color:white;border-color:#527ba4;}
+body.day-time:not(.tea-spilled) #lastReadBox {
+  background:linear-gradient(120deg,#e7f0f8,#d9e6f4) !important;
+  border-color:#aac2d8 !important;
+}
+body.day-time:not(.tea-spilled) .batoul-nook {
+  background:linear-gradient(115deg,#e6eff8,#d6e4f3) !important;
+  border-color:#aec5dc;
+}
+body.day-time:not(.tea-spilled) .profile-cover {
+  background:radial-gradient(circle at 12% 5%,rgba(239,247,255,.75),transparent 35%),linear-gradient(110deg,#c7dcf0,#a7c5e0 60%,#d0e1f0);
+  border-color:#afc6db;
+}
+body.day-time:not(.tea-spilled) .profile-stats>div {background:#dce9f6;}
+body.day-time:not(.tea-spilled) .profile-tab.active {background:#ecf3fa;border-color:#adc4dc;}
+/* The reading book still has soft paper pages for long-form readability. */
+
+
+/* V14 · An actual sea outside the library, and books resting on a proper sill. */
+.arch-scene {isolation:isolate;}
+.arch-inner {
+  background:linear-gradient(180deg,#111d38 0%,#263656 42%,#536885 56%,#172f4c 100%);
+}
+.arch-moon {z-index:1;top:55px;}
+.arch-sea {
+  position:absolute;inset:56% 0 0;z-index:2;
+  border-top:2px solid rgba(186,211,232,.53);
+  background:
+    repeating-linear-gradient(to bottom,transparent 0 7px,rgba(179,211,237,.12) 8px 9px,transparent 11px 18px),
+    linear-gradient(180deg,#405e7e 0%,#2a4a6d 32%,#142e4a 100%);
+}
+.arch-sea::after {
+  content:"";position:absolute;inset:0;
+  background:
+    repeating-linear-gradient(171deg,transparent 0 22px,rgba(197,224,240,.11) 23px 24px,transparent 25px 44px),
+    radial-gradient(ellipse at 52% 6%,rgba(160,190,220,.21),transparent 70%);
+}
+.arch-reflection {
+  position:absolute;z-index:3;left:50%;top:56%;bottom:3%;width:58%;
+  transform:translateX(-50%);pointer-events:none;
+  background:
+    repeating-linear-gradient(180deg,rgba(246,241,219,.22) 0px,rgba(235,232,207,.22) 2px,transparent 3px,transparent 12px),
+    radial-gradient(ellipse at 50% 12%,rgba(233,233,221,.28),transparent 72%);
+  -webkit-mask-image:radial-gradient(ellipse 48% 75% at 50% 0%,#000 9%,transparent 81%);
+  mask-image:radial-gradient(ellipse 48% 75% at 50% 0%,#000 9%,transparent 81%);
+  opacity:.78;
+}
+.arch-cloud {position:absolute;z-index:1;opacity:0;pointer-events:none;}
+.arch-sill {z-index:5;}
+/* A solid shelf below the books instead of a floating stack. */
+.arch-scene::after {
+  content:"";position:absolute;z-index:6;bottom:18px;left:50%;
+  transform:translateX(-50%);width:min(327px,97%);height:18px;
+  background:linear-gradient(180deg,#a58b79 0%,#6e6171 36%,#453f56 85%,#292b42 100%);
+  border:1px solid rgba(218,188,147,.55);border-radius:4px 4px 8px 8px;
+  box-shadow:0 8px 10px rgba(6,11,23,.24),inset 0 2px 0 rgba(245,220,178,.28);
+}
+.arch-scene .arch-book-stack {
+  position:absolute;z-index:7;bottom:36px;left:9%;width:123px;
+  display:flex;flex-direction:column;align-items:flex-start;gap:0;
+  transform:none;transform-origin:left bottom;opacity:1;filter:drop-shadow(3px 5px 3px rgba(14,20,36,.37));
+}
+.arch-scene .arch-book-stack span {
+  position:relative;display:block;height:18px;margin:0;
+  border:1.5px solid #bfa377;border-radius:3px 9px 9px 3px;
+  box-shadow:inset 0 2px 1px rgba(255,255,255,.27),inset -7px 0 0 rgba(242,231,208,.78),0 2px 1px rgba(22,27,45,.4);
+  transform:none;
+}
+.arch-scene .arch-book-stack span::before {
+  content:"";position:absolute;top:3px;bottom:3px;right:9px;width:2px;background:rgba(80,65,64,.4);
+}
+.arch-scene .arch-book-stack span:nth-child(1) {width:101px;margin-left:9px;background:linear-gradient(180deg,#9a7794,#645776);transform:rotate(1deg);}
+.arch-scene .arch-book-stack span:nth-child(2) {width:112px;margin-left:2px;background:linear-gradient(180deg,#7099a5,#385971);transform:rotate(-1deg);}
+.arch-scene .arch-book-stack span:nth-child(3) {width:121px;margin-left:0;background:linear-gradient(180deg,#9b7c9c,#665276);}
+/* Daytime: a powder-blue sky, turquoise water and soft sunlight. */
+body.day-time:not(.tea-spilled) .arch-inner {
+  background:linear-gradient(180deg,#9cbedb 0%,#c6dfee 42%,#e0edf2 56%,#6caac3 100%);
+}
+body.day-time:not(.tea-spilled) .arch-moon {
+  top:55px;background:radial-gradient(circle at 38% 34%,#fff5d4 0%,#f6dea4 59%,#e4c88d 100%);
+  box-shadow:0 0 34px rgba(249,230,178,.32),0 0 65px rgba(249,232,193,.17);
+}
+body.day-time:not(.tea-spilled) .arch-sea {
+  border-top:2px solid rgba(233,245,248,.86);
+  background:
+    repeating-linear-gradient(to bottom,transparent 0 7px,rgba(229,252,252,.28) 8px 9px,transparent 10px 18px),
+    linear-gradient(180deg,#8ac4d8 0%,#65a9c6 38%,#3f82a9 100%);
+}
+body.day-time:not(.tea-spilled) .arch-sea::after {
+  background:
+    repeating-linear-gradient(171deg,transparent 0 22px,rgba(230,249,247,.28) 23px 24px,transparent 25px 44px),
+    radial-gradient(ellipse at 50% 10%,rgba(246,246,221,.32),transparent 74%);
+}
+body.day-time:not(.tea-spilled) .arch-reflection {
+  background:
+    repeating-linear-gradient(180deg,rgba(255,246,209,.67) 0px,rgba(255,246,209,.4) 3px,transparent 4px,transparent 13px),
+    radial-gradient(ellipse at 50% 8%,rgba(255,244,200,.46),transparent 70%);
+  opacity:.7;
+}
+body.day-time:not(.tea-spilled) .arch-cloud {
+  width:75px;height:16px;border-radius:60px;background:rgba(255,255,255,.43);
+  filter:blur(4px);opacity:.6;
+}
+body.day-time:not(.tea-spilled) .cloud-one{left:5%;top:22%;}
+body.day-time:not(.tea-spilled) .cloud-two{right:3%;top:41%;transform:scale(.72);}
+body.day-time:not(.tea-spilled) .arch-scene::after {
+  background:linear-gradient(180deg,#e5edf1 0%,#b4c8d7 45%,#90a9bf 100%);
+  border-color:#b0c7d9;
+  box-shadow:0 8px 13px rgba(55,88,119,.18),inset 0 2px 0 rgba(255,255,255,.74);
+}
+
+/* V21 · Properly draped, softly gathered one-sided blue curtains, adapted from the reference. */
+.arch-inner::before,.arch-inner::after{display:none!important;}
+.arch-curtain-svg{
+  position:absolute;inset:0;width:100%;height:100%;z-index:4;
+  pointer-events:none;overflow:hidden;
+}
+.arch-curtain-svg .fabric-panel{fill:url(#curtainPanel);stroke:rgba(163,200,230,.45);stroke-width:1;}
+.arch-curtain-svg .fabric-swag{fill:url(#curtainSwag);stroke:rgba(166,204,230,.40);stroke-width:1.4;}
+.arch-curtain-svg .fabric-tail{fill:url(#curtainTail);stroke:rgba(171,206,231,.35);stroke-width:1;}
+.arch-curtain-svg .curtain-hem{fill:none;stroke:rgba(93,137,178,.65);stroke-width:2.5;stroke-linecap:round;}
+.arch-curtain-svg .curtain-fold{fill:none;stroke:rgba(229,244,255,.57);stroke-width:2;stroke-linecap:round;}
+.arch-curtain-svg .fold-shadow{stroke:rgba(79,125,170,.32);stroke-width:3;}
+.arch-curtain-svg .fold-fine{stroke-width:1.25;opacity:.75;}
+.arch-curtain-svg .curtain-tie{fill:#91b5d6;stroke:#d4eafa;stroke-width:1.2;}
+.arch-curtain-svg .curtain-tie-shadow{fill:#5f89ad;opacity:.8;}
+.arch-curtain-svg .curtain-panel-move{transform-origin:55px 248px;animation:curtainBreeze 9s ease-in-out infinite;}
+.arch-curtain-svg .curtain-swag-move{transform-origin:260px 23px;animation:swagBreeze 12s ease-in-out infinite;}
+@keyframes curtainBreeze{0%,100%{transform:translateX(0)}50%{transform:translateX(2.3px)}}
+@keyframes swagBreeze{0%,100%{transform:translateY(0)}50%{transform:translateY(1.7px)}}
+body.day-time:not(.tea-spilled) .arch-curtain-svg{filter:saturate(.86)}
+@media(prefers-reduced-motion:reduce){.arch-curtain-svg *{animation:none!important;}}
+
+@media (max-width:800px){
+  .arch-moon,body.day-time:not(.tea-spilled) .arch-moon{top:42px;}
+  .arch-scene::after{bottom:12px;width:min(270px,94%);height:16px;}
+  .arch-scene .arch-book-stack{bottom:28px;left:14%;transform:scale(.82);}
+}
+@media (max-width:510px){
+  .arch-moon,body.day-time:not(.tea-spilled) .arch-moon{top:37px;}
+  .arch-scene::after{bottom:10px;width:min(232px,96%);height:15px;}
+  .arch-scene .arch-book-stack{left:10%;bottom:25px;transform:scale(.67);}
+}
+
 </style>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8C%99%3C/text%3E%3C/svg%3E">
 </head>
@@ -1545,7 +1800,7 @@ body.tea-spilled .tea-admin-thread{border-color:#86a47b;}
 <!-- Enchanted library navigation -->
 <nav class="navbar" aria-label="التنقل الرئيسي">
   <div class="nav-container">
-    <a href="#home" class="nav-logo"><span class="brand-emblem" aria-hidden="true">✦</span><span>مكتبة تحت ضوء القمر<small>حكايات تُروى بعد الغروب</small></span></a>
+    <a href="#home" class="nav-logo"><span class="brand-emblem" aria-hidden="true">✦</span><span>مكتبة القمر</span></a>
     <div class="nav-actions">
       <ul class="nav-links">
         <li><a href="#home">الردهة</a></li>
@@ -1575,19 +1830,52 @@ body.tea-spilled .tea-admin-thread{border-color:#86a47b;}
   <header class="main-header" aria-label="مدخل المكتبة">
     <div class="hero-copy">
       <span class="eyebrow">✧ &nbsp; في حضرة القمر &nbsp; ✧</span>
-      <h1>حين يهدأ العالم،<br><em>تستيقظ الحكايات.</em></h1>
+      <h1>حين يهدأ القلب،<br><em>يتحدث الخيال</em></h1>
       <p class="hero-subtitle">خلف هذه الأبواب عوالم لا تُشبه بعضها... قصص من الحب والغموض والمفاجآت، تنتظر من يفتح الصفحة الأولى.</p>
       <div class="hero-actions">
         <button type="button" class="moon-btn primary" onclick="showStoriesPage()">اكتشف المكتبة <span aria-hidden="true">↖</span></button>
-        <button type="button" class="moon-btn secondary" onclick="openRandomStory()">حكاية يختارها القمر ✧</button>
+        <button type="button" class="moon-btn secondary" onclick="openRandomStory()">حكاية تختارها الكاتبة ✧</button>
       </div>
       <div class="hero-quote">«لكل حكاية باب... ولكل قارئ مفتاح»</div>
       <span id="themeIndicator" class="theme-indicator" aria-live="polite" style="display:none"></span>
     </div>
     <div class="arch-scene" aria-hidden="true">
-      <div class="arch-frame"><div class="arch-inner"><div class="arch-stars"></div><div class="arch-moon"></div><div class="arch-horizon"></div><div class="arch-sill"></div></div></div>
+      <div class="arch-frame"><div class="arch-inner"><div class="arch-stars"></div><div class="arch-cloud cloud-one"></div><div class="arch-cloud cloud-two"></div><div class="arch-moon"></div><div class="arch-sea"></div><div class="arch-reflection"></div><svg class="arch-curtain-svg" viewBox="0 0 320 360" preserveAspectRatio="none" aria-hidden="true">
+<defs>
+ <linearGradient id="curtainPanel" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#5f8fbd" stop-opacity=".82"/><stop offset=".26" stop-color="#90b7da" stop-opacity=".65"/><stop offset=".57" stop-color="#b2d0e8" stop-opacity=".44"/><stop offset="1" stop-color="#d7eaf8" stop-opacity=".23"/></linearGradient>
+ <linearGradient id="curtainSwag" x1="0" y1="0" x2=".3" y2="1"><stop offset="0" stop-color="#739fc7" stop-opacity=".90"/><stop offset=".48" stop-color="#a7c6e3" stop-opacity=".77"/><stop offset="1" stop-color="#7faad0" stop-opacity=".65"/></linearGradient>
+ <linearGradient id="curtainTail" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#779fc5" stop-opacity=".77"/><stop offset=".5" stop-color="#bed8ee" stop-opacity=".50"/><stop offset="1" stop-color="#6c96bd" stop-opacity=".77"/></linearGradient>
+</defs>
+<!-- Left fabric, swept to a tieback. It flows diagonally, not in a straight vertical slab. -->
+<g class="curtain-panel-move">
+ <path class="fabric-panel" d="M0 0 L87 0 C75 40 79 91 91 134 C104 169 105 197 91 217 Q75 237 58 251 C45 268 43 291 55 322 Q66 345 76 360 L0 360 Z"/>
+ <path class="curtain-fold fold-shadow" d="M18 3 Q48 104 54 192 Q57 223 58 251"/>
+ <path class="curtain-fold" d="M44 3 C71 79 86 173 67 241"/>
+ <path class="curtain-fold fold-fine" d="M68 3 C86 82 91 174 75 228"/>
+ <path class="curtain-fold fold-shadow" d="M84 12 C80 62 98 143 90 204 Q78 228 58 251"/>
+ <!-- long trailing fabric beyond the gathered tie -->
+ <path class="fabric-tail" d="M60 242 C71 258 59 281 43 307 Q24 336 6 359 L88 359 Q70 333 65 300 C63 274 77 256 76 246 Z"/>
+ <path class="curtain-fold" d="M63 250 Q49 305 23 354"/>
+ <path class="curtain-fold fold-fine" d="M70 252 Q65 309 58 353"/>
+ <path class="curtain-hem" d="M5 357 Q20 350 31 355 T58 357 T88 358"/>
+ <path class="curtain-tie-shadow" d="M51 244 Q68 234 82 239 Q77 251 56 258 Z"/>
+ <path class="curtain-tie" d="M50 245 Q66 237 81 242 Q73 251 54 256 Z"/>
+</g>
+<!-- Swag hugs the arch at the top, above rather than in front of the moon. -->
+<g class="curtain-swag-move">
+ <path class="fabric-swag" d="M96 0 C159 -8 248 -3 320 28 L320 100 Q296 94 271 84 C224 65 157 44 96 0 Z"/>
+ <path class="curtain-fold" d="M121 3 C150 20 172 38 197 57"/>
+ <path class="curtain-fold fold-fine" d="M164 3 C184 19 211 46 230 68"/>
+ <path class="curtain-fold fold-shadow" d="M205 5 C223 23 254 55 268 81"/>
+ <path class="curtain-fold" d="M258 12 Q276 42 303 91"/>
+ <path class="curtain-hem" d="M99 4 C157 44 225 65 272 84 Q298 95 320 100"/>
+</g>
+<!-- Narrow right-edge finishing panel, gently pleated; remains inside the frame. -->
+<path class="fabric-tail" d="M298 30 Q307 75 306 122 L306 168 Q306 182 315 186 L310 194 Q310 204 320 206 L320 17 Z"/>
+<path class="curtain-fold fold-fine" d="M308 53 Q315 128 311 181"/>
+</svg><div class="arch-sill"></div></div></div>
       <span class="arch-spark spark-one">✧</span><span class="arch-spark spark-two">✦</span><span class="arch-spark spark-three">✧</span>
-      <div class="arch-book-stack"><span></span><span></span><span></span></div>
+      <div class="arch-book-stack" aria-hidden="true"><span></span><span></span><span></span></div>
     </div>
   </header>
   <div class="lobby-heading"><span>✦ &nbsp; تصفّح في هدوء &nbsp; ✦</span><h2>ركن من المكتبة</h2><p>ربما تكون الحكاية التي تبحث عنها هنا منذ البداية.</p></div>
@@ -1622,7 +1910,7 @@ body.tea-spilled .tea-admin-thread{border-color:#86a47b;}
 <!-- Stories Library Page -->
 <div id="storiesPage" class="container library-page hidden">
   <button class="back-button" type="button" onclick="showHomePage()">↗ العودة إلى الردهة</button>
-  <header class="library-heading"><span class="eyebrow">✦ &nbsp; قاعة الكتب &nbsp; ✦</span><h1>رفوف الحكايات</h1><p>أربعة عشر عالماً مختلفاً، كلّ كتاب بلونه وسرّه. اختر غلافاً، وافتح باب الحكاية.</p></header>
+  <header class="library-heading"><span class="eyebrow">✦ &nbsp; قاعة الكتب &nbsp; ✦</span><h1>رفوف الحكايات</h1></header>
   <div id="lastReadSection" class="hidden resume-banner"><button type="button" id="lastReadBox" onclick="openLastRead()"><span class="resume-symbol">↶</span><span><small>عودة إلى الحكاية الأخيرة</small><strong id="lastReadTitle"></strong><span id="lastReadDesc"></span></span><span class="resume-go">أكمل القراءة ←</span></button></div>
   <div class="library-tools">
     <label class="search-wrap" for="storySearch"><span aria-hidden="true">⌕</span><input type="search" id="storySearch" placeholder="ابحث عن حكاية أو نوع..." oninput="displayAllStories()" autocomplete="off"></label>
@@ -1831,7 +2119,7 @@ body.tea-spilled .tea-admin-thread{border-color:#86a47b;}
     <div class="profile-cover-sky" aria-hidden="true">✧ &nbsp; ☾ &nbsp; ✧</div>
     <div class="profile-cover-inner">
       <div class="profile-avatar-frame"><div id="readerAvatar" class="profile-avatar" aria-label="صورتك الشخصية">✦</div><span class="profile-avatar-star">✧</span></div>
-      <div class="profile-main-identity"><span class="profile-kicker">بطاقة قارئ في مكتبة تحت ضوء القمر</span><h2 id="readerDisplayName">قارئ بين النجوم</h2><p id="readerIdentityLine">لكل قارئ حكاية... وهذه مساحتك.</p><div class="profile-demo-chip">حساب قارئ · مرتبط بـ Google</div></div>
+      <div class="profile-main-identity"><span class="profile-kicker">بطاقة قارئ في مكتبة القمر</span><h2 id="readerDisplayName">قارئ بين النجوم</h2><p id="readerIdentityLine">لكل قارئ حكاية... وهذه مساحتك.</p><div class="profile-demo-chip">حساب قارئ · مرتبط بـ Google</div></div>
     </div>
   </div>
   <div class="profile-stats"><div><strong id="readerFavoriteCount">0</strong><span>حكايات مفضّلة</span></div><div><strong id="readerCommentCount">0</strong><span>مشاركات مسجّلة</span></div><div><strong>✧</strong><span>مكانك بين الرفوف</span></div></div>
@@ -6682,7 +6970,7 @@ function displayAllStories() {
     return `<div class="book-slot">
       <button type="button" class="story-book" style="${colorStyle(story)}" onclick="openBook(${story.id})" aria-label="فتح قصة ${escapeHTML(story.title)}" title="فتح ${escapeHTML(story.title)}">
         <span class="book-front">
-          <span class="book-tiny">✦ &nbsp; حكايات تحت ضوء القمر &nbsp; ✦</span>
+          <span class="book-tiny">✦ &nbsp; من نسج الخيال &nbsp; ✦</span>
           <span class="book-crest" aria-hidden="true"><span>${p.ornament}</span></span>
           <strong class="book-title">${escapeHTML(story.title)}</strong>
           <span class="book-author">بقلم بتول ✦</span>
